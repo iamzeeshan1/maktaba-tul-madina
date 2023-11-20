@@ -88,7 +88,7 @@ if (empty($text)) {
 
 return $text;
 }
-function insert_update_delete_data($qry, $link){
+function insert_update_delete_data($link, $qry){
 	if(mysqli_query($link,$qry))
 		return 1;
 	else

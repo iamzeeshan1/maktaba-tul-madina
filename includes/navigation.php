@@ -27,11 +27,19 @@
                         </a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="<?=$app_path?>modules/products">
+                        <a class="nav-link" href="<?=$app_path?>modules/products/index.php">
                             <span class="shape1"></span>
                             <span class="shape2"></span>
                             <i class="ti-archive sidemenu-icon menu-icon "></i>
                             <span class="sidemenu-label">Products</span>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="<?=$app_path?>modules/sales/index.php">
+                            <span class="shape1"></span>
+                            <span class="shape2"></span>
+                            <i class="ti-archive sidemenu-icon menu-icon "></i>
+                            <span class="sidemenu-label">Sales</span>
                         </a>
                     </li>
                 </ul>
