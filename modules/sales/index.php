@@ -67,8 +67,7 @@ include("../../includes/header.php");
                                             <li><a class="dropdown-item" href="create.php?sales_id=<?= $sales_id?>">
                                                     <i class=" bx bx-edit"> Edit / View </i></a>
                                             </li>
-                                            <li><a href="#" class="dropdown-item" onclick=" JSconfirm('delete.php?sales_id=<?= $sales_id ?>&action=delete_item')">
-                                                    <i class=" bx bx-trash"> Delete</i></a></li>
+                                           
                                            
                                         </ul>
                                     </div>

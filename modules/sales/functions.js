@@ -33,14 +33,18 @@ $(document).ready(function() {
                     var processFee = parseFloat($('#process_fee').val()) || 0;
                     var otherAmount = parseFloat($('#other_amount').val()) || 0;
                     var total = subtotal + delivery + processFee + otherAmount;
-
+                    
                     // Update the total input field
                     $('#total').val(total);
+                    $('#saleBtn').prop('disabled',false);
 
                 }else{
                     var toastType = 'danger';
                     var toastMsg = 'Current available items are '+available;
                     showToast(toastType, toastMsg);
+
+                  
+                    $('#saleBtn').prop('disabled',true);
                     return;
                 }
             }
@@ -87,11 +91,17 @@ $(document).ready(function() {
         $('#total').val(total);
     
     });
+
+
+    if(sales_id > 0){
+        $('#sold').prop('disabled',false);
+    }
 });
 
-function check(item_id){
+function check(item_id,sales_id){
     if(item_id == ''){
         $('#sold').prop('disabled',true);
+        
     }
     else{
         $('#sold').prop('disabled',false);

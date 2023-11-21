@@ -18,6 +18,8 @@
             'details'=>$details,
             'sold'=>$sold,
             'subtotal'=>$subtotal,
+            'price'=>$price,
+            'discount'=>$discount,
             'delivery'=> $delivery,
             'process_fee'=> $process_fee, 
             'other_amount'=> $other_amount,
@@ -41,6 +43,8 @@
             'sold'=>$sold,
             'subtotal'=>$subtotal,
             'delivery'=> $delivery,
+            'price'=>$price,
+            'discount'=>$discount,
             'process_fee'=> $process_fee, 
             'other_amount'=> $other_amount,
             'total'=> $total

@@ -204,7 +204,9 @@
         },
         duration: "3000",
         close: "close" == "close",
-        style: "style" == 'background: "linear-gradient(to right, #0AB39C, #405189)"'
+        style: {
+           background: toastType == 'danger' ? '#dc3545' : toastType == 'success' ? '#198754' : '',
+        }
       }).showToast();
     }
   }
@@ -225,7 +227,7 @@
       duration: 3000,
       close: "close" == "close",
       style: {
-        background: toastType === 'danger' ? '#dc3545' : toastType === 'success' ? '#28a745' : '',
+        background: toastType == 'danger' ? '#dc3545' : toastType == 'success' ? '#198754' : '',
       }
     }).showToast();
   }
