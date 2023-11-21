@@ -26,7 +26,7 @@ include("../../includes/header.php");
         <div class="card custom-card">
           <div class="card-body">
                 <div class="table-responsive mb-4 mt-4">
-                    <table class="table table-bordered caption-top W-100 dataTables_length" id="prodTable">
+                    <table class="table table-bordered caption-top W-100 dataTables_length datatable" id="saleTable">
                         <thead class="table-light">
                             <th width="4%">Sr.No</th>
                             <th width="20%">Date</th>

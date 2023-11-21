@@ -17,7 +17,7 @@ $(function () {
          lengthMenu: '_MENU_ items/page',
       }
    });
-   $('#example2').DataTable({
+   $('.datatable').DataTable({
       responsive: true,
       language: {
          searchPlaceholder: 'Search...',
