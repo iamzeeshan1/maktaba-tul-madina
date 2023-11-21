@@ -11,17 +11,17 @@
  Target Server Version : 100411
  File Encoding         : 65001
 
- Date: 21/11/2023 14:54:45
+ Date: 21/11/2023 14:58:50
 */
 
 SET NAMES utf8mb4;
 SET FOREIGN_KEY_CHECKS = 0;
 
 -- ----------------------------
--- Table structure for invt_categorys
+-- Table structure for invt_categories
 -- ----------------------------
-DROP TABLE IF EXISTS `invt_categorys`;
-CREATE TABLE `invt_categorys`  (
+DROP TABLE IF EXISTS `invt_categories`;
+CREATE TABLE `invt_categories`  (
   `category_id` int NOT NULL AUTO_INCREMENT,
   `category_name` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL,
   PRIMARY KEY (`category_id`) USING BTREE

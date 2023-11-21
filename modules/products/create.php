@@ -101,7 +101,7 @@ if (isset($_GET['item_id'])) {
                 <select name="category_id" class="form-select" required onchange="fn_category(this.value)" id="category_id">
                   <option value="">Select Category</option>
                   <?php
-                  $qry_category = fetch_data($link, "SELECT * FROM invt_categorys order by category_name");
+                  $qry_category = fetch_data($link, "SELECT * FROM invt_categories order by category_name");
                   foreach ($qry_category as $row_category) {
                     $category_id = $row_category['category_id'];
                     $category_name = $row_category['category_name'];

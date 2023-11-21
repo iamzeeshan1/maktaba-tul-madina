@@ -78,18 +78,18 @@ else if(isset($_POST['ACTION']) && $_POST['ACTION'] == 'add_new_location'){
 }
 else if(isset($_POST['ACTION']) && $_POST['ACTION'] == 'add_new_category'){
     $name = validate_string($link,$_POST['name']);
-    $qry_uniq=fetch_data($link,"SELECT category_name from invt_categorys where category_name='$name'");
+    $qry_uniq=fetch_data($link,"SELECT category_name from invt_categories where category_name='$name'");
     if(count($qry_uniq) > 0){
         echo "category_error";
         exit();
     }
     else{
-        $qry = add_data($link,"invt_categorys",['category_name'=>$name],false);
+        $qry = add_data($link,"invt_categories",['category_name'=>$name],false);
     }
     //ajax response
     $dropdown_class ="";
     $dropdown_class .= "<option  selected>Select- </option>";
-    $sql =fetch_data($link,"Select * from invt_categorys");
+    $sql =fetch_data($link,"Select * from invt_categories");
     foreach($sql as $row_q)
     {
         $selected = ($name == $row_q['category_name']) ? "selected" : "";
