@@ -205,24 +205,27 @@
   }
 
   function showToast(toastType, toastMsg) {
-    if (toastType !== "" && toastMsg !== "") {
-      Toastify({
-        newWindow: true,
-        text: toastMsg,
-        gravity: "top",
-        position: "center",
-        className: "bg-" + toastType,
-        stopOnFocus: true,
-        offset: {
-          x: 50,
-          y: 10
-        },
-        duration: "3000",
-        close: "close" == "close",
-        style: "style" == 'background: "linear-gradient(to right, #0AB39C, #405189)"'
-      }).showToast();
-    }
+  if (toastType !== "" && toastMsg !== "") {
+    Toastify({
+      newWindow: true,
+      text: toastMsg,
+      gravity: "top",
+      position: "center",
+      className: "bg-" + toastType,
+      stopOnFocus: true,
+      offset: {
+        x: 50,
+        y: 10
+      },
+      duration: 3000,
+      close: "close" == "close",
+      style: {
+        background: toastType === 'danger' ? '#dc3545' : toastType === 'success' ? '#28a745' : '',
+      }
+    }).showToast();
   }
+}
+
 </script>
 <?php
 unset($_SESSION["toast_type"]);

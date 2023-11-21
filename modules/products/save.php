@@ -21,6 +21,7 @@
             'retail_price'=> $retail_price,
             'discount'=> $discount, 
             'quantity'=> $quantity,
+            'avail'=> $quantity,
             'details'=> $details
         ],['item_id'=>$item_id],false);
         
@@ -35,6 +36,7 @@
             'retail_price'=> $retail_price,
             'discount'=> $discount, 
             'quantity'=> $quantity,
+            'avail'=> $quantity,
             'details'=> $details
         ],false);
         $item_id = $query;

@@ -81,75 +81,57 @@ else{
                         <textarea class="form-control tiny-mce" name="details" id="details" rows="4" ><?=(isset($row) && $row['details'] != '') ? $row['details'] : ''?></textarea>
                     </div>
                 </div>
-              
-                <div>
-                    <div class="col-md-4">
-                        <label for="sold" class="form-label">Item Sold</label>
-                        <input type="text" disabled required class="form-control" id="sold" name="sold"  value="<?=(isset($row) && $row['sold'] != '') ? $row['sold'] : ''?>">
-                        <div class="invalid-feedback"></div>
-                    </div>
-                </div>
                 
-                <div>
-                    <div class="col-md-4">
-                        <label for="price" class="form-label">Price</label>
-                        <input type="text" readonly  class="form-control" id="price" name="price" value="<?=(isset($row) && $row['price'] != '') ? $row['price'] : ''?>">
-                        <div class="invalid-feedback"></div>
-                    </div>
+                <div class="col-md-4">
+                    <label for="sold" class="form-label">Item Sold</label>
+                    <input type="text" disabled required class="form-control" id="sold" name="sold"  value="<?=(isset($row) && $row['sold'] != '') ? $row['sold'] : ''?>">
+                    <div class="invalid-feedback"></div>
                 </div>
-
-                <div>
-                    <div class="col-md-4">
-                        <label for="discount" class="form-label">Discount</label>
-                        <input type="text" readonly class="form-control" id="discount" name="discount" value="<?=(isset($row) && $row['discount'] != '') ? $row['discount'] : ''?>">
-                        <div class="invalid-feedback"></div>
-                    </div>
+    
+                <div class="col-md-4">
+                    <label for="price" class="form-label">Price</label>
+                    <input type="text" readonly  class="form-control" id="price" name="price" value="<?=(isset($row) && $row['price'] != '') ? $row['price'] : ''?>">
+                    <div class="invalid-feedback"></div>
                 </div>
-                
-                <div>
-                    <div class="col-md-4">
-                        <label for="subtotal" class="form-label">Subtotal</label>
-                        <input type="text" readonly  class="form-control" id="subtotal" name="subtotal" required value="<?=(isset($row) && $row['subtotal'] != '') ? $row['subtotal'] : ''?>">
-                        <div class="invalid-feedback"></div>
-                    </div>
-                </div>
-                
-                <div>
-                    <div class="col-md-4">
-                        <label for="delivery" class="form-label">Delivery Charges</label>
-                        <input type="text" readonly  class="form-control" id="delivery" name="delivery" required>
-                        <div class="invalid-feedback"></div>
-                    </div>
-                </div>
-                
-                <div>
-                    <div class="col-md-4">
-                        <label for="process_fee" class="form-label">Processing Fee</label>
-                        <input type="text"   class="form-control" id="process_fee" name="process_fee" value="<?=(isset($row) && $row['process_fee'] != '') ? $row['process_fee'] : ''?>">
-                        <div class="invalid-feedback"></div>
-                    </div>
-                </div>
-                
-                <div>
-                    <div class="col-md-4">
-                        <label for="other_amount" class="form-label">Other amount</label>
-                        <input type="text"   class="form-control" id="other_amount" name="other_amount" value="<?=(isset($row) && $row['other_amount'] != '') ? $row['other_amount'] : ''?>">
-                        <div class="invalid-feedback"></div>
-                    </div>
-                </div>
-                
-                <div>
-                    <div class="col-md-4">
-                        <label for="total" class="form-label">Total Paid</label>
-                        <input type="text"   class="form-control" id="total" name="total" readonly value="<?=(isset($row) && $row['total'] != '') ? $row['total'] : ''?>">
-                        <div class="invalid-feedback"></div>
-                    </div>
-                </div>
-                
-
                
+                <div class="col-md-4">
+                    <label for="discount" class="form-label">Discount</label>
+                    <input type="text" readonly class="form-control" id="discount" name="discount" value="<?=(isset($row) && $row['discount'] != '') ? $row['discount'] : ''?>">
+                    <div class="invalid-feedback"></div>
+                </div>
+                
+                <div class="col-md-4">
+                    <label for="subtotal" class="form-label">Subtotal</label>
+                    <input type="text" readonly  class="form-control" id="subtotal" name="subtotal" required value="<?=(isset($row) && $row['subtotal'] != '') ? $row['subtotal'] : ''?>">
+                    <div class="invalid-feedback"></div>
+                </div>
+                
+                <div class="col-md-4">
+                    <label for="delivery" class="form-label">Delivery Charges</label>
+                    <input type="text"  class="form-control" id="delivery" name="delivery" required value="<?=(isset($row) && $row['delivery'] != '') ? $row['delivery'] : ''?>">
+                    <div class="invalid-feedback"></div>
+                </div>
+
+                <div class="col-md-4">
+                    <label for="process_fee" class="form-label">Processing Fee</label>
+                    <input type="text"   class="form-control" id="process_fee" name="process_fee" value="<?=(isset($row) && $row['process_fee'] != '') ? $row['process_fee'] : ''?>">
+                    <div class="invalid-feedback"></div>
+                </div>
+
+                <div class="col-md-4">
+                    <label for="other_amount" class="form-label">Other amount</label>
+                    <input type="text"   class="form-control" id="other_amount" name="other_amount" value="<?=(isset($row) && $row['other_amount'] != '') ? $row['other_amount'] : ''?>">
+                    <div class="invalid-feedback"></div>
+                </div>
+                
+                <div class="col-md-4">
+                    <label for="total" class="form-label">Total Paid</label>
+                    <input type="text"   class="form-control" id="total" name="total" readonly value="<?=(isset($row) && $row['total'] != '') ? $row['total'] : ''?>">
+                    <div class="invalid-feedback"></div>
+                </div>
+
                 <div class="col-12">
-                    <button class="btn ripple btn-main-primary" type="submit">Submit</button>
+                    <button class="btn ripple btn-main-primary" type="submit">Save</button>
                 </div>
             </form>
           </div>

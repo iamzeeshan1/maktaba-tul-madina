@@ -143,7 +143,7 @@ if (isset($_GET['item_id'])) {
                 </div>
               </div>
               <div class="col-12">
-                <button class="btn ripple btn-main-primary" type="submit">Submit form</button>
+                <button class="btn ripple btn-main-primary" type="submit">Save</button>
               </div>
             </form>
           </div>
