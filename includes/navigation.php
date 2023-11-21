@@ -17,9 +17,8 @@
             <div class="main-sidebar-body main-body-1">
                 <div class="slide-left disabled" id="slide-left"><i class="fe fe-chevron-left"></i></div>
                 <ul class="menu-nav nav">
-                    <li class="nav-header"><span class="nav-label">Dashboard</span></li>
                     <li class="nav-item">
-                        <a class="nav-link" href="<?=$app_path?>modules/dashboard/index.php">
+                        <a class="nav-link" href="<?=$app_path?>modules/dashboard/">
                             <span class="shape1"></span>
                             <span class="shape2"></span>
                             <i class="ti-home sidemenu-icon menu-icon "></i>
@@ -27,7 +26,7 @@
                         </a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="<?=$app_path?>modules/products/index.php">
+                        <a class="nav-link" href="<?=$app_path?>modules/products/">
                             <span class="shape1"></span>
                             <span class="shape2"></span>
                             <i class="ti-archive sidemenu-icon menu-icon "></i>
@@ -35,7 +34,7 @@
                         </a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="<?=$app_path?>modules/sales/index.php">
+                        <a class="nav-link" href="<?=$app_path?>modules/sales/">
                             <span class="shape1"></span>
                             <span class="shape2"></span>
                             <i class="ti-archive sidemenu-icon menu-icon "></i>

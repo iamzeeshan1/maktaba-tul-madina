@@ -61,7 +61,7 @@ $current_year  = date("Y", strtotime($today));
     <link href="<?=$app_path?>assets/plugins/select2/css/select2.min.css" rel="stylesheet">
 
     <!-- Sweet Alert css-->
-    <!-- <link href="../../assets/plugins/sweet-alert/sweetalert.css" rel="stylesheet"> -->
+    <!-- <link href="<?=$app_path?>assets/plugins/sweet-alert/sweetalert.css" rel="stylesheet"> -->
     <link href="https://cdn.jsdelivr.net/npm/sweetalert2@11.10.0/dist/sweetalert2.min.css" rel="stylesheet">
     
     <!-- Mutipleselect css-->
@@ -71,15 +71,15 @@ $current_year  = date("Y", strtotime($today));
     <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/toastify-js/src/toastify.min.css">
 
     <!--Bootstrap-datepicker css-->
-	<link rel="stylesheet" href="../../assets/plugins/bootstrap-datepicker/bootstrap-datepicker.css">
+	<link rel="stylesheet" href="<?=$app_path?>assets/plugins/bootstrap-datepicker/bootstrap-datepicker.css">
     
     <!-- Internal Datetimepicker-slider css -->
-    <link href="../assets/plugins/amazeui-datetimepicker/css/amazeui.datetimepicker.css" rel="stylesheet">
+    <link href="<?=$app_path?>assets/plugins/amazeui-datetimepicker/css/amazeui.datetimepicker.css" rel="stylesheet">
     
     <!-- DATA TABLE CSS -->
-    <link href="../../assets/plugins/datatable/css/dataTables.bootstrap5.css" rel="stylesheet" />
-    <link href="../../assets/plugins/datatable/css/buttons.bootstrap5.min.css"  rel="stylesheet">
-    <link href="../../assets/plugins/datatable/css/responsive.bootstrap5.css" rel="stylesheet" />
+    <link href="<?=$app_path?>assets/plugins/datatable/css/dataTables.bootstrap5.css" rel="stylesheet" />
+    <link href="<?=$app_path?>assets/plugins/datatable/css/buttons.bootstrap5.min.css"  rel="stylesheet">
+    <link href="<?=$app_path?>assets/plugins/datatable/css/responsive.bootstrap5.css" rel="stylesheet" />
 </head>
 
 <body class="ltr main-body leftmenu">
