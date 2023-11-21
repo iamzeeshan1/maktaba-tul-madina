@@ -19,7 +19,13 @@ else{
       <div>
         <h2 class="main-content-title tx-24 mg-b-5">Sales</h2>
       </div>
-      
+      <div class="d-flex">
+        <div class="justify-content-center">
+          <a href="index.php" class="btn btn-white btn-icon-text my-2 me-2">
+            <i class="fe fe-arrow-left me-2"></i> Back
+          </a>
+        </div>
+      </div>
     </div>
     <!-- End Page Header -->
     <!-- Row -->
