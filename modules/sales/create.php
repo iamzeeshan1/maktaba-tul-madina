@@ -34,7 +34,7 @@ else{
         <div class="card custom-card">
           <div class="card-body">
             <!-- <div><h6 class="main-content-label mb-3">Server side</h6></div> -->
-            <form class="row g-3" action="save.php?sales_id=<?=$sales_id;?>" method="post">
+            <form class="row g-3" action="save.php?sales_id=<?=$sales_id;?>" method="post" id="salesForm">
 
                 <div class="col-lg-4">
                     <label for="item_id" class="mg-b-10 form-label">Product</label>
@@ -102,7 +102,7 @@ else{
                 
                 <div class="col-md-4">
                     <label for="subtotal" class="form-label">Subtotal</label>
-                    <input type="text" readonly  class="form-control" id="subtotal" name="subtotal" required value="<?=(isset($row) && $row['subtotal'] != '') ? $row['subtotal'] : ''?>">
+                    <input type="text" readonly  class="form-control" id="subtotal" name="subtotal" value="<?=(isset($row) && $row['subtotal'] != '') ? $row['subtotal'] : ''?>">
                     <div class="invalid-feedback"></div>
                 </div>
                 

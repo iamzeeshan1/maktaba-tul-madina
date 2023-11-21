@@ -93,6 +93,11 @@
 <!-- Internal jquery-simple-datetimepicker js -->
 <script src="<?= $app_path ?>assets/plugins/amazeui-datetimepicker/js/amazeui.datetimepicker.min.js"></script>
 
+<!-- Internal Parsley js-->
+<script src="<?= $app_path ?>assets/plugins/parsleyjs/parsley.min.js"></script>
+
+<!-- Internal Form-validation js-->
+<script src="<?= $app_path ?>assets/js/form-validation.js"></script>
 
 <!-- Custom js -->
 <script src="<?= $app_path ?>assets/js/custom.js"></script>

@@ -34,7 +34,7 @@ if (isset($_GET['item_id'])) {
         <div class="card custom-card">
           <div class="card-body">
             <!-- <div><h6 class="main-content-label mb-3">Server side</h6></div> -->
-            <form class="row g-3" action="save.php?item_id=<?= $item_id; ?>" method="post">
+            <form class="row g-3" action="save.php?item_id=<?= $item_id; ?>" method="post" id="productForm">
               <div class="col-md-4">
                 <label for="validationServer01" class="form-label">Product ID</label>
                 <input type="text" class="form-control" id="product_id" value="<?= (isset($row) && $row['product_id'] != '') ? $row['product_id'] : '' ?>" name="product_id" required>
