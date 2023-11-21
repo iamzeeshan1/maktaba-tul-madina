@@ -25,7 +25,6 @@
         ],['item_id'=>$item_id],false);
         
 	} else {
-        echo "enter";
 		$query = add_data($link,"invt_products",[
             'product_id'=>$product_id,
             'rack_id'=>$rack_id,

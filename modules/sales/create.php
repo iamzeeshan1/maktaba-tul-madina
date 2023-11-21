@@ -17,7 +17,7 @@ else{
     <!-- Page Header -->
     <div class="page-header">
       <div>
-        <h2 class="main-content-title tx-24 mg-b-5">sales</h2>
+        <h2 class="main-content-title tx-24 mg-b-5">Sales</h2>
       </div>
       
     </div>
@@ -32,7 +32,7 @@ else{
 
                 <div class="col-lg-4">
                     <label for="item_id" class="mg-b-10 form-label">Product</label>
-                    <select name="item_id" class="form-select" required id="item_id">
+                    <select name="item_id" class="form-control select2 select2-hidden-accessible" required id="item_id" onchange="check(this.value)" >
                         <option value="">Select Product</option>
                         <?php 
                         $qry_prod=fetch_data($link,"SELECT * FROM invt_products order by product_id");
@@ -77,15 +77,15 @@ else{
                 </div>
               
                 <div>
-                    <div class="col-md-6">
+                    <div class="col-md-4">
                         <label for="sold" class="form-label">Item Sold</label>
-                        <input type="text"  required class="form-control" id="sold" name="sold"  value="<?=(isset($row) && $row['sold'] != '') ? $row['sold'] : ''?>">
+                        <input type="text" disabled required class="form-control" id="sold" name="sold"  value="<?=(isset($row) && $row['sold'] != '') ? $row['sold'] : ''?>">
                         <div class="invalid-feedback"></div>
                     </div>
                 </div>
                 
                 <div>
-                    <div class="col-md-6">
+                    <div class="col-md-4">
                         <label for="price" class="form-label">Price</label>
                         <input type="text" readonly  class="form-control" id="price" name="price" value="<?=(isset($row) && $row['price'] != '') ? $row['price'] : ''?>">
                         <div class="invalid-feedback"></div>
@@ -93,7 +93,7 @@ else{
                 </div>
 
                 <div>
-                    <div class="col-md-6">
+                    <div class="col-md-4">
                         <label for="discount" class="form-label">Discount</label>
                         <input type="text" readonly class="form-control" id="discount" name="discount" value="<?=(isset($row) && $row['discount'] != '') ? $row['discount'] : ''?>">
                         <div class="invalid-feedback"></div>
@@ -101,7 +101,7 @@ else{
                 </div>
                 
                 <div>
-                    <div class="col-md-6">
+                    <div class="col-md-4">
                         <label for="subtotal" class="form-label">Subtotal</label>
                         <input type="text" readonly  class="form-control" id="subtotal" name="subtotal" required value="<?=(isset($row) && $row['subtotal'] != '') ? $row['subtotal'] : ''?>">
                         <div class="invalid-feedback"></div>
@@ -109,7 +109,7 @@ else{
                 </div>
                 
                 <div>
-                    <div class="col-md-6">
+                    <div class="col-md-4">
                         <label for="delivery" class="form-label">Delivery Charges</label>
                         <input type="text" readonly  class="form-control" id="delivery" name="delivery" required>
                         <div class="invalid-feedback"></div>
@@ -117,7 +117,7 @@ else{
                 </div>
                 
                 <div>
-                    <div class="col-md-6">
+                    <div class="col-md-4">
                         <label for="process_fee" class="form-label">Processing Fee</label>
                         <input type="text"   class="form-control" id="process_fee" name="process_fee" value="<?=(isset($row) && $row['process_fee'] != '') ? $row['process_fee'] : ''?>">
                         <div class="invalid-feedback"></div>
@@ -125,7 +125,7 @@ else{
                 </div>
                 
                 <div>
-                    <div class="col-md-6">
+                    <div class="col-md-4">
                         <label for="other_amount" class="form-label">Other amount</label>
                         <input type="text"   class="form-control" id="other_amount" name="other_amount" value="<?=(isset($row) && $row['other_amount'] != '') ? $row['other_amount'] : ''?>">
                         <div class="invalid-feedback"></div>
@@ -133,7 +133,7 @@ else{
                 </div>
                 
                 <div>
-                    <div class="col-md-6">
+                    <div class="col-md-4">
                         <label for="total" class="form-label">Total Paid</label>
                         <input type="text"   class="form-control" id="total" name="total" readonly value="<?=(isset($row) && $row['total'] != '') ? $row['total'] : ''?>">
                         <div class="invalid-feedback"></div>
@@ -143,7 +143,7 @@ else{
 
                
                 <div class="col-12">
-                    <button class="btn ripple btn-main-primary" type="submit">Submit form</button>
+                    <button class="btn ripple btn-main-primary" type="submit">Submit</button>
                 </div>
             </form>
           </div>
@@ -158,74 +158,4 @@ else{
 <?php
 include("../../includes/footer.php");
 ?>
-<script>
-    $(document).ready(function() {
-        $('#sold').on('change', function() {
-            var soldValue = parseFloat($(this).val());
-
-            var item_id = $('#item_id').val();
-
-            $.ajax({
-                type: 'POST',
-                url: 'ajax-calls.php',
-                data: { item_id: item_id },
-                dataType: 'json',
-                success: function(response) {
-                    var price = parseFloat(response.cost_price) || 0;
-                    var discount = parseFloat(response.discount) || 0;
-
-                    var totalPrice = soldValue * price;
-
-                    // Calculate discount and subtotal
-                    var discountPrice = (totalPrice * discount)/100;
-
-                    var subtotal =totalPrice - discountPrice;
-                    
-
-                    $('#price').val(totalPrice);
-                    $('#discount').val(discount);
-                    $('#subtotal').val(subtotal);
-
-                    // Calculate total paid
-                    var delivery = parseFloat($('#delivery').val()) || 0;
-                    var processFee = parseFloat($('#process_fee').val()) || 0;
-                    var otherAmount = parseFloat($('#other_amount').val()) || 0;
-                    var total = subtotal + delivery + processFee + otherAmount;
-
-                    // Update the total input field
-                    $('#total').val(total);
-                }
-            });
-        });
-
-        $('#process_fee').on('change', function() {
-
-            var subtotal = parseFloat($('#subtotal').val()) || 0;
-            var delivery = parseFloat($('#delivery').val()) || 0;
-            var otherAmount = parseFloat($('#other_amount').val()) || 0;
-            var processFee = parseFloat($('#process_fee').val()) || 0;
-            
-            var total = subtotal + delivery + processFee + otherAmount;
-
-            // Update the total input field
-            $('#total').val(total);
-            
-        });
-
-        $('#other_amount').on('change', function() {
-
-            var subtotal = parseFloat($('#subtotal').val()) || 0;
-            var delivery = parseFloat($('#delivery').val()) || 0;
-            var otherAmount = parseFloat($('#other_amount').val()) || 0;
-            var processFee = parseFloat($('#process_fee').val()) || 0;
-
-            var total = subtotal + delivery + processFee + otherAmount;
-
-            // Update the total input field
-            $('#total').val(total);
-        
-        });
-    });
-
-
-</script>
+<script src="functions.js"></script>
