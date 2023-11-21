@@ -14,9 +14,16 @@ $(document).ready(function() {
             dataType: 'json',
             success: function(response) {
                 var available = parseFloat(response.avail);
+                var sold = parseFloat(response.sold)||0;
                 var price = parseFloat(response.cost_price) || 0;
                 var discount = parseFloat(response.discount) || 0;
-                if(soldValue <= available){
+                if(sales_id > 0 ){
+                    avail = sold + available;
+                }else{
+                    avail = available;
+                }
+                
+                if(soldValue <= avail ){
                     var totalPrice = soldValue * price;
 
                     // Calculate discount and subtotal
