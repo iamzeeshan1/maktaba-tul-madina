@@ -65,7 +65,7 @@
     if($sales_id>0){
         $_SESSION['toast_type'] = "success";
         $_SESSION['toast_msg'] = "Updated Successfully!";
-        header("location:create.php?sales_id=$sales_id");
+        header("location:index.php");
         exit();
     } else{
         $_SESSION['toast_type'] = "success";

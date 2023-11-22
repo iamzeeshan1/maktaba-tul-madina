@@ -44,7 +44,7 @@ include("../../includes/header.php");
 
                   <?php
                   $srNo = 1;
-                  $query = fetch_data($link, "SELECT p.item_id,p.product_id,p.cost_price,p.retail_price,p.details,p.discount,p.quantity,invt_sections.section_name,invt_locations.location_name,invt_racks.rack_name,invt_categories.category_name FROM invt_products p LEFT JOIN invt_sections ON p.section_id=invt_sections.section_id LEFT JOIN invt_locations ON p.location_id=invt_locations.location_id LEFT JOIN invt_racks ON p.rack_id=invt_racks.rack_id LEFT JOIN invt_categories ON p.category_id=invt_categories.category_id");
+                  $query = fetch_data($link, "SELECT p.item_id,p.product_id,p.cost_price,p.retail_price,p.details,p.discount,p.quantity,p.avail,invt_sections.section_name,invt_locations.location_name,invt_racks.rack_name,invt_categories.category_name FROM invt_products p LEFT JOIN invt_sections ON p.section_id=invt_sections.section_id LEFT JOIN invt_locations ON p.location_id=invt_locations.location_id LEFT JOIN invt_racks ON p.rack_id=invt_racks.rack_id LEFT JOIN invt_categories ON p.category_id=invt_categories.category_id");
 
                   foreach ($query as $row_sol) {
                     $item_id = $row_sol['item_id'];
@@ -52,7 +52,7 @@ include("../../includes/header.php");
                     <tr>
                       <td><?= $srNo++ ?></td>
                       <td><a href="create.php?item_id=<?= $item_id ?>"><?= $row_sol['product_id'] ?></a></td>
-                      <td><?= $row_sol['quantity'] ?></td>
+                      <td><?= $row_sol['avail'] ?></td>
                       <td><?= $row_sol['rack_name'] ?></td>
                       <td><?= $row_sol['section_name'] ?></td>
                       <td><?= $row_sol['category_name'] ?></td>
