@@ -37,7 +37,7 @@
                         <a class="nav-link" href="<?=$app_path?>modules/sales/">
                             <span class="shape1"></span>
                             <span class="shape2"></span>
-                            <i class="ti-archive sidemenu-icon menu-icon "></i>
+                            <i class="ti-clipboard sidemenu-icon menu-icon "></i>
                             <span class="sidemenu-label">Sales</span>
                         </a>
                     </li>
