@@ -1,14 +1,8 @@
 <?php 
     include("../../includes/header-min.php");
-    // $added_by = $_SESSION['emp_id'];
+
     extract($_POST);
-    // print_r($_POST);
-    // exit();
-    if(isset($_GET['item_id']) && $_GET['item_id'] != '' ){
-        $item_id = $_GET['item_id'];
-    }else{
-        $item_id = 0;
-    }
+    $item_id = $_GET['item_id'] ?? 0;
 
 	if($item_id>0){
 		$query = update_data($link,"invt_products",[

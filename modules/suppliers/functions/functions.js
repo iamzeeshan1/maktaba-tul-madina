@@ -18,13 +18,19 @@ function formSubmit() {
       var json = JSON.parse(response);
       $('#preloader').removeClass('d-none');
       setTimeout(function() {
-       
+        if(json.status == 'danger'){
+          var toastType = json.status;
+          var toastMsg = json.value;
+          showToast(toastType, toastMsg);
+          // $('#preloader').addClass('d-none');
+          // $('#submit-btn').prop('disabled',false);
+        }
+        else{
           window.location.href='index.php';
           var toastType = json.status;
           var toastMsg = json.value;
           showToast(toastType, toastMsg);
-        
-        
+        }
         }, 2000);
     },
     complete: function() {

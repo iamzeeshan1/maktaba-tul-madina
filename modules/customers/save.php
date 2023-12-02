@@ -1,15 +1,10 @@
 <?php 
     include("../../includes/header-min.php");
-    // $added_by = $_SESSION['emp_id'];
-    extract($_POST);
-    // print_r($_POST);
-    // exit();
-    if(isset($_POST['customer_id']) && $_POST['customer_id'] != '' ){
-        $customer_id = $_POST['customer_id'];
-    }else{
-        $customer_id = 0;
-    }
 
+    extract($_POST);
+    
+    $customer_id = $_POST['customer_id'] ?? 0;
+    
 	if($customer_id>0){
 		$query = update_data($link,"invt_customers",[
             'customer_name'=>$customer_name,

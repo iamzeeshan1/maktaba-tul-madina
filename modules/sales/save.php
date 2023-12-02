@@ -2,13 +2,8 @@
     include("../../includes/header-min.php");
     // $added_by = $_SESSION['emp_id'];
     extract($_POST);
-    //print_r($_POST);
-   // exit();
-    if(isset($_GET['sales_id']) && $_GET['sales_id'] != '' ){
-        $sales_id = $_GET['sales_id'];
-    }else{
-        $sales_id = 0;
-    }
+
+    $sales_id = $_GET['sales_id']??0;
 
 	if($sales_id>0){
 		$query = update_data($link,"invt_sales",[
