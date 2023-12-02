@@ -20,8 +20,11 @@ function formSubmit() {
     },
     success: function (response) {
       var json = JSON.parse(response);
+
       $("#preloader").removeClass("d-none");
+
       setTimeout(function () {
+        
         if (json.status == "danger") {
           var toastType = json.status;
           var toastMsg = json.value;
@@ -29,10 +32,14 @@ function formSubmit() {
           // $('#preloader').addClass('d-none');
           // $('#submit-btn').prop('disabled',false);
         } else {
-          window.location.href = "index.php";
           var toastType = json.status;
           var toastMsg = json.value;
           showToast(toastType, toastMsg);
+          $("#supplier_Modal").modal("toggle");
+          loadTable();
+
+          $("#supplier_form").find(".parsley-success").removeClass("parsley-success");
+          $("#supplier_form").find(".parsley-error").removeClass("parsley-error");
         }
       }, 2000);
     },
@@ -58,4 +65,10 @@ function add_supplier(supplier_id) {
       $("#supplier_Modal").modal("toggle");
     },
   });
+}
+
+loadTable();
+function loadTable(){
+    $("#loadTable").load("loadTable.php",function(){
+    });
 }

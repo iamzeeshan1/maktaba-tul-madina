@@ -15,19 +15,30 @@ function formSubmit() {
     },
     success: function (response) {
       var json = JSON.parse(response);
+
       $("#preloader").removeClass("d-none");
       setTimeout(function () {
-        window.location.href = "index.php";
         var toastType = json.status;
         var toastMsg = json.value;
         showToast(toastType, toastMsg);
+        $("#purchase_Modal").modal("toggle");
+          loadTable();
+
+        $("#purchase_form")[0].reset();
+        $("#purchase_form").find(".parsley-success").removeClass("parsley-success");
+        $("#purchase_form").find(".parsley-error").removeClass("parsley-error");
+
       }, 2000);
     },
     complete: function () {
       $("#preloader").removeClass("d-none");
+      $("#submit-btn").prop("disabled", true);
+      
     },
+ 
   });
 }
+
 
 function add_purchase(purchase_id) {
   $.ajax({
@@ -46,4 +57,10 @@ function add_purchase(purchase_id) {
       $("#purchase_Modal").modal("toggle");
     },
   });
+}
+
+loadTable();
+function loadTable(){
+    $("#loadTable").load("loadTable.php",function(){
+    });
 }

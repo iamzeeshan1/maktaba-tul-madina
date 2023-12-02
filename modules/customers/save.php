@@ -28,7 +28,7 @@
             'discount'=> $discount, 
             'details'=> $details
         ],false);
-         $customer_id = $query;
+         //$customer_id = $query;
     }
 
 	

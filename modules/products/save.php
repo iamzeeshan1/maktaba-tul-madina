@@ -33,7 +33,7 @@
             'avail'=> $quantity,
             'details'=> $details
         ],false);
-        $item_id = $query;
+        //$item_id = $query;
     }
 
 	

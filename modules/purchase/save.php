@@ -24,7 +24,7 @@
             'location'=> $location,
             'quantity'=> $quantity,
         ],false);
-         $purchase_id = $query;
+        //  $purchase_id = $query;
     }
 
 	

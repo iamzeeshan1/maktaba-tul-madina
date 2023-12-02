@@ -28,7 +28,7 @@
             'contact_number'=>$contact_number,
             'details'=> $details
         ],false);
-         $supplier_id = $query;
+         //$supplier_id = $query;
     }
 
 	
