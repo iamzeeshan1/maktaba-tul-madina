@@ -108,16 +108,20 @@ function fn_rack(rack_id){
         $('#rackModal').modal('toggle');
     }
 }
-
-function fn_category(category_id){
-    if(category_id =="3") {
-        $('#language_div').addClass('d-none');
-        $('#publisher_div').addClass('d-none');
-    }else{
-        $('#language_div').removeClass('d-none');
-        $('#publisher_div').removeClass('d-none');
+function fn_section(section_id){
+    if(section_id =="other") {
+        $('#sectionModal').modal('toggle');
     }
-
+}
+function fn_location(location_id){
+    if(location_id =="other") {
+        $('#locationModal').modal('toggle');
+    }
+}
+function fn_category(category_id){
+    if(category_id =="other") {
+        $('#categoryModal').modal('toggle');
+    }
 }
 
 </script>

@@ -14,7 +14,7 @@ include("../../includes/header.php");
             <div class="d-flex">
                 <div class="justify-content-center">
                     <a  class="btn btn-primary my-2 btn-icon-text" onclick="add_purchase('0')">
-                        <i class="fe fe-plus me-2"></i> Purchase
+                        <i class="fe fe-plus me-2"></i> Purchase Item
                     </a>
                 </div>
             </div>
@@ -30,29 +30,31 @@ include("../../includes/header.php");
                                 id="prodTable">
                                 <thead>
                                     <th width="4%">Sr.No</th>
+                                    <th width="4%">Date</th>
                                     <th width="20%">Supplier Name</th>
-                                    <th width="10%">Email</th>
-                                    <th width="20%">Address</th>
-                                    <th width="10%">Number</th>
-                                    <th width="10%">Details</th>
+                                    <th width="10%">Quantity</th>
+                                    <th width="10%">Cost Price</th>
+                                    <th width="10%">Retail Price</th>
+                                    <th width="10%">Location</th>
                                     <th width="5%">Actions</th>
                                 </thead>
                                 <tbody>
 
                                     <?php
                                         $srNo = 1;
-                                        $query = fetch_data($link, "Select * from invt_suppliers");
+                                        $query = fetch_data($link, "SELECT invt_purchase.*, invt_suppliers.supplier_name  FROM invt_purchase LEFT  JOIN invt_suppliers ON invt_purchase.supplier_id = invt_suppliers.supplier_id");
 
                                         foreach ($query as $row_sol) {
-                                            $supplier_id = $row_sol['supplier_id'];
+                                            $purchase_id = $row_sol['purchase_id'];
                                     ?>
                                     <tr>
                                         <td><?= $srNo++ ?></td>
+                                        <td><?= $row_sol['date'] ?></td>
                                         <td><?= $row_sol['supplier_name'] ?></td>
-                                        <td><?= $row_sol['email'] ?></td>
-                                        <td><?= $row_sol['address'] ?></td>
-                                        <td><?= $row_sol['contact_number'] ?></td>
-                                        <td><?= $row_sol['details'] ?></td>
+                                        <td><?= $row_sol['quantity'] ?></td>
+                                        <td><?= $row_sol['cost_price'] ?></td>
+                                        <td><?= $row_sol['retail_price'] ?></td>
+                                        <td><?= $row_sol['location'] ?></td>
                                         <td>
                                             <div class="dropdown">
                                                 <a href="#" role="button" id="dropdownMenuLink"
@@ -61,11 +63,11 @@ include("../../includes/header.php");
                                                 </a>
 
                                                 <ul class="dropdown-menu" aria-labelledby="dropdownMenuLink">
-                                                    <li><a class="dropdown-item" onclick="add_supplier(<?=$supplier_id;?>)">
+                                                    <li><a class="dropdown-item" onclick="add_purchase(<?=$purchase_id;?>)">
                                                             <i class=" bx bx-edit"> Edit / View </i></a>
                                                     </li>
                                                     <li><a href="#" class="dropdown-item"
-                                                            onclick=" JSconfirm('delete.php?supplier_id=<?= $supplier_id ?>&action=delete_item')">
+                                                            onclick=" JSconfirm('delete.php?purchase_id=<?= $purchase_id ?>&action=delete_item','warning','Delete functionality is not working yet')">
                                                             <i class=" bx bx-trash"> Delete</i></a></li>
 
                                                 </ul>

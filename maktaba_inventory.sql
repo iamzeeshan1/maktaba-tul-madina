@@ -11,7 +11,7 @@
  Target Server Version : 100411
  File Encoding         : 65001
 
- Date: 02/12/2023 02:22:12
+ Date: 03/12/2023 00:18:57
 */
 
 SET NAMES utf8mb4;
@@ -91,6 +91,25 @@ CREATE TABLE `invt_products`  (
 
 -- ----------------------------
 -- Records of invt_products
+-- ----------------------------
+
+-- ----------------------------
+-- Table structure for invt_purchase
+-- ----------------------------
+DROP TABLE IF EXISTS `invt_purchase`;
+CREATE TABLE `invt_purchase`  (
+  `purchase_id` int NOT NULL AUTO_INCREMENT,
+  `date` date NULL DEFAULT NULL,
+  `supplier_id` int NULL DEFAULT NULL,
+  `cost_price` decimal(10, 2) NULL DEFAULT NULL,
+  `retail_price` decimal(10, 2) NULL DEFAULT NULL,
+  `quantity` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL,
+  `location` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL,
+  PRIMARY KEY (`purchase_id`) USING BTREE
+) ENGINE = InnoDB AUTO_INCREMENT = 1 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci ROW_FORMAT = Dynamic;
+
+-- ----------------------------
+-- Records of invt_purchase
 -- ----------------------------
 
 -- ----------------------------

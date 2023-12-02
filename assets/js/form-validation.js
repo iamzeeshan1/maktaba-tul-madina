@@ -7,4 +7,7 @@ $(function() {
 	});
 	$('#productForm').parsley();
 	$('#salesForm').parsley();
+	$('#custForm').parsley();
+	$('#purchase_form').parsley();
+	$('#supplier_form').parsley();
 });
