@@ -35,7 +35,7 @@
                     </div>
                 </div>
                 <div class="modal-footer bg-light">
-                    <button type="submit" class="btn ripple btn-primary" id="submit-btn" onclick="formSubmit()">Save <img src="<?=$app_path?>assets/img/loader.gif" alt="" id="preloader" class="d-none" style="width:15px"></button>
+                    <button type="submit" class="btn ripple btn-primary" id="submit-btn" onclick="formSubmit()">Save <span class="ms-2 d-none" id="preloader"><img src="<?=$app_path?>assets/img/loader.gif" alt="" style="width:15px"></span></button>
                     <button type="button" class="btn ripple btn-secondary" data-bs-dismiss="modal">Close</button>
                 </div>
             </form>

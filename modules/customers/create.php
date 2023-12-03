@@ -78,7 +78,7 @@ if (isset($_GET['customer_id'])) {
               </div>
 
               <div class="col-12">
-                <button class="btn ripple btn-main-primary" type="submit" id="submit-btn"  onclick="saveForm()">Save&nbsp;<img src="<?=$app_path?>assets/img/loader.gif" alt="" id="preloader" class="d-none" style="width:15px"></button>
+                <button class="btn ripple btn-main-primary" type="submit" id="submit-btn"  onclick="saveForm()">Save  <span class="ms-2 d-none" id="preloader"><img src="<?=$app_path?>assets/img/loader.gif" alt="" style="width:15px"></span></button>
               </div>
             </form>
           </div>

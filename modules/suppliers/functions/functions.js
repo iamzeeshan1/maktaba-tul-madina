@@ -1,5 +1,5 @@
 function formSubmit() {
-  var form = $('#supplier_form')[0];
+  var form = $("#supplier_form")[0];
   if (!form.checkValidity()) {
     return;
   }
@@ -24,7 +24,6 @@ function formSubmit() {
       $("#preloader").removeClass("d-none");
 
       setTimeout(function () {
-        
         if (json.status == "danger") {
           var toastType = json.status;
           var toastMsg = json.value;
@@ -38,8 +37,12 @@ function formSubmit() {
           $("#supplier_Modal").modal("toggle");
           loadTable();
 
-          $("#supplier_form").find(".parsley-success").removeClass("parsley-success");
-          $("#supplier_form").find(".parsley-error").removeClass("parsley-error");
+          $("#supplier_form")
+            .find(".parsley-success")
+            .removeClass("parsley-success");
+          $("#supplier_form")
+            .find(".parsley-error")
+            .removeClass("parsley-error");
         }
       }, 2000);
     },
@@ -68,7 +71,6 @@ function add_supplier(supplier_id) {
 }
 
 loadTable();
-function loadTable(){
-    $("#loadTable").load("loadTable.php",function(){
-    });
+function loadTable() {
+  $("#loadTable").load("loadTable.php", function () {});
 }
