@@ -34,7 +34,7 @@ if (isset($_GET['item_id'])) {
         <div class="card custom-card">
           <div class="card-body">
             <!-- <div><h6 class="main-content-label mb-3">Server side</h6></div> -->
-            <form class="row g-3" action="save.php?item_id=<?= $item_id; ?>" method="post" id="productForm">
+            <form class="row g-3" action="save.php?item_id=<?= $item_id; ?>" method="post">
               <div class="col-md-4">
                 <label for="product_id" class="form-label">Product ID</label>
                 <input type="text" class="form-control" id="product_id" value="<?= $row['product_id']?? ''; ?>" name="product_id" required>
@@ -66,26 +66,27 @@ if (isset($_GET['item_id'])) {
                 </select>
               </div>
 
-              <div class="col-lg-4">
-                <label for="misc" class="mg-b-10 form-label">Miscellaneous Products</label>
-                <select name="misc" class="form-select" required onchange="fn_category(this.value)" id="misc">
+              <div class="col-lg-4 d-none" id="misc_div">
+                <label for="misc_id" class="mg-b-10 form-label">Miscellaneous Products</label>
+                <select name="misc_id" class="form-select" id="misc_id" onchange="fn_misc(this.value)">
                   <option value="">Select</option>
                   <?php
-                    $qry_category = fetch_data($link, "SELECT * FROM invt_categories order by category_name");
-                    foreach ($qry_category as $row_category) {
-                      $misc = $row_category['misc'];
-                      $category_name = $row_category['category_name'];
+                    $qry_misc = fetch_data($link, "SELECT * FROM invt_misc order by misc_prod_name");
+                    foreach ($qry_misc as $row_misc) {
+                      $misc = $row_misc['misc_id'];
+                      $misc_name = $row_misc['misc_prod_name'];
 
                       $selected = ($row['misc'] == $misc) ? 'selected' : '';
                   ?>
-                  <option value="<?= $misc; ?>" <?= $selected; ?>><?= $category_name; ?></option>
+                  <option value="<?= $misc; ?>" <?= $selected; ?>><?= $misc_name; ?></option>
                   <?php } ?>
+                  <option value="other">Other</option>
                 </select>
               </div>
 
               <div class="col-lg-4" id="language_div">
                 <label for="language" class="mg-b-10 form-label">Languages</label>
-                <select name="language" class="form-select" required id="language">
+                <select name="language" class="form-select" id="language">
                   <option value="">Select Language</option>
                   <option value="urdu">Urdu</option>
                   <option value="english">English</option>
@@ -94,7 +95,7 @@ if (isset($_GET['item_id'])) {
 
               <div class="col-md-4" id="publisher_div">
                 <label for="publisher" class="form-label">Publisher Name</label>
-                <input type="text" class="form-control" id="publisher" name="publisher" value="<?= $row['publisher'] ??''; ?>" required>
+                <input type="text" class="form-control" id="publisher" name="publisher" value="<?= $row['publisher'] ??''; ?>">
               </div>
 
               <div class="col-12">
@@ -114,5 +115,5 @@ include("modals.php");
 ?>
 <?php
 include("../../includes/footer.php");
-include("functions/functions.php");
 ?>
+<script src="functions/functions.js"></script>

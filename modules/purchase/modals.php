@@ -1,6 +1,6 @@
 <!-- purchase-->
-<div class="modal flip" id="purchase_Modal"  tabindex="-1" aria-labelledby="purchase_Modal" aria-hidden="true">
-    <div class="modal-dialog modal-lg" role="document">
+<div class="modal fade" id="purchase_Modal"  tabindex="-1" aria-labelledby="purchase_Modal" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
         <div class="modal-content modal-content-demo">
             <div class="modal-header">
                 <h6 class="modal-title">Purchase Item</h6><button aria-label="Close" class="btn-close" data-bs-dismiss="modal" type="button"></button>
@@ -49,7 +49,7 @@
                     </div>
                 </div>
                 <div class="modal-footer bg-light">
-                    <button type="submit" class="btn ripple btn-primary" id="submit-btn" onclick="formSubmit()">Save <span class="ms-2 d-none" id="preloader"><img src="<?=$app_path?>assets/img/loader.gif" alt="" style="width:15px"></span></button>
+                    <button type="submit" class="btn ripple btn-primary" id="submit-btn" onclick="formSubmit()">Save <span class="ms-2 d-none spinner-border text-light spinner-border-sm" id="preloader" ></span></button>
                     <button type="button" class="btn ripple btn-secondary" data-bs-dismiss="modal">Close</button>
                 </div>
             </form>

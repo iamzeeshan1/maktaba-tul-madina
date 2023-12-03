@@ -3,7 +3,6 @@ $page_title = "Purchase - Maktaba-Tul-Madina";
 include("../../includes/header.php");
 ?>
 
-
 <div class="main-container container-fluid">
     <div class="inner-body">
         <!-- Page Header -->

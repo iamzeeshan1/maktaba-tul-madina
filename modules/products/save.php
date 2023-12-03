@@ -2,36 +2,32 @@
     include("../../includes/header-min.php");
 
     extract($_POST);
+    // print_r($_POST);
+    // exit;
     $item_id = $_GET['item_id'] ?? 0;
 
 	if($item_id>0){
 		$query = update_data($link,"invt_products",[
             'product_id'=>$product_id,
-            'rack_id'=>$rack_id,
-            'section_id'=>$section_id,
-            'location_id'=>$location_id,
+            'barcode'=>$barcode,
+            'product_name'=>$product_name,
+            'misc_id'=>$misc_id,
             'category_id'=>$category_id,
-            'cost_price'=>$cost_price,
-            'retail_price'=> $retail_price,
-            'discount'=> $discount, 
-            'quantity'=> $quantity,
-            'avail'=> $quantity,
-            'details'=> $details
+            'language'=>$language,
+            'publisher'=> $publisher,
+            
         ],['item_id'=>$item_id],false);
         
 	} else {
 		$query = add_data($link,"invt_products",[
             'product_id'=>$product_id,
-            'rack_id'=>$rack_id,
-            'section_id'=>$section_id,
-            'location_id'=>$location_id,
+            'barcode'=>$barcode,
+            'product_name'=>$product_name,
+            'misc_id'=>$misc_id,
             'category_id'=>$category_id,
-            'cost_price'=>$cost_price,
-            'retail_price'=> $retail_price,
-            'discount'=> $discount, 
-            'quantity'=> $quantity,
-            'avail'=> $quantity,
-            'details'=> $details
+            'language'=>$language,
+            'publisher'=> $publisher,
+            
         ],false);
         //$item_id = $query;
     }

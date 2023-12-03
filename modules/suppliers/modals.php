@@ -1,5 +1,5 @@
 <!-- Supplier-->
-<div class="modal flip" id="supplier_Modal"  tabindex="-1" aria-labelledby="supplier_Modal" aria-hidden="true">
+<div class="modal fade" id="supplier_Modal"  tabindex="-1" aria-labelledby="supplier_Modal" aria-hidden="true">
     <div class="modal-dialog modal-lg" role="document">
         <div class="modal-content modal-content-demo">
             <div class="modal-header">
@@ -28,14 +28,14 @@
                         <div class="col-md-12 ">
                             <div class="form-group mb-0">
                                 <label for="details" class="form-label">Details</label>
-                                <textarea class="form-control tiny-mce" name="details" id="details" rows="4"><?= (isset($row) && $row['details'] != '') ? $row['details'] : '' ?></textarea>
+                                <textarea class="form-control tiny-mce" name="details" id="details" rows="4"></textarea>
                             </div>
                         </div>
                         
                     </div>
                 </div>
                 <div class="modal-footer bg-light">
-                    <button type="submit" class="btn ripple btn-primary" id="submit-btn" onclick="formSubmit()">Save <span class="ms-2 d-none" id="preloader"><img src="<?=$app_path?>assets/img/loader.gif" alt="" style="width:15px"></span></button>
+                    <button type="submit" class="btn ripple btn-primary" id="submit-btn" onclick="formSubmit()">Save <span class="ms-2 d-none spinner-border text-light spinner-border-sm" id="preloader" ></span></button>
                     <button type="button" class="btn ripple btn-secondary" data-bs-dismiss="modal">Close</button>
                 </div>
             </form>
