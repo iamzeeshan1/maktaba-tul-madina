@@ -11,7 +11,7 @@
  Target Server Version : 100411
  File Encoding         : 65001
 
- Date: 03/12/2023 00:18:57
+ Date: 04/12/2023 00:24:00
 */
 
 SET NAMES utf8mb4;
@@ -70,22 +70,32 @@ CREATE TABLE `invt_locations`  (
 -- ----------------------------
 
 -- ----------------------------
+-- Table structure for invt_misc
+-- ----------------------------
+DROP TABLE IF EXISTS `invt_misc`;
+CREATE TABLE `invt_misc`  (
+  `misc_id` int NOT NULL AUTO_INCREMENT,
+  `misc_prod_name` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL,
+  PRIMARY KEY (`misc_id`) USING BTREE
+) ENGINE = InnoDB AUTO_INCREMENT = 1 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci ROW_FORMAT = Dynamic;
+
+-- ----------------------------
+-- Records of invt_misc
+-- ----------------------------
+
+-- ----------------------------
 -- Table structure for invt_products
 -- ----------------------------
 DROP TABLE IF EXISTS `invt_products`;
 CREATE TABLE `invt_products`  (
   `item_id` int NOT NULL AUTO_INCREMENT,
   `product_id` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL,
-  `rack_id` int NULL DEFAULT NULL,
-  `section_id` int NULL DEFAULT NULL,
-  `location_id` int NULL DEFAULT NULL,
+  `product_name` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL,
+  `barcode` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL,
   `category_id` int NULL DEFAULT NULL,
-  `cost_price` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL,
-  `retail_price` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL,
-  `discount` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL,
-  `quantity` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL,
-  `avail` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL,
-  `details` text CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL,
+  `misc_id` int NULL DEFAULT NULL,
+  `language` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL,
+  `publisher` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL,
   PRIMARY KEY (`item_id`) USING BTREE
 ) ENGINE = InnoDB AUTO_INCREMENT = 1 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci ROW_FORMAT = Dynamic;
 

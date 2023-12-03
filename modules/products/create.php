@@ -51,7 +51,7 @@ if (isset($_GET['item_id'])) {
 
               <div class="col-lg-4">
                 <label for="category_id" class="mg-b-10 form-label">Product Category</label>
-                <select name="category_id" class="form-select" required onchange="fn_category(this.value)" id="category_id">
+                <select name="category_id" class="form-select select2 modules/sales/create.php" required onchange="fn_category(this.value)" id="category_id">
                   <option value="">Select Category</option>
                   <?php
                     $qry_category = fetch_data($link, "SELECT * FROM invt_categories order by category_name");
