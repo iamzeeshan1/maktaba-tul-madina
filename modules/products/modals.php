@@ -14,7 +14,6 @@
                             <label> Name:</label>
                             <input type="text" id="name" name="name" class="form-control" required/>
                         </div>
-                        
                     </div>
                 </div>
                 <div class="modal-footer bg-light">

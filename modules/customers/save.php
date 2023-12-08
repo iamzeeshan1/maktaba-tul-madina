@@ -1,8 +1,6 @@
 <?php 
     include("../../includes/header-min.php");
-
     extract($_POST);
-    
     $customer_id = $_POST['customer_id'] ?? 0;
     
 	if($customer_id>0){
@@ -28,10 +26,7 @@
             'discount'=> $discount, 
             'details'=> $details
         ],false);
-         //$customer_id = $query;
     }
-
-	
     if($customer_id>0){
         $res = array('status'=>'success','value'=>'Updated Successfully!');
         echo  json_encode($res);

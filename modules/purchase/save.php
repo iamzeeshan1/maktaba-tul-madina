@@ -1,9 +1,8 @@
 <?php 
     include("../../includes/header-min.php");
     extract($_POST);
-    
     $purchase_id = $_POST['purchase_id'] ?? 0;
-
+    
 	if($purchase_id>0){
 		$query = update_data($link,"invt_purchase",[
             'supplier_id'=>$supplier_id,
@@ -26,7 +25,6 @@
         ],false);
         //  $purchase_id = $query;
     }
-
 	
     if($purchase_id>0){
         $res = array('status'=>'success','value'=>'Updated Successfully!');

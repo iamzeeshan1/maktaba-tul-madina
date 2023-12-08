@@ -29,7 +29,6 @@
             'publisher'=> $publisher,
             
         ],false);
-        //$item_id = $query;
     }
 
 	

@@ -4,8 +4,7 @@
         <div class="card custom-card">
             <div class="card-body">
                 <div class="table-responsive mb-4 mt-4">
-                    <table class="table table-striped table-bordered text-nowrap dataTable no-footer dtr-inline"
-                        id="prodTable">
+                    <table class="table table-striped table-bordered text-nowrap dataTable no-footer dtr-inline">
                         <thead>
                             <th width="4%">Sr.No</th>
                             <th width="4%">Date</th>
@@ -39,15 +38,14 @@
                                             data-bs-toggle="dropdown" aria-expanded="false">
                                             <i class="mdi mdi-view-agenda-outline">Actions</i>
                                         </a>
-
                                         <ul class="dropdown-menu" aria-labelledby="dropdownMenuLink">
                                             <li><a class="dropdown-item" onclick="add_purchase(<?=$purchase_id;?>)">
                                                     <i class=" bx bx-edit"> Edit / View </i></a>
                                             </li>
                                             <li><a href="#" class="dropdown-item"
                                                     onclick=" JSconfirm('delete.php?purchase_id=<?= $purchase_id ?>&action=delete_item','warning','Delete functionality is not working yet')">
-                                                    <i class=" bx bx-trash"> Delete</i></a></li>
-
+                                                    <i class=" bx bx-trash"> Delete</i></a>
+                                            </li>
                                         </ul>
                                     </div>
                                 </td>

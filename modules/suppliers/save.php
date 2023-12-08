@@ -2,9 +2,7 @@
     include("../../includes/header-min.php");
     // $added_by = $_SESSION['emp_id'];
     extract($_POST);
-
     $supplier_id = $_POST['supplier_id']??0;
-   
 	if($supplier_id>0){
 		$query = update_data($link,"invt_suppliers",[
             'supplier_name'=>$supplier_name,
@@ -30,8 +28,7 @@
         ],false);
          //$supplier_id = $query;
     }
-
-	
+    
     if($supplier_id>0){
         $res = array('status'=>'success','value'=>'Updated Successfully!');
         echo  json_encode($res);

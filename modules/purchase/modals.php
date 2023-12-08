@@ -45,7 +45,6 @@
                             <label class="mg-b-10 form-label">Location:</label>
                             <input type="text" id="location" name="location" class="form-control" required/>
                         </div>
-                        
                     </div>
                 </div>
                 <div class="modal-footer bg-light">

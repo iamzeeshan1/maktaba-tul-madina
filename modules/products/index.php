@@ -39,7 +39,6 @@ include("../../includes/header.php");
                                     <th width="5%">Actions</th>
                                 </thead>
                                 <tbody>
-
                                     <?php
                                         $srNo = 1;
                                         $query = fetch_data($link, "SELECT
@@ -69,21 +68,19 @@ include("../../includes/header.php");
                                                     data-bs-toggle="dropdown" aria-expanded="false">
                                                     <i class="mdi mdi-view-agenda-outline">Actions</i>
                                                 </a>
-
                                                 <ul class="dropdown-menu" aria-labelledby="dropdownMenuLink">
                                                     <li><a class="dropdown-item"
                                                             href="create.php?item_id=<?= $item_id ?>">
-                                                            <i class=" bx bx-edit"> Edit / View </i></a>
+                                                        <i class=" bx bx-edit"> Edit / View </i></a>
                                                     </li>
                                                     <li><a href="#" class="dropdown-item"
                                                             onclick=" JSconfirm('delete.php?item_id=<?= $item_id ?>&action=delete_item')">
-                                                            <i class=" bx bx-trash"> Delete</i></a></li>
-
+                                                        <i class=" bx bx-trash"> Delete</i></a>
+                                                    </li>
                                                 </ul>
                                             </div>
                                         </td>
                                     </tr>
-
                                     <?php } ?>
                                 </tbody>
                             </table>

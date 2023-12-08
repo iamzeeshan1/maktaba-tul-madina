@@ -2,8 +2,6 @@
 $page_title = "Suppliers - Maktaba-Tul-Madina";
 include("../../includes/header.php");
 ?>
-
-
 <div class="main-container container-fluid">
     <div class="inner-body">
         <!-- Page Header -->
@@ -25,8 +23,6 @@ include("../../includes/header.php");
         <!-- End Row-->
     </div>
 </div>
-
-
 <?php 
 include("modals.php");
 include("../../includes/footer.php");

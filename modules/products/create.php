@@ -59,13 +59,12 @@ if (isset($_GET['item_id'])) {
                       $category_id = $row_category['category_id'];
                       $category_name = $row_category['category_name'];
 
-                      $selected = ($row['category_id'] == $category_id) ? 'selected' : '';
+                      $selected = (isset($row) && $row['category_id'] == $category_id) ? 'selected' : '';
                   ?>
                   <option value="<?= $category_id; ?>" <?= $selected; ?>><?= $category_name; ?></option>
                   <?php } ?>
                 </select>
               </div>
-
               <div class="col-lg-4 d-none" id="misc_div">
                 <label for="misc_id" class="mg-b-10 form-label">Miscellaneous Products</label>
                 <select name="misc_id" class="form-select" id="misc_id" onchange="fn_misc(this.value)">
@@ -83,7 +82,6 @@ if (isset($_GET['item_id'])) {
                   <option value="other">Other</option>
                 </select>
               </div>
-
               <div class="col-lg-4" id="language_div">
                 <label for="language" class="mg-b-10 form-label">Languages</label>
                 <select name="language" class="form-select" id="language">
@@ -92,12 +90,10 @@ if (isset($_GET['item_id'])) {
                   <option value="english">English</option>
                 </select>
               </div>
-
               <div class="col-md-4" id="publisher_div">
                 <label for="publisher" class="form-label">Publisher Name</label>
                 <input type="text" class="form-control" id="publisher" name="publisher" value="<?= $row['publisher'] ??''; ?>">
               </div>
-
               <div class="col-12">
                 <button class="btn ripple btn-main-primary" type="submit">Save</button>
               </div>
@@ -110,10 +106,6 @@ if (isset($_GET['item_id'])) {
   </div>
 </div>
 
-<?php
-include("modals.php");
-?>
-<?php
-include("../../includes/footer.php");
-?>
+<?php include("modals.php");?>
+<?php include("../../includes/footer.php"); ?>
 <script src="functions/functions.js"></script>
