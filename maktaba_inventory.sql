@@ -11,7 +11,7 @@
  Target Server Version : 100411
  File Encoding         : 65001
 
- Date: 04/12/2023 00:24:00
+ Date: 09/12/2023 20:55:22
 */
 
 SET NAMES utf8mb4;
@@ -30,8 +30,8 @@ CREATE TABLE `invt_categories`  (
 -- ----------------------------
 -- Records of invt_categories
 -- ----------------------------
-INSERT INTO `invt_categories` VALUES (1, 'Booklet');
-INSERT INTO `invt_categories` VALUES (2, 'Books');
+INSERT INTO `invt_categories` VALUES (1, 'Books');
+INSERT INTO `invt_categories` VALUES (2, 'Booklet');
 INSERT INTO `invt_categories` VALUES (3, 'Miscellaneous');
 
 -- ----------------------------
@@ -53,20 +53,6 @@ CREATE TABLE `invt_customers`  (
 
 -- ----------------------------
 -- Records of invt_customers
--- ----------------------------
-
--- ----------------------------
--- Table structure for invt_locations
--- ----------------------------
-DROP TABLE IF EXISTS `invt_locations`;
-CREATE TABLE `invt_locations`  (
-  `location_id` int NOT NULL AUTO_INCREMENT,
-  `location_name` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL,
-  PRIMARY KEY (`location_id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 1 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci ROW_FORMAT = Dynamic;
-
--- ----------------------------
--- Records of invt_locations
 -- ----------------------------
 
 -- ----------------------------
@@ -115,25 +101,13 @@ CREATE TABLE `invt_purchase`  (
   `retail_price` decimal(10, 2) NULL DEFAULT NULL,
   `quantity` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL,
   `location` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL,
-  PRIMARY KEY (`purchase_id`) USING BTREE
+  PRIMARY KEY (`purchase_id`) USING BTREE,
+  INDEX `invt_purchase_ibfk_1`(`supplier_id` ASC) USING BTREE,
+  CONSTRAINT `invt_purchase_ibfk_1` FOREIGN KEY (`supplier_id`) REFERENCES `invt_suppliers` (`supplier_id`) ON DELETE CASCADE ON UPDATE CASCADE
 ) ENGINE = InnoDB AUTO_INCREMENT = 1 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Records of invt_purchase
--- ----------------------------
-
--- ----------------------------
--- Table structure for invt_racks
--- ----------------------------
-DROP TABLE IF EXISTS `invt_racks`;
-CREATE TABLE `invt_racks`  (
-  `rack_id` int NOT NULL AUTO_INCREMENT,
-  `rack_name` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL,
-  PRIMARY KEY (`rack_id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 1 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci ROW_FORMAT = Dynamic;
-
--- ----------------------------
--- Records of invt_racks
 -- ----------------------------
 
 -- ----------------------------
@@ -159,20 +133,6 @@ CREATE TABLE `invt_sales`  (
 
 -- ----------------------------
 -- Records of invt_sales
--- ----------------------------
-
--- ----------------------------
--- Table structure for invt_sections
--- ----------------------------
-DROP TABLE IF EXISTS `invt_sections`;
-CREATE TABLE `invt_sections`  (
-  `section_id` int NOT NULL AUTO_INCREMENT,
-  `section_name` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL,
-  PRIMARY KEY (`section_id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 1 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci ROW_FORMAT = Dynamic;
-
--- ----------------------------
--- Records of invt_sections
 -- ----------------------------
 
 -- ----------------------------

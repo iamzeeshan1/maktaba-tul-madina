@@ -69,7 +69,7 @@ include("../../includes/header.php");
                                                             <i class=" bx bx-edit"> Edit / View </i></a>
                                                     </li>
                                                     <li><a href="#" class="dropdown-item"
-                                                            onclick=" JSconfirm('delete.php?customer_id=<?= $customer_id ?>&action=delete_item','warning','Delete functionality is not working yet')">
+                                                            onclick=" JSconfirm('delete.php?customer_id=<?= $customer_id ?>&action=delete_item','warning','Are you sure you want to delete the customer?')">
                                                             <i class=" bx bx-trash"> Delete</i></a>
                                                     </li>
                                                 </ul>

@@ -42,6 +42,9 @@
                                             <li><a class="dropdown-item" onclick="add_purchase(<?=$purchase_id;?>)">
                                                     <i class=" bx bx-edit"> Edit / View </i></a>
                                             </li>
+                                            <li><a class="dropdown-item" href="invoice.php">
+                                                    <i class=" bx bx-edit"> Invoice </i></a>
+                                            </li>
                                             <li><a href="#" class="dropdown-item"
                                                     onclick=" JSconfirm('delete.php?purchase_id=<?= $purchase_id ?>&action=delete_item','warning','Delete functionality is not working yet')">
                                                     <i class=" bx bx-trash"> Delete</i></a>
