@@ -5,7 +5,7 @@
             <div class="modal-header">
                 <h6 class="modal-title">Purchase Item</h6><button aria-label="Close" class="btn-close" data-bs-dismiss="modal" type="button"></button>
             </div>
-            <form id='purchase_form' class="needs-validation" novalidate>
+            <form id='purchase_form'>
                 <input type="hidden" name="purchase_id" id="purchase_id" >
                 <div class="modal-body">
                     <div class="row">
@@ -15,7 +15,7 @@
                         </div>
                         <div class="col-md-6">
                             <label for="supplier_id" class="mg-b-10 form-label">Supplier</label>
-                            <select name="supplier_id" class="form-select"  required  id="supplier_id">
+                            <select name="supplier_id" class="form-select select2"  required  id="supplier_id">
                                 <option value="">Select Supplier</option>
                                 <?php
                                 $qry_sup = fetch_data($link, "SELECT * FROM invt_suppliers order by supplier_name");
@@ -48,7 +48,7 @@
                     </div>
                 </div>
                 <div class="modal-footer bg-light">
-                    <button type="submit" class="btn ripple btn-primary" id="submit-btn" onclick="formSubmit()">Save <span class="ms-2 d-none spinner-border text-light spinner-border-sm" id="preloader" ></span></button>
+                    <button type="submit" class="btn ripple btn-primary submit-btn" id="" onclick="formSubmit()">Save <span class="ms-2 d-none spinner-border text-light spinner-border-sm preloader" id="" ></span></button>
                     <button type="button" class="btn ripple btn-secondary" data-bs-dismiss="modal">Close</button>
                 </div>
             </form>

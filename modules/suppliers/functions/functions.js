@@ -15,39 +15,32 @@ function formSubmit() {
     contentType: false,
     processData: false,
     beforeSend: function () {
-      $("#preloader").removeClass("d-none");
-      $("#submit-btn").prop("disabled", true);
+      $(".preloader").removeClass("d-none");
+      $(".submit-btn").prop("disabled", true);
     },
     success: function (response) {
       var json = JSON.parse(response);
 
-      $("#preloader").removeClass("d-none");
+      $(".preloader").removeClass("d-none");
 
       setTimeout(function () {
         if (json.status == "danger") {
           var toastType = json.status;
           var toastMsg = json.value;
           showToast(toastType, toastMsg);
-          // $('#preloader').addClass('d-none');
-          // $('#submit-btn').prop('disabled',false);
+          $('.preloader').addClass('d-none');
+          $('.submit-btn').prop('disabled',false);
         } else {
           var toastType = json.status;
           var toastMsg = json.value;
           showToast(toastType, toastMsg);
           $("#supplier_Modal").modal("toggle");
           loadTable();
-
-          $("#supplier_form")
-            .find(".parsley-success")
-            .removeClass("parsley-success");
-          $("#supplier_form")
-            .find(".parsley-error")
-            .removeClass("parsley-error");
         }
       }, 2000);
     },
     complete: function () {
-      $("#preloader").removeClass("d-none");
+      $(".preloader").removeClass("d-none");
     },
   });
 }
@@ -65,6 +58,8 @@ function add_supplier(supplier_id) {
       $("#address").val(json.address);
       $("#contact_number").val(json.contact_number);
       tinymce.get("details").setContent(json.details);
+      
+      clearFormValidation("#supplier_form");
       $("#supplier_Modal").modal("toggle");
     },
   });

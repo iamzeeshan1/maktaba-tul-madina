@@ -11,7 +11,7 @@ include("../../includes/header.php");
             </div>
             <div class="d-flex">
                 <div class="justify-content-center">
-                    <a  class="btn btn-primary my-2 btn-icon-text" onclick="add_purchase('0')">
+                    <a  class="btn btn-primary my-2 btn-icon-text text-white" onclick="add_purchase('0')">
                         <i class="fe fe-plus me-2"></i> Purchase Item
                     </a>
                 </div>

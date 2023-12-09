@@ -101,6 +101,8 @@
 
 <!-- Custom js -->
 <script src="<?= $app_path ?>assets/js/custom.js"></script>
+<!-- Custom js -->
+<script src="<?= $app_path ?>assets/js/helper.js"></script>
 <script type="text/javascript">
   tinymce.init({
     selector: '.tiny-mce',

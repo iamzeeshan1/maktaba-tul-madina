@@ -51,7 +51,7 @@ if (isset($_GET['item_id'])) {
 
               <div class="col-lg-4">
                 <label for="category_id" class="mg-b-10 form-label">Product Category</label>
-                <select name="category_id" class="form-select select2 modules/sales/create.php" required onchange="fn_category(this.value)" id="category_id">
+                <select name="category_id" class="form-select select2" required onchange="fn_category(this.value)" id="category_id">
                   <option value="">Select Category</option>
                   <?php
                     $qry_category = fetch_data($link, "SELECT * FROM invt_categories order by category_name");
@@ -67,7 +67,7 @@ if (isset($_GET['item_id'])) {
               </div>
               <div class="col-lg-4 d-none" id="misc_div">
                 <label for="misc_id" class="mg-b-10 form-label">Miscellaneous Products</label>
-                <select name="misc_id" class="form-select" id="misc_id" onchange="fn_misc(this.value)">
+                <select name="misc_id" class="form-select select2" id="misc_id" onchange="fn_misc(this.value)">
                   <option value="">Select</option>
                   <?php
                     $qry_misc = fetch_data($link, "SELECT * FROM invt_misc order by misc_prod_name");
@@ -84,7 +84,7 @@ if (isset($_GET['item_id'])) {
               </div>
               <div class="col-lg-4" id="language_div">
                 <label for="language" class="mg-b-10 form-label">Languages</label>
-                <select name="language" class="form-select" id="language">
+                <select name="language" class="form-select select2" id="language">
                   <option value="">Select Language</option>
                   <option value="urdu">Urdu</option>
                   <option value="english">English</option>
