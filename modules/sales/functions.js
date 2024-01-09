@@ -99,3 +99,37 @@ function check(item_id, sales_id) {
     $("#sold").prop("disabled", false);
   }
 }
+
+function get_discount(cust_id) {
+  $.ajax({
+    url: "ajax-calls.php",
+    type: "POST",
+    data: {ACTION:"get_discount",cust_id:cust_id},
+    success: function (data) {
+       $('#discount_1').val(data);
+    },
+  });
+}
+function find_price(retail_price){
+ var discount =  $('#discount_1').val();
+ var discount_2 =  $('#discount_2').val();
+ if(discount_2 != ''){
+  discount = discount_2;
+ }
+ var discount_value = (retail_price * discount) / 100;
+ var cost_price = retail_price - discount_value;
+ $('#cost_price').val(cost_price);
+ $('#total').val(cost_price);
+}
+function add_discount(value){
+ var retail_price =  $('#retail_price').val();
+ var discount_value = (retail_price * value) / 100;
+ var cost_price = retail_price - discount_value;
+ $('#cost_price').val(cost_price);
+ $('#total').val(cost_price);
+
+
+}
+function generate_picklist(sales_id){
+  
+}

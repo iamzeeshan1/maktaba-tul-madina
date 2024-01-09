@@ -31,6 +31,7 @@ include("../../includes/header.php");
                             <th width="4%">Sr.No</th>
                             <th width="20%">Date</th>
                             <th width="20%">Product ID</th>
+                            <th width="20%">Customer</th>
                             <th width="20%">Quantity Sold</th>
                             <th width="5%">Actions</th>
                         </thead>
@@ -39,14 +40,19 @@ include("../../includes/header.php");
                             <?php 
                             $srNo=1;
                             $query = fetch_data($link,"SELECT
-                            *, 
-                            invt_products.product_id
+                            invt_sales.*, 
+                            invt_products.product_id,
+                            invt_customers.customer_name
                             FROM
                             invt_sales
                             LEFT JOIN
                             invt_products
                             ON 
-                                invt_sales.item_id = invt_products.item_id");
+                                invt_sales.item_id = invt_products.item_id
+                            LEFT JOIN
+                            invt_customers
+                            ON 
+                            invt_customers.customer_id = invt_sales.customer_id");
 
                                 foreach($query as $row_sol){
                                 $sales_id = $row_sol['sales_id'];
@@ -55,7 +61,8 @@ include("../../includes/header.php");
                                 <td><?=$srNo++?></td>
                                 <td><?= $row_sol['date'] ?></td>
                                 <td><?= $row_sol['product_id'] ?></td>
-                                <td><?= $row_sol['sold'] ?></td>
+                                <td><?= $row_sol['customer_name'] ?></td>
+                                <td><?= $row_sol['quantity'] ?></td>
                                 
                                 <td>
                                     <div class="dropdown">
@@ -67,7 +74,15 @@ include("../../includes/header.php");
                                             <li><a class="dropdown-item" href="create.php?sales_id=<?= $sales_id?>">
                                                     <i class=" bx bx-edit"> Edit / View </i></a>
                                             </li>
-                                           
+                                            <?php if($row_sol['picked_by'] != ''){?>
+                                              <li><a class="dropdown-item" href="create.php?sales_id=<?= $sales_id?>">
+                                                    <i class=" bx bx-edit"> Generate Invoice </i></a>
+                                               </li>
+                                            <?php }else{?>
+                                              <li><a class="dropdown-item" onclick="generate_picklist($sales_id)">
+                                                    <i class=" bx bx-edit"> Generate Picklist </i></a>
+                                               </li>
+                                            <?php }?>
                                            
                                         </ul>
                                     </div>

@@ -1,6 +1,8 @@
 <?php
 $page_title = "Purchase - Maktaba-Tul-Madina";
 include("../../includes/header.php");
+$purchase_id = $_GET['id']??0;
+
 ?>
 <div class="main-container container-fluid">
     <div class="inner-body">
@@ -21,8 +23,8 @@ include("../../includes/header.php");
                         <div class="d-lg-flex">
                             <h2 class="main-content-label mb-1">#INV0678</h2>
                             <div class="ms-auto">
-                                <p class="mb-1"><span class="font-weight-bold">Invoice Date :</span> 01st November 2020</p>
-                                <p class="mb-0"><span class="font-weight-bold">Due Date :</span> 01 May  2020</p>
+                                <?php $currentDate = date("jS F, Y");?>
+                                <p class="mb-1"><span class="font-weight-bold">Invoice Date :</span> <?=$currentDate;?></p>
                             </div>
                         </div>
                         <hr class="mg-b-40">
@@ -50,66 +52,37 @@ include("../../includes/header.php");
                             <table class="table table-invoice table-bordered">
                                 <thead>
                                     <tr>
+                                        <th class="wd-20p">Date</th>
+                                        <th class="wd-20p">Supplier</th>
                                         <th class="wd-20p">Product</th>
-                                        <th class="wd-40p">Description</th>
                                         <th class="tx-center">QNTY</th>
-                                        <th class="tx-right">Unit</th>
-                                        <th class="tx-right">Amount</th>
                                     </tr>
                                 </thead>
                                 <tbody>
+                                    <?php
+                                        $row_query = fetch_data($link, "SELECT invt_purchase.*,invt_products.product_name, invt_suppliers.supplier_name  FROM invt_purchase LEFT  JOIN invt_suppliers ON invt_purchase.supplier_id = invt_suppliers.supplier_id LEFT  JOIN invt_products ON invt_purchase.item_id = invt_products.item_id where invt_purchase.purchase_id = $purchase_id");
+                                        $purchase_id = $row_query[0]['purchase_id'];
+                                    ?>
                                     <tr>
-                                        <td>Logo Creation</td>
-                                        <td class="tx-12">Logo and business cards design</td>
-                                        <td class="tx-center">2</td>
-                                        <td class="tx-right">$60.00</td>
-                                        <td class="tx-right">$120.00</td>
+                                        <td><?= $row_query[0]['date'] ?></td>
+                                        <td><?= $row_query[0]['supplier_name'] ?></td>
+                                        <td><?= $row_query[0]['product_name'] ?></td>
+                                        <td class="tx-right"><?= $row_query[0]['quantity'] ?></td>
+                                    
                                     </tr>
                                     <tr>
-                                        <td>Online Store Design & Development</td>
-                                        <td class="tx-12">Design/Development for all popular modern browsers</td>
-                                        <td class="tx-center">3</td>
-                                        <td class="tx-right">$80.00</td>
-                                        <td class="tx-right">$240.00</td>
+                                        <td class="tx-right" colspan="3">Cost Price</td>
+                                        <td class="tx-right" ><?= $row_query[0]['cost_price'] ?></td>
                                     </tr>
                                     <tr>
-                                        <td>App Design</td>
-                                        <td class="tx-12">Promotional mobile application</td>
-                                        <td class="tx-center">1</td>
-                                        <td class="tx-right">$40.00</td>
-                                        <td class="tx-right">$40.00</td>
-                                    </tr>
-                                    <tr>
-                                        <td class="valign-middle" colspan="2" rowspan="4">
-                                            <div class="invoice-notes">
-                                                <label class="main-content-label tx-13">Notes</label>
-                                                <p>Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo.</p>
-                                            </div><!-- invoice-notes -->
-                                        </td>
-                                        <td class="tx-right">Sub-Total</td>
-                                        <td class="tx-right" colspan="2">$400.00</td>
-                                    </tr>
-                                    <tr>
-                                        <td class="tx-right">Tax</td>
-                                        <td class="tx-right" colspan="2">3%</td>
-                                    </tr>
-                                    <tr>
-                                        <td class="tx-right">Discount</td>
-                                        <td class="tx-right" colspan="2">10%</td>
-                                    </tr>
-                                    <tr>
-                                        <td class="tx-right tx-uppercase tx-bold tx-inverse">Total Due</td>
-                                        <td class="tx-right" colspan="2">
-                                            <h4 class="tx-bold">$450.00</h4>
-                                        </td>
+                                        <td class="tx-right" colspan="3">Retail Price</td>
+                                        <td class="tx-right" ><?= $row_query[0]['retail_price'] ?></td>
                                     </tr>
                                 </tbody>
                             </table>
                         </div>
                     </div>
                     <div class="card-footer text-end">
-                        <button type="button" class="btn ripple btn-primary mb-1"><i class="fe fe-credit-card me-1"></i> Pay Invoice</button>
-                        <button type="button" class="btn ripple btn-secondary mb-1"><i class="fe fe-send me-1"></i> Send Invoice</button>
                         <button type="button" class="btn ripple btn-info mb-1" onclick="javascript:window.print();"><i class="fe fe-printer me-1"></i> Print Invoice</button>
                     </div>
                 </div>

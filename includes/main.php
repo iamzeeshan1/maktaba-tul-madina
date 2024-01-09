@@ -33,6 +33,7 @@ function add_data($link, $table, $data){
   $escaped_values = array_map( array($link, 'real_escape_string'), array_values($data));
   $values  = implode("', '", $escaped_values);
   $sql = "INSERT INTO `$table`($columns) VALUES ('$values')";
+  //echo $sql;
   $res = mysqli_query($link,$sql);
   return mysqli_insert_id($link);
 }

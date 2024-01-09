@@ -17,6 +17,12 @@ $(function () {
          lengthMenu: '_MENU_ items/page',
       }
    });
+   $('#customerTable').DataTable({
+      "processing": true,
+      "serverSide": true,
+      "pageLength": 50,
+      "ajax": "get_ajax.php"
+    });
    $('.datatable').DataTable({
       responsive: true,
       language: {

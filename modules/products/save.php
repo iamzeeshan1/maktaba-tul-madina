@@ -5,6 +5,7 @@ extract( $_POST );
 // print_r( $_POST );
 // exit;
 $item_id = $_GET[ 'item_id' ] ?? 0;
+$misc_id = $_POST[ 'misc_id' ] ?? 0;
 
 if ( $item_id>0 ) {
     $query = update_data( $link, 'invt_products', [

@@ -57,42 +57,50 @@ else{
               </div>
               <div class="col-lg-4">
                 <label for="name" class="mg-b-10 form-label">Customer Name:</label>
-                <input class="form-control" id="name" type="text" name="customer_name" value="<?=$row['customer_name']??''?>">
+                <select name="customer_id" class="form-control select2 select2-hidden-accessible" required id="customer_id" onchange="get_discount(this.value)" >
+                    <option value="">Select Customer</option>
+                    <?php 
+                    $qry_customer=fetch_data($link,"SELECT * FROM invt_customers order by customer_name");
+                    foreach($qry_customer as $row_customer){
+                    $customer_id=$row_customer['customer_id'];
+                    $customer_name=$row_customer['customer_name'];
+                
+                    $selected = (isset($row) && $row['customer_id'] == $customer_id) ? 'selected' : '';
+                    ?>
+                    <option value="<?= $customer_id;?>" <?= $selected; ?>><?= $customer_name;?></option>
+                    <?php }?>
+                </select>
+              </div>
+              <div class="col-md-4">
+                <label for="quantity" class="mg-b-10 form-label">Quantity:</label>
+                <input required class="form-control" id="datetimepicker" name="quantity" type="text" id="quantity" value="<?= $row['quantity']??''?>">
+              </div>
+              <div class="col-lg-4">
+                <label for="location" class="mg-b-10 form-label">Location:</label>
+                <input class="form-control" id="name" type="text" name="location" id="location" value="<?=$row['location']??''?>">
               </div>
               <div class="col-md-12 ">
                 <label for="details" class="form-label">Sale Details</label>
                 <textarea class="form-control tiny-mce" name="details" id="details" rows="4" ><?=$row['details']??''?></textarea>
               </div>
               <div class="col-md-4">
-                <label for="sold" class="form-label">Item Sold</label>
-                <input type="text" disabled required class="form-control" id="sold" name="sold"  value="<?=$row['sold']??''?>">
+                <label for="retail_price" class="form-label">Retaiil Price</label>
+                <input type="text" required class="form-control" id="retail_price" name="retail_price"  value="<?=$row['retail_price']??''?>" onfocusout="find_price(this.value)">
               </div>
               <div class="col-md-4">
-                <label for="price" class="form-label">Price</label>
-                <input type="text" readonly  class="form-control" id="price" name="price" value="<?=$row['price']??''?>">
+                <label for="discount_1" class="form-label">Discount 1 (%)</label>
+                <input type="text" readonly  class="form-control" id="discount_1" name="discount_1" value="<?=$row['discount_1']??''?>">
               </div>
               <div class="col-md-4">
-                <label for="discount" class="form-label">Discount</label>
-                <input type="text" readonly class="form-control" id="discount" name="discount" value="<?= $row['discount']??''?>">
+                <label for="discount_2" class="form-label">Discount 2 (%)</label>
+                <input type="text" class="form-control" id="discount_2" onfocusout="add_discount(this.value)" name="discount_2" value="<?= $row['discount_2']??''?>">
               </div>
               <div class="col-md-4">
-                <label for="subtotal" class="form-label">Subtotal</label>
-                <input type="text" readonly  class="form-control" id="subtotal" name="subtotal" value="<?= $row['subtotal'] ??''?>">
+                <label for="cost_price" class="form-label">Cost Price</label>
+                <input type="text" readonly  class="form-control" id="cost_price" name="cost_price" readonly value="<?=$row['cost_price']??''?>">
               </div>
               <div class="col-md-4">
-                <label for="delivery" class="form-label">Delivery Charges</label>
-                <input type="text"  class="form-control" id="delivery" name="delivery" required value="<?= $row['delivery']??''?>">
-              </div>
-              <div class="col-md-4">
-                <label for="process_fee" class="form-label">Processing Fee</label>
-                <input type="text"   class="form-control" id="process_fee" name="process_fee" value="<?= $row['process_fee']??''?>">
-              </div>
-              <div class="col-md-4">
-                <label for="other_amount" class="form-label">Other amount</label>
-                <input type="text"   class="form-control" id="other_amount" name="other_amount" value="<?= $row['other_amount']??''?>">
-              </div>
-              <div class="col-md-4">
-                <label for="total" class="form-label">Total Paid</label>
+                <label for="total" class="form-label">Total</label>
                 <input type="text"   class="form-control" id="total" name="total" readonly value="<?=$row['total']??''?>">
               </div>
               <div class="col-12">
