@@ -67,5 +67,14 @@ function add_supplier(supplier_id) {
 
 loadTable();
 function loadTable() {
-  $("#loadTable").load("loadTable.php", function () {});
+  $("#loadTable").load("loadTable.php", function () {
+    $('#Suptable').DataTable({
+      responsive: true,
+      language: {
+         searchPlaceholder: 'Search...',
+         sSearch: '',
+         lengthMenu: '_MENU_ items/page',
+      }
+   });
+  });
 }

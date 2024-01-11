@@ -73,36 +73,6 @@ if (isset($_POST['ACTION']) && $_POST['ACTION'] == 'edit') {
         echo  json_encode( $res );
     
 }
-if (isset($_POST['ACTION']) && $_POST['ACTION'] == 'update_cost_price') {
-    extract( $_POST );
-    $query = update_data( $link, 'invt_purchase', [
-                'cost_price'=>$cost_price
-            ], [ 'purchase_id'=>$purchase_id ], false );
- 
-        $res = array( 'status'=>'success', 'value'=>'Updated Successfully!' );
-        echo  json_encode( $res );
-    
-}
-if (isset($_POST['ACTION']) && $_POST['ACTION'] == 'update_retail_price') {
-    extract( $_POST );
-    $query = update_data( $link, 'invt_purchase', [
-                'retail_price'=>$retail_price
-            ], [ 'purchase_id'=>$purchase_id ], false );
- 
-        $res = array( 'status'=>'success', 'value'=>'Updated Successfully!' );
-        echo  json_encode( $res );
-    
-}
-if (isset($_POST['ACTION']) && $_POST['ACTION'] == 'update_qnty') {
-    extract( $_POST );
-    $query = update_data( $link, 'invt_purchase', [
-                'quantity'=>$quantity
-            ], [ 'purchase_id'=>$purchase_id ], false );
- 
-        $res = array( 'status'=>'success', 'value'=>'Updated Successfully!' );
-        echo  json_encode( $res );
-    
-}
 // if ( $purchase_id>0 ) {
 //     $res = array( 'status'=>'success', 'value'=>'Updated Successfully!' );
 //     echo  json_encode( $res );

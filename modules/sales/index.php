@@ -26,13 +26,14 @@ include("../../includes/header.php");
         <div class="card custom-card">
           <div class="card-body">
                 <div class="table-responsive mb-4 mt-4">
-                    <table class="table table-bordered caption-top W-100 dataTables_length datatable" id="saleTable">
+                    <table class="table table-bordered caption-top W-100 dataTables_length " id="saleTable">
                         <thead class="table-light">
                             <th width="4%">Sr.No</th>
                             <th width="20%">Date</th>
                             <th width="20%">Product ID</th>
                             <th width="20%">Customer</th>
                             <th width="20%">Quantity Sold</th>
+                            <th width="20%">Picked By</th>
                             <th width="5%">Actions</th>
                         </thead>
                         <tbody>
@@ -42,7 +43,8 @@ include("../../includes/header.php");
                             $query = fetch_data($link,"SELECT
                             invt_sales.*, 
                             invt_products.product_id,
-                            invt_customers.customer_name
+                            invt_customers.customer_name,
+                            invt_picklist.name
                             FROM
                             invt_sales
                             LEFT JOIN
@@ -52,7 +54,11 @@ include("../../includes/header.php");
                             LEFT JOIN
                             invt_customers
                             ON 
-                            invt_customers.customer_id = invt_sales.customer_id");
+                            invt_customers.customer_id = invt_sales.customer_id
+                            LEFT JOIN
+                            invt_picklist
+                            ON 
+                            invt_picklist.picklist_id = invt_sales.picklist_id");
 
                                 foreach($query as $row_sol){
                                 $sales_id = $row_sol['sales_id'];
@@ -63,6 +69,7 @@ include("../../includes/header.php");
                                 <td><?= $row_sol['product_id'] ?></td>
                                 <td><?= $row_sol['customer_name'] ?></td>
                                 <td><?= $row_sol['quantity'] ?></td>
+                                <td><?= $row_sol['name']??''?></td>
                                 
                                 <td>
                                     <div class="dropdown">
@@ -74,12 +81,13 @@ include("../../includes/header.php");
                                             <li><a class="dropdown-item" href="create.php?sales_id=<?= $sales_id?>">
                                                     <i class=" bx bx-edit"> Edit / View </i></a>
                                             </li>
-                                            <?php if($row_sol['picked_by'] != ''){?>
-                                              <li><a class="dropdown-item" href="create.php?sales_id=<?= $sales_id?>">
+                                            <?php if($row_sol['picklist_id'] != ''){?>
+                                              <li><a class="dropdown-item" href="invoice.php?sales_id=<?= $sales_id?>">
                                                     <i class=" bx bx-edit"> Generate Invoice </i></a>
                                                </li>
-                                            <?php }else{?>
-                                              <li><a class="dropdown-item" onclick="generate_picklist($sales_id)">
+                                            <?php }
+                                            else{?>
+                                              <li><a class="dropdown-item" onclick="generate_picklist(<?=$sales_id?>)">
                                                     <i class=" bx bx-edit"> Generate Picklist </i></a>
                                                </li>
                                             <?php }?>
@@ -101,6 +109,8 @@ include("../../includes/header.php");
   </div>
 </div> 
 
-
+<?php include("modals.php"); 
+?>
 <?php include("../../includes/footer.php"); 
 ?>
+<script src="functions.js"></script>

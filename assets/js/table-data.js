@@ -19,11 +19,9 @@ $(function () {
    });
    $('#customerTable').DataTable({
       "processing": true,
-      "serverSide": true,
       "pageLength": 50,
-      "ajax": "get_ajax.php"
     });
-   $('.datatable').DataTable({
+   $('.dataTable').DataTable({
       responsive: true,
       language: {
          searchPlaceholder: 'Search...',

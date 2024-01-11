@@ -61,5 +61,14 @@ function add_person(picklist_id) {
 
 loadTable();
 function loadTable() {
-  $("#loadTable").load("loadTable.php", function () {});
+  $("#loadTable").load("loadTable.php", function () {
+    $('#pickTable').DataTable({
+      responsive: true,
+      language: {
+         searchPlaceholder: 'Search...',
+         sSearch: '',
+         lengthMenu: '_MENU_ items/page',
+      }
+   });
+  });
 }

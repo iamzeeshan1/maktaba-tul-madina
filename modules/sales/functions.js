@@ -131,5 +131,142 @@ function add_discount(value){
 
 }
 function generate_picklist(sales_id){
-  
+  $.ajax({
+    type: "POST",
+    url: "ajax-calls.php",
+    data: { ACTION: "picklist", sales_id: sales_id },
+    success: function (response) {
+      var json = JSON.parse(response);
+      $("#sales_id").val(sales_id);
+      $("#date").val(json.date);
+      $("#customer_name").val(json.customer_name);
+      $("#product_name").val(json.product_name);
+      $("#quantity").val(json.quantity);
+      $("#location").val(json.location);
+      tinymce.get("details").setContent(json.details);
+      $("#picklist_id").val(json.picklist_id).trigger('change');
+      clearFormValidation("#picklist_form");
+      $("#picklist_Modal").modal("toggle");
+    },
+  });
+}
+function save_delivery(deliveryValue,sales_id,subtotal) { 
+  var deliveryNumber = parseFloat(deliveryValue);
+  var subtotalNumber = parseFloat(subtotal);
+
+  var process = parseFloat($('#process').val());
+  var other = parseFloat($('#other').val());
+  var grand = subtotalNumber + deliveryNumber + process + other; 
+  $.ajax({
+      url: 'ajax-calls.php', 
+      method: 'POST',
+      data: {
+          ACTION: "save_delivery",
+          delivery: deliveryValue,
+          sales_id: sales_id,
+          grand:grand
+      },
+      success: function(response) {
+        $('.grand-total').html(grand);
+      }
+  });
+}
+function save_process(processValue,sales_id,subtotal) { 
+  var processValue = parseFloat(processValue);
+  var subtotalNumber = parseFloat(subtotal);
+  var delivery = parseFloat($('#delivery').val());
+  var other = parseFloat($('#other').val());
+  var grand = subtotalNumber + processValue + delivery + other; 
+  $.ajax({
+      url: 'ajax-calls.php', 
+      method: 'POST',
+      data: {
+          ACTION: "save_process",
+          process: processValue,
+          sales_id: sales_id,
+          grand:grand
+      },
+      success: function(response) {
+        $('.grand-total').html(grand);
+      }
+  });
+}
+function save_other(otherValuue,sales_id,subtotal) { 
+  var otherValuue = parseFloat(otherValuue);
+  var subtotalNumber = parseFloat(subtotal);
+  var delivery = parseFloat($('#delivery').val());
+  var process = parseFloat($('#process').val());
+  var grand = subtotalNumber + otherValuue + delivery + process; 
+  $.ajax({
+      url: 'ajax-calls.php', 
+      method: 'POST',
+      data: {
+          ACTION: "save_other",
+          other: otherValuue,
+          sales_id: sales_id,
+          grand:grand
+      },
+      success: function(response) {
+        $('.grand-total').html(grand);
+      }
+  });
+}
+function save_details(value,sales_id) { 
+  var  value = value.trim();
+  $.ajax({
+      url: 'ajax-calls.php', 
+      method: 'POST',
+      data: {
+          ACTION: "save_details",
+          value: value,
+          sales_id: sales_id
+      },
+      success: function(response) {
+      }
+  });
+}
+function formSubmit() {
+  var form = $("#picklist_form")[0];
+  if (!form.checkValidity()) {
+    return;
+  }
+
+  var formData = new FormData(form);
+
+  $.ajax({
+    type: "POST",
+    url: "save_picklist.php",
+    data: formData,
+    contentType: false,
+    processData: false,
+    beforeSend: function () {
+      $(".preloader").removeClass("d-none");
+      $(".submit-btn").prop("disabled", true);
+    },
+    success: function (response) {
+      var json = JSON.parse(response);
+
+      $(".preloader").removeClass("d-none");
+
+      setTimeout(function () {
+        if (json.status == "danger") {
+          var toastType = json.status;
+          var toastMsg = json.value;
+          showToast(toastType, toastMsg);
+          $('.preloader').addClass('d-none');
+          $('.submit-btn').prop('disabled',false);
+        } else {
+          var toastType = json.status;
+          var toastMsg = json.value;
+          showToast(toastType, toastMsg);
+          $("#picklist_Modal").modal("toggle");
+          
+          loadTable();
+        }
+      }, 2000);
+    },
+    complete: function () {
+      $(".preloader").removeClass("d-none");
+    },
+  });
 }

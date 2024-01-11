@@ -5,7 +5,7 @@
         <div class="card custom-card">
             <div class="card-body">
                 <div class="table-responsive mb-4 mt-4">
-                    <table class="table table-striped table-bordered text-nowrap dataTable no-footer dtr-inline">
+                    <table class="table table-striped table-bordered text-nowrap  no-footer dtr-inline" id="pickTable">
                         <thead>
                             <th width="4%">Sr.No</th>
                             <th width="20%">Name</th>

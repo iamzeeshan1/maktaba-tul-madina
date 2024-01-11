@@ -76,13 +76,7 @@ function formSubmit(){
 
 }
 function add_purchase(purchase_id) {
-  clearFormValidation("#purchase_form");
-  if (!$('#saved_purchase').hasClass('d-none')) {
-    $('#saved_purchase').addClass('d-none');
-    $('#submit-btn').addClass('d-none');
-  }
   $("#purchase_Modal").modal("toggle");
-
 }
 function edit_purchase(purchase_id) {
   $.ajax({
@@ -109,16 +103,7 @@ function edit_purchase(purchase_id) {
 }
 loadTable();
 function loadTable() {
-  $("#loadTable").load("loadTable.php", function () {
-    $('#purTable').DataTable({
-      responsive: true,
-      language: {
-         searchPlaceholder: 'Search...',
-         sSearch: '',
-         lengthMenu: '_MENU_ items/page',
-      }
-   });
-  });
+  $("#loadTable").load("loadTable.php", function () {});
 }
 function save_data() {
   $('#saved_purchase').toggleClass('d-none', false);
@@ -156,84 +141,4 @@ function save_data() {
   $('#retail_price').val('');
   $('#quantity').val('');
   $('#location').val('');
-}
-function EditCost(element) {
-  var purchaseId = $(element).data('purchase-id');
-  var costPrice = $(element).text();
-  
-  $(element).html('<input type="text" id="editableCostPrice" value="' + costPrice + '">');
-
-  // Focus on the input field
-  $('#editableCostPrice').focus();
-
-  // Save the edited value on focusout
-  $('#editableCostPrice').on('focusout', function() {
-      var newCostPrice = $(this).val();
-
-      $.ajax({
-          url: 'save.php', 
-          method: 'POST',
-          data: { ACTION:"update_cost_price",purchase_id: purchaseId, cost_price: newCostPrice },
-          success: function(response) {
-              $(element).text(newCostPrice);
-              loadInvTable();
-          }
-      });
-
-  });
-}
-function EditRetail(element) {
-  var purchaseId = $(element).data('purchase-id');
-  var retailPrice = $(element).text();
-  
-  $(element).html('<input type="text" id="editRetaiil" value="' + retailPrice + '">');
-
-  // Focus on the input field
-  $('#editRetaiil').focus();
-
-  // Save the edited value on focusout
-  $('#editRetaiil').on('focusout', function() {
-      var newretailPrice = $(this).val();
-
-      $.ajax({
-          url: 'save.php', 
-          method: 'POST',
-          data: { ACTION:"update_retail_price",purchase_id: purchaseId, retail_price: newretailPrice },
-          success: function(response) {
-              $(element).text(newretailPrice);
-              
-          }
-      });
-
-  });
-}
-function EditQnty(element) {
-  var purchaseId = $(element).data('purchase-id');
-  var qnty = $(element).text();
-  
-  $(element).html('<input type="text" id="editQnty" value="' + qnty + '">');
-
-  // Focus on the input field
-  $('#editQnty').focus();
-
-  // Save the edited value on focusout
-  $('#editQnty').on('focusout', function() {
-      var newqnty = $(this).val();
-
-      $.ajax({
-          url: 'save.php', 
-          method: 'POST',
-          data: { ACTION:"update_retail_price",purchase_id: purchaseId, quantity: newqnty },
-          success: function(response) {
-              $(element).text(newqnty);
-              
-          }
-      });
-
-  });
-}
-loadInvTable();
-function loadInvTable() {
-  var inv = $('#loadInvTable').data('id');
-  $("#loadInvTable").load("loadInvTable.php", {inv:inv},function () {});
 }

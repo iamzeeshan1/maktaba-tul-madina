@@ -1,7 +1,7 @@
 <?php
 $page_title = "Purchase - Maktaba-Tul-Madina";
 include("../../includes/header.php");
-$invoice_number = $_GET['id']??'';
+$purchase_id = $_GET['id']??0;
 
 ?>
 <div class="main-container container-fluid">
@@ -21,7 +21,7 @@ $invoice_number = $_GET['id']??'';
                 <div class="card custom-card">
                     <div class="card-body">
                         <div class="d-lg-flex">
-                            <h2 class="main-content-label mb-1">#<?=$invoice_number?></h2>
+                            <h2 class="main-content-label mb-1">#INV0678</h2>
                             <div class="ms-auto">
                                 <?php $currentDate = date("jS F, Y");?>
                                 <p class="mb-1"><span class="font-weight-bold">Invoice Date :</span> <?=$currentDate;?></p>
@@ -48,8 +48,38 @@ $invoice_number = $_GET['id']??'';
                                 </address>
                             </div>
                         </div>
-                        <div class="table-responsive mg-t-40 " id="loadInvTable" data-id="<?=$invoice_number?>">
-                            
+                        <div class="table-responsive mg-t-40">
+                            <table class="table table-invoice table-bordered">
+                                <thead>
+                                    <tr>
+                                        <th class="wd-20p">Date</th>
+                                        <th class="wd-20p">Supplier</th>
+                                        <th class="wd-20p">Product</th>
+                                        <th class="tx-center">QNTY</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <?php
+                                        $row_query = fetch_data($link, "SELECT invt_purchase.*,invt_products.product_name, invt_suppliers.supplier_name  FROM invt_purchase LEFT  JOIN invt_suppliers ON invt_purchase.supplier_id = invt_suppliers.supplier_id LEFT  JOIN invt_products ON invt_purchase.item_id = invt_products.item_id where invt_purchase.purchase_id = $purchase_id");
+                                        $purchase_id = $row_query[0]['purchase_id'];
+                                    ?>
+                                    <tr>
+                                        <td><?= $row_query[0]['date'] ?></td>
+                                        <td><?= $row_query[0]['supplier_name'] ?></td>
+                                        <td><?= $row_query[0]['product_name'] ?></td>
+                                        <td class="tx-right"><?= $row_query[0]['quantity'] ?></td>
+                                    
+                                    </tr>
+                                    <tr>
+                                        <td class="tx-right" colspan="3">Cost Price</td>
+                                        <td class="tx-right" ><?= $row_query[0]['cost_price'] ?></td>
+                                    </tr>
+                                    <tr>
+                                        <td class="tx-right" colspan="3">Retail Price</td>
+                                        <td class="tx-right" ><?= $row_query[0]['retail_price'] ?></td>
+                                    </tr>
+                                </tbody>
+                            </table>
                         </div>
                     </div>
                     <div class="card-footer text-end">
@@ -64,4 +94,4 @@ $invoice_number = $_GET['id']??'';
 <?php 
 include("../../includes/footer.php");
 ?>
-<script src="functions/functions.js"></script>
+			
