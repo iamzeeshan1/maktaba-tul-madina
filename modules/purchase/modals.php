@@ -71,7 +71,7 @@
                     <div class="row">
                         <div class="col-md-12">
                             <div >
-                                <table class="table table-striped table-bordered text-nowrap dataTable no-footer dtr-inline d-none" id="saved_purchase">
+                                <table class="table table-striped table-bordered text-nowrap  no-footer dtr-inline d-none" id="saved_purchase">
                                     <thead class="text-white">
                                         <tr>
                                             <th>Date</th>
