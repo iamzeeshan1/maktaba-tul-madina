@@ -32,25 +32,16 @@ include("../../includes/header.php");
                                 <tbody>
                                     
                                     <?php 
-                                    $query = fetch_data($link,"SELECT
-                                    invt_sales.*, 
-                                    invt_products.product_id,
-                                    invt_customers.customer_name,
-                                    invt_picklist.name
-                                    FROM
-                                    invt_sales
-                                    LEFT JOIN
-                                    invt_products
-                                    ON 
-                                        invt_sales.item_id = invt_products.item_id
-                                    LEFT JOIN
-                                    invt_customers
-                                    ON 
-                                    invt_customers.customer_id = invt_sales.customer_id
-                                    LEFT JOIN
-                                    invt_picklist
-                                    ON 
-                                    invt_picklist.picklist_id = invt_sales.picklist_id");
+                                        $query = fetch_data($link,"SELECT
+                                        invt_sales.*,
+                                        invt_products.product_id,
+                                        invt_customers.customer_name 
+                                        FROM
+                                        invt_sales
+                                        LEFT JOIN invt_products ON invt_sales.item_id = invt_products.item_id
+                                        LEFT JOIN invt_customers ON invt_customers.customer_id = invt_sales.customer_id
+                                        INNER JOIN users ON invt_sales.picklist_id = users.user_id
+                                        INNER JOIN users_detail ON users.user_id = users_detail.user_id");
 
                                         foreach($query as $key => $row_sol){
                                         $sales_id = $row_sol['sales_id'];
