@@ -35,7 +35,9 @@ include("../../includes/header.php");
                                         $query = fetch_data($link,"SELECT
                                         invt_sales.*,
                                         invt_products.product_id,
-                                        invt_customers.customer_name 
+                                        invt_customers.customer_name,
+                                        users_detail.first_name as f_name,
+                                        users_detail.last_name as l_name 
                                         FROM
                                         invt_sales
                                         LEFT JOIN invt_products ON invt_sales.item_id = invt_products.item_id
@@ -53,7 +55,7 @@ include("../../includes/header.php");
                                         <td><?= $row_sol['customer_name'] ?></td>
                                         <td><?= $row_sol['quantity'] ?></td>
                                         <td><?= $row_sol['date'] ?></td>
-                                        <td><?= $row_sol['name']??''?></td>
+                                        <td><?= $row_sol['f_name'].' '.$row_sol['l_name'] ??''?></td>
                                         <td>
                                             <?php
                                                 if($row_sol['status'] == 'accepted'){
