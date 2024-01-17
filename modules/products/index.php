@@ -40,7 +40,6 @@ include("../../includes/header.php");
                                 </thead>
                                 <tbody>
                                     <?php
-                                        $srNo = 1;
                                         $query = fetch_data($link, "SELECT
                                         invt_products.*,
                                         invt_misc.misc_prod_name,
@@ -50,11 +49,11 @@ include("../../includes/header.php");
                                         LEFT JOIN invt_misc ON invt_products.misc_id = invt_misc.misc_id
                                         LEFT JOIN invt_categories ON invt_products.category_id = invt_categories.category_id");
 
-                                        foreach ($query as $row_sol) {
+                                        foreach ($query as $key => $row_sol) {
                                             $item_id = $row_sol['item_id'];
                                     ?>
                                     <tr>
-                                        <td><?= $srNo++ ?></td>
+                                        <td><?= $key+1 ?></td>
                                         <td><a href="create.php?item_id=<?= $item_id ?>"><?= $row_sol['product_id'] ?></a>
                                         </td>
                                         <td><?= $row_sol['product_name'] ?></td>

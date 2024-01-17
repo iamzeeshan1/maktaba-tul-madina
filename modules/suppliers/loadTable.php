@@ -18,14 +18,13 @@
                         <tbody>
 
                             <?php
-                                $srNo = 1;
                                 $query = fetch_data($link, "Select * from invt_suppliers");
 
-                                foreach ($query as $row_sol) {
+                                foreach ($query as $key => $row_sol) {
                                     $supplier_id = $row_sol['supplier_id'];
                             ?>
                             <tr>
-                                <td><?= $srNo++ ?></td>
+                                <td><?= $key+1 ?></td>
                                 <td><?= $row_sol['supplier_name'] ?></td>
                                 <td><?= $row_sol['email'] ?></td>
                                 <td><?= $row_sol['address'] ?></td>

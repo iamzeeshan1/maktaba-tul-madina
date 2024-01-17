@@ -73,6 +73,14 @@
                             <span class="sidemenu-label">Picklist</span>
                         </a>
                     </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="<?=$app_path?>modules/picked-by/">
+                            <span class="shape1"></span>
+                            <span class="shape2"></span>
+                            <i class="ti-clipboard sidemenu-icon menu-icon "></i>
+                            <span class="sidemenu-label">Picked By</span>
+                        </a>
+                    </li>
                 </ul>
                 <div class="slide-right" id="slide-right"><i class="fe fe-chevron-right"></i></div>
             </div>

@@ -16,7 +16,6 @@
                         <tbody>
 
                             <?php
-                                $srNo = 1;
                                 $query = fetch_data($link, "SELECT
                                 invt_purchase.*, 
                                 SUM(retail_price) AS total_retail_price, 
@@ -31,12 +30,12 @@
                                 GROUP BY
                                 invoice_number;");
 
-                                foreach ($query as $row_sol) {
+                                foreach ($query as $key => $row_sol) {
                                     $purchase_id = $row_sol['purchase_id'];
                                     $invoice = $row_sol['invoice_number'];
                             ?>
                             <tr>
-                                <td><?= $srNo++ ?></td>
+                                <td><?= $key+1 ?></td>
                                 <td><?= $row_sol['date'] ?></td>
                                 <td><?= $row_sol['supplier_name'] ?></td>
                                 <td><?= $row_sol['total_cost_price'] ?></td>

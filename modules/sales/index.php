@@ -39,7 +39,6 @@ include("../../includes/header.php");
                         <tbody>
                             
                             <?php 
-                            $srNo=1;
                             $query = fetch_data($link,"SELECT
                             invt_sales.*, 
                             invt_products.product_id,
@@ -60,11 +59,11 @@ include("../../includes/header.php");
                             ON 
                             invt_picklist.picklist_id = invt_sales.picklist_id");
 
-                                foreach($query as $row_sol){
+                                foreach($query as $key => $row_sol){
                                 $sales_id = $row_sol['sales_id'];
                             ?>
                             <tr>
-                                <td><?=$srNo++?></td>
+                                <td><?= $key+1 ?></td>
                                 <td><?= $row_sol['date'] ?></td>
                                 <td><?= $row_sol['product_id'] ?></td>
                                 <td><?= $row_sol['customer_name'] ?></td>

@@ -1,10 +1,10 @@
 <?php
 include( '../../includes/header-min.php' );
-$purchase_id = $_GET[ 'purchase_id' ];
+$customer_id = $_GET[ 'customer_id' ];
 
-if ( isset( $_GET[ 'purchase_id' ] ) && $_GET[ 'action' ] == 'delete_item' )
+if ( isset( $_GET[ 'customer_id' ] ) && $_GET[ 'action' ] == 'delete_item' )
  {
-    $qry = "delete from invt_purchase where purchase_id='$purchase_id'";
+    $qry = "delete from invt_customers where customer_id='$customer_id'";
     $chk = insert_update_delete_data( $link, $qry );
 
     if ( $chk ) {

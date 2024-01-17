@@ -40,14 +40,13 @@ include("../../includes/header.php");
                                 <tbody>
 
                                     <?php
-                                        $srNo = 1;
                                         $query = fetch_data($link, "Select * from invt_customers");
 
-                                        foreach ($query as $row_sol) {
+                                        foreach ($query as $key => $row_sol) {
                                             $customer_id = $row_sol['customer_id'];
                                     ?>
                                     <tr>
-                                        <td><?= $srNo++ ?></td>
+                                        <td><?= $key+1 ?></td>
                                         <td><?= $row_sol['date'] ?></td>
                                         <td><a href="create.php?customer_id=<?= $customer_id ?>"><?= $row_sol['customer_name'] ?></a>
                                         </td>

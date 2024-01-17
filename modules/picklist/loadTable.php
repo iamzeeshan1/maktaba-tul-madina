@@ -17,11 +17,11 @@
                                 $srNo = 1;
                                 $query = fetch_data($link, "Select * from invt_picklist");
 
-                                foreach ($query as $row_sol) {
+                                foreach ($query as $key => $row_sol) {
                                     $picklist_id = $row_sol['picklist_id'];
                             ?>
                             <tr>
-                                <td><?= $srNo++ ?></td>
+                                <td><?= $key+1 ?></td>
                                 <td><?= $row_sol['name'] ?></td>
                                 <td>
                                     <div class="dropdown">
