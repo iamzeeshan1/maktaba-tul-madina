@@ -63,7 +63,28 @@ include("../../includes/header.php");
                                         <td><?= $row_sol['quantity'] ?></td>
                                         <td><?= $row_sol['date'] ?></td>
                                         <td><?= $row_sol['name']??''?></td>
-                                        <td><?=  $row_sol['status'] ?></td>
+                                        <td>
+                                            <?php
+                                                if($row_sol['status'] == 'accepted'){
+                                                    $class="btn-success";
+                                                    $title="Accepted";
+                                                }elseif($row_sol['status'] == 'decline'){
+                                                    $class="btn-warning";
+                                                    $title="Decline";
+                                                }elseif($row_sol['status'] == 'pending'){
+                                                    $class="btn-primary";
+                                                    $title="Pending";
+                                                }
+                                            ?>
+                                            <div class="dropdown">
+                                                <button aria-expanded="false" aria-haspopup="true" class="ripple btn <?= $class ?> dropdown-toggle" data-bs-toggle="dropdown" type="button"><?= $title?><i class="fas fa-caret-down ms-1"></i></button>
+                                                <div class="dropdown-menu tx-13">
+                                                    <a class="dropdown-item" onclick=" JSconfirm('change-status.php?sales_id=<?= $sales_id ?>&type=accepted&action=change_status','warning','Are you sure you want to Accept this?')">Accepted</a>
+                                                    <a class="dropdown-item" onclick=" JSconfirm('change-status.php?sales_id=<?= $sales_id ?>&type=decline&action=change_status','warning','Are you sure you want to Decline this?')">Decline</a>
+                                                    <a class="dropdown-item" onclick=" JSconfirm('change-status.php?sales_id=<?= $sales_id ?>&type=pending&action=change_status','warning','Are you sure you want to move this to pending?')">Pending</a>
+                                                </div>
+                                            </div>
+                                        </td>
                                         <td>
                                             <div class="dropdown">
                                                 <a href="#" role="button" id="dropdownMenuLink" data-bs-toggle="dropdown" aria-expanded="false">
