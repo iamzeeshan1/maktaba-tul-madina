@@ -250,21 +250,21 @@ function change_notif(notif_id){
     },
   });
 }
-function checkNotifications() {
-  $.ajax({
-    url: '../../ajax.php', 
-    method: 'POST',
-    data: { ACTION: "notif_ref" },
-    success: function(data) {
-        alert(data);
-        $('.notif').html(data);
-      }
-    });
-  }
+// function checkNotifications() {
+//   $.ajax({
+//     url: '../../ajax.php', 
+//     method: 'POST',
+//     data: { ACTION: "notif_ref" },
+//     success: function(data) {
+//         alert(data);
+//         $('.notif').html(data);
+//       }
+//     });
+//   }
 
-  setInterval(checkNotifications, 60000);
+//   setInterval(checkNotifications, 60000);
 
-  checkNotifications();
+//   checkNotifications();
 </script>
 <?php
 unset($_SESSION["toast_type"]);
