@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost
--- Generation Time: Jan 18, 2024 at 08:10 PM
+-- Generation Time: Jan 18, 2024 at 08:13 PM
 -- Server version: 10.4.14-MariaDB
 -- PHP Version: 7.4.10
 
@@ -200,9 +200,7 @@ CREATE TABLE `users` (
 --
 
 INSERT INTO `users` (`user_id`, `user_name`, `user_password`, `user_status`, `user_role`, `created_at`, `updated_at`) VALUES
-(1, 'aazaz.raza', 'e10adc3949ba59abbe56e057f20f883e', 1, '1', '2022-01-13 13:57:12', NULL),
-(4, 'farwa.javed', 'e10adc3949ba59abbe56e057f20f883e', 1, '2', NULL, NULL),
-(5, 'meerab', 'e10adc3949ba59abbe56e057f20f883e', 1, '2', NULL, NULL);
+(1, 'aazaz.raza', 'e10adc3949ba59abbe56e057f20f883e', 1, '1', '2022-01-13 13:57:12', NULL);
 
 -- --------------------------------------------------------
 
@@ -226,9 +224,7 @@ CREATE TABLE `users_detail` (
 --
 
 INSERT INTO `users_detail` (`user_detail_id`, `first_name`, `last_name`, `contact_number`, `user_email`, `user_id`, `created_at`, `updated_at`) VALUES
-(1, 'Aazaz', 'Raza', '03116794400', 'aazaz@gmail.com', 1, '2022-01-13 13:57:12', '2023-07-07 02:46:43'),
-(4, 'Farwa', 'maryum', NULL, 'farwa@gmail.com', 4, NULL, NULL),
-(5, 'Meerab', 'eman', NULL, 'meerab@gmaiil.com', 5, NULL, NULL);
+(1, 'Aazaz', 'Raza', '03116794400', 'aazaz@gmail.com', 1, '2022-01-13 13:57:12', '2023-07-07 02:46:43');
 
 --
 -- Indexes for dumped tables
