@@ -17,6 +17,7 @@
             <div class="main-sidebar-body main-body-1">
                 <div class="slide-left disabled" id="slide-left"><i class="fe fe-chevron-left"></i></div>
                 <ul class="menu-nav nav">
+                    <?php  if($_SESSION['mktb_role_id'] == '1'):?>
                     <li class="nav-item">
                         <a class="nav-link" href="<?=$app_path?>modules/dashboard/">
                             <span class="shape1"></span>
@@ -73,14 +74,17 @@
                             <span class="sidemenu-label">Picklist</span>
                         </a>
                     </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="<?=$app_path?>modules/picked-by/">
-                            <span class="shape1"></span>
-                            <span class="shape2"></span>
-                            <i class="ti-clipboard sidemenu-icon menu-icon "></i>
-                            <span class="sidemenu-label">Picked By</span>
-                        </a>
-                    </li>
+                    <?php endif; ?>
+                    <?php  if($_SESSION['mktb_role_id'] == '2'):?>
+                        <li class="nav-item">
+                            <a class="nav-link" href="<?=$app_path?>modules/picked-by/">
+                                <span class="shape1"></span>
+                                <span class="shape2"></span>
+                                <i class="ti-clipboard sidemenu-icon menu-icon "></i>
+                                <span class="sidemenu-label">Assigned Sales</span>
+                            </a>
+                        </li>
+                    <?php endif; ?>
                 </ul>
                 <div class="slide-right" id="slide-right"><i class="fe fe-chevron-right"></i></div>
             </div>

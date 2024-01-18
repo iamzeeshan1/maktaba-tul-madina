@@ -5,32 +5,69 @@ extract( $_POST );
 // print_r( $_POST );
 // exit;
 $item_id = $_GET[ 'item_id' ] ?? 0;
-$misc_id = $_POST[ 'misc_id' ] ?? '0';
+if(isset($_POST[ 'misc_id' ]) && $_POST[ 'misc_id' ]!=''){
+
+    $misc_id = $_POST[ 'misc_id' ];
+    $language = '';
+    $publisher='';
+}else{
+    $misc_id = '0';
+}
 
 if ( $item_id>0 ) {
-    $query = update_data( $link, 'invt_products', [
-        'product_id'=>$product_id,
-        'barcode'=>$barcode,
-        'product_name'=>$product_name,
-        'misc_id'=>$misc_id,
-        'category_id'=>$category_id,
-        'language'=>$language,
-        'publisher'=> $publisher,
+    // $query = update_data( $link, 'invt_products', [
+    //     'product_id'=>$product_id,
+    //     'barcode'=>$barcode,
+    //     'product_name'=>$product_name,
+    //     'misc_id'=>$misc_id,
+    //     'category_id'=>$category_id,
+    //     'language'=>$language,
+    //     'publisher'=> $publisher,
 
-    ], [ 'item_id'=>$item_id ], false );
+    // ], [ 'item_id'=>$item_id ], false );
+    echo $query = "UPDATE `invt_products`
+SET
+    `product_id`= '$product_id',
+     `barcode`= '$barcode',
+     `product_name`= '$product_name',
+     `misc_id`= '$misc_id',
+     `category_id`= '$category_id',
+     `language`= '$language',
+     `publisher`=  '$publisher'
+WHERE
+    `item_id` = $item_id";
 
 } else {
-    $query = add_data( $link, 'invt_products', [
-        'product_id'=>$product_id,
-        'barcode'=>$barcode,
-        'product_name'=>$product_name,
-        'misc_id'=>$misc_id,
-        'category_id'=>$category_id,
-        'language'=>$language,
-        'publisher'=> $publisher,
+    // $query = add_data( $link, 'invt_products', [
+    //     'product_id'=>$product_id,
+    //     'barcode'=>$barcode,
+    //     'product_name'=>$product_name,
+    //     'misc_id'=>$misc_id,
+    //     'category_id'=>$category_id,
+    //     'language'=>$language,
+    //     'publisher'=> $publisher,
 
-    ], false );
+    // ], false );
+   echo $query = " INSERT INTO `invt_products` (
+        `product_id`,
+        `barcode`,
+        `product_name`,
+        `misc_id`,
+        `category_id`,
+        `language`,
+        `publisher`
+    ) VALUES (
+        '$product_id',
+        '$barcode',
+        '$product_name',
+        '$misc_id',
+        '$category_id',
+        '$language',
+        '$publisher'
+    )";
 }
+$chk = mysqli_query($link,$query);
+
 
 if ( $item_id>0 ) {
     $_SESSION[ 'toast_type' ] = 'success';

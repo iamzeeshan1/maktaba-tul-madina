@@ -6,18 +6,30 @@
                 <h6 class="modal-title">Add Picklist</h6><button aria-label="Close" class="btn-close" data-bs-dismiss="modal" type="button"></button>
             </div>
             <form id='picklist_form'>
-                <input type="hidden" name="picklist_id" id="picklist_id" >
+                <input type="hidden" name="user_id" id="user_id" >
                 <div class="modal-body">
                     <div class="row">
                         <div class="col-md-12">
-                            <label for="name" class="form-label"> Name:</label>
-                            <input type="text" id="name" name="name" class="form-control" required/>
+                            <label for="fname" class="form-label"> First Name:</label>
+                            <input type="text" id="fname" name="fname" class="form-control" required/>
                         </div>
-                        <!-- <div class="col-md-6">
+                        <div class="col-md-12">
+                            <label for="lname" class="form-label">Last Name:</label>
+                            <input type="text" id="lname" name="lname" class="form-control" required/>
+                        </div>
+                        <div class="col-md-12">
+                            <label for="user_name" class="form-label">User Name:</label>
+                            <input type="text" id="user_name" name="user_name" class="form-control" required/>
+                        </div>
+                        <div class="col-md-12">
                             <label for="email" class="form-label"> Email:</label>
                             <input type="email" id="email" name="email" class="form-control" required/>
                         </div>
-                        <div class="col-md-6 mt-1">
+                        <div class="col-md-12">
+                            <label for="password" class="form-label"> Password:</label>
+                            <input type="text" id="password" name="password" class="form-control" required/>
+                        </div>
+                        <!-- <div class="col-md-6 mt-1">
                             <label for="address" class="form-label"> Address:</label>
                             <input type="text" id="address" name="address" class="form-control" required/>
                         </div>

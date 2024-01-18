@@ -1,13 +1,14 @@
 <?php
 $page_title = "Picked Up - Maktaba-Tul-Madina";
 include("../../includes/header.php");
+$user_id = $_SESSION['mktb_user_id'];
 ?>
 <div class="main-container container-fluid">
     <div class="inner-body">
         <!-- Page Header -->
         <div class="page-header">
             <div>
-                <h2 class="main-content-title tx-24 mg-b-5">Picked Up</h2>
+                <h2 class="main-content-title tx-24 mg-b-5">Sales</h2>
             </div>
         </div>
         <!-- End Page Header -->
@@ -27,7 +28,7 @@ include("../../includes/header.php");
                                     <th width="20%">Date</th>
                                     <th width="20%">Picked By</th>
                                     <th width="20%">Status</th>
-                                    <th width="5%">Actions</th>
+                                    <!-- <th width="5%">Actions</th> -->
                                 </thead>
                                 <tbody>
                                     
@@ -43,7 +44,7 @@ include("../../includes/header.php");
                                         LEFT JOIN invt_products ON invt_sales.item_id = invt_products.item_id
                                         LEFT JOIN invt_customers ON invt_customers.customer_id = invt_sales.customer_id
                                         INNER JOIN users ON invt_sales.picklist_id = users.user_id
-                                        INNER JOIN users_detail ON users.user_id = users_detail.user_id");
+                                        INNER JOIN users_detail ON users.user_id = users_detail.user_id where invt_sales.picklist_id = $user_id");
 
                                         foreach($query as $key => $row_sol){
                                         $sales_id = $row_sol['sales_id'];
@@ -78,7 +79,7 @@ include("../../includes/header.php");
                                                 </div>
                                             </div>
                                         </td>
-                                        <td>
+                                        <!-- <td>
                                             <div class="dropdown">
                                                 <a href="#" role="button" id="dropdownMenuLink" data-bs-toggle="dropdown" aria-expanded="false">
                                                     <i class="mdi mdi-view-agenda-outline">Actions</i>
@@ -101,7 +102,7 @@ include("../../includes/header.php");
                                                 
                                                 </ul>
                                             </div>
-                                        </td>
+                                        </td> -->
                                     </tr>
                                     
                                     <?php } ?>

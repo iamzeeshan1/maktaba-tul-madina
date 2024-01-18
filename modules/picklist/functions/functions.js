@@ -43,15 +43,18 @@ function formSubmit() {
   });
 }
 
-function add_person(picklist_id) {
+function add_person(user_id) {
   $.ajax({
     type: "POST",
     url: "ajax_calls.php",
-    data: { ACTION: "picklist", picklist_id: picklist_id },
+    data: { ACTION: "picklist", user_id: user_id },
     success: function (response) {
       var json = JSON.parse(response);
-      $("#picklist_id").val(picklist_id);
-      $("#name").val(json.name);
+      $("#user_id").val(user_id);
+      $("#fname").val(json.fname);
+      $("#lname").val(json.lname);
+      $("#user_name").val(json.user_name);
+      $("#email").val(json.user_email);
       
       clearFormValidation("#picklist_form");
       $("#picklist_Modal").modal("toggle");

@@ -9,20 +9,22 @@
                         <thead>
                             <th width="4%">Sr.No</th>
                             <th width="20%">Name</th>
+                            <th width="20%">Email</th>
                             <th width="5%">Actions</th>
                         </thead>
                         <tbody>
 
                             <?php
-                                $srNo = 1;
-                                $query = fetch_data($link, "Select * from invt_picklist");
+                               
+                                $query = fetch_data($link, "SELECT * from users inner join users_detail on users.user_id=users_detail.user_id where users.user_role='2'");
 
                                 foreach ($query as $key => $row_sol) {
-                                    $picklist_id = $row_sol['picklist_id'];
+                                    $user_id = $row_sol['user_id'];
                             ?>
                             <tr>
                                 <td><?= $key+1 ?></td>
-                                <td><?= $row_sol['name'] ?></td>
+                                <td><?= $row_sol['first_name'] ?> <?= $row_sol['last_name'] ?></td>
+                                <td><?= $row_sol['user_email'] ?> </td>
                                 <td>
                                     <div class="dropdown">
                                         <a href="#" role="button" id="dropdownMenuLink"
@@ -30,7 +32,7 @@
                                             <i class="mdi mdi-view-agenda-outline">Actions</i>
                                         </a>
                                         <ul class="dropdown-menu" aria-labelledby="dropdownMenuLink">
-                                            <li><a class="dropdown-item" onclick="add_person(<?=$picklist_id;?>)">
+                                            <li><a class="dropdown-item" onclick="add_person(<?=$user_id;?>)">
                                                     <i class=" bx bx-edit"> Edit / View </i></a>
                                             </li>
                                             <li><a href="#" class="dropdown-item"

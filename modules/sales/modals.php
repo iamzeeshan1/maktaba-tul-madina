@@ -30,25 +30,26 @@
                             <input type="text" id="location" name="location" class="form-control" readonly/>
                         </div>
                        
-                        <div class="col-md-12 mt-1">
-                            <label for="details" class="form-label">Details</label>
-                            <textarea class="form-control tiny-mce" name="details" id="details" rows="4"></textarea>
-                        </div>
                         <div class="col-md-12">
                             <label for="picklist_id" class="mg-b-10 form-label">Picked By</label>
                             <select name="picklist_id" class="form-select select2" required  id="picklist_id">
                             <option value="">Select Person</option>
                             <?php
-                                $qry_category = fetch_data($link, "SELECT * FROM invt_picklist order by name");
+                                $qry_category = fetch_data($link, "SELECT * from users inner join users_detail on users.user_id=users_detail.user_id where users.user_role='2'");
                                 foreach ($qry_category as $row_category) {
-                                $picklist_id = $row_category['picklist_id'];
-                                $name = $row_category['name'];
+                                $picklist_id = $row_category['user_id'];
+                                $fname = $row_category['first_name'];
+                                $lname = $row_category['last_name'];
 
                                 // $selected = (isset($row) && $row['picklist_id'] == $picklist_id) ? 'selected' : '';
                             ?>
-                            <option value="<?= $picklist_id; ?>" ><?= $name; ?></option>
+                            <option value="<?= $picklist_id; ?>" ><?= $fname.' '.$lname; ?></option>
                             <?php } ?>
                             </select>
+                        </div>
+                        <div class="col-md-12 mt-1">
+                            <label for="details" class="form-label">Details</label>
+                            <textarea class="form-control tiny-mce" name="details" id="details" rows="4"></textarea>
                         </div>
                     </div>
                 </div>

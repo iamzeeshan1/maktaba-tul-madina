@@ -234,7 +234,37 @@
     }).showToast();
   }
 }
+// loadnotif();
+// function loadnotif() {
+//   $("#loadnotif").load("../../includes/loadnotif.php", function () {
+//   });
+// }
+function change_notif(notif_id){
+  $.ajax({
+    type: "POST",
+    url: "../../ajax.php",
+    data: { ACTION: "notif", notif_id: notif_id },
+    success: function (response) {
+    //  loadnotif();
+    $('.notif').html(response);
+    },
+  });
+}
+function checkNotifications() {
+  $.ajax({
+    url: '../../ajax.php', 
+    method: 'POST',
+    data: { ACTION: "notif_ref" },
+    success: function(data) {
+        alert(data);
+        $('.notif').html(data);
+      }
+    });
+  }
 
+  setInterval(checkNotifications, 60000);
+
+  checkNotifications();
 </script>
 <?php
 unset($_SESSION["toast_type"]);

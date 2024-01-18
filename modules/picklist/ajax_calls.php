@@ -3,13 +3,16 @@ include( '../../includes/header-min.php' );
 // $emp_id = $_SESSION[ 'emp_id' ];
 
 if ( isset( $_POST[ 'ACTION' ] ) && $_POST[ 'ACTION' ] == 'picklist' ) {
-    $picklist_id = $_POST[ 'picklist_id' ];
+    $user_id = $_POST[ 'user_id' ];
 
-    $qry_uniq = fetch_data( $link, "SELECT * from invt_picklist where picklist_id='$picklist_id'" );
-    $name = $qry_uniq[ 0 ][ 'name' ]??'';
-    $picklist_id = $qry_uniq[ 0 ][ 'picklist_id' ]??'';
+    $qry_uniq = fetch_data( $link, "SELECT * from users inner join users_detail on users.user_id=users_detail.user_id where users.user_id='$user_id'" );
+    $fname = $qry_uniq[ 0 ][ 'first_name' ]??'';
+    $lname = $qry_uniq[ 0 ][ 'last_name' ]??'';
+    $user_name = $qry_uniq[ 0 ][ 'user_name' ]??'';
+    $user_id = $qry_uniq[ 0 ][ 'user_id' ]??'';
+    $user_email = $qry_uniq[ 0 ][ 'user_email' ]??'';
 
-    $res = array( 'name'=>$name,'picklist_id'=>$picklist_id );
+    $res = array( 'fname'=>$fname,'lname'=>$lname,'user_name'=>$user_name,'user_email'=>$user_email,'user_id'=>$user_id );
     echo json_encode( $res );
 
 }

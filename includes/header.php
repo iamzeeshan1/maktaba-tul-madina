@@ -116,6 +116,41 @@ $current_year  = date("Y", strtotime($today));
                     <div class="navbar navbar-expand-lg  nav nav-item  navbar-nav-right responsive-navbar navbar-dark  ">
                         <div class="collapse navbar-collapse" id="navbarSupportedContent-4">
                             <div class="d-flex order-lg-2 ms-auto">
+                                 <!-- Notification -->
+                                <?php
+                                if($_SESSION['mktb_role_id']=='1'):
+                                    $get = fetch_data($link, "SELECT count(notif_id) as total FROM notifications WHERE status='0'");
+
+                                    $notifications = fetch_data($link, "SELECT *, invt_sales.status as sale_status FROM invt_sales
+                                    INNER JOIN notifications ON notifications.sales_id = invt_sales.sales_id
+                                    INNER JOIN users_detail ON users_detail.user_id = invt_sales.picklist_id
+                                   
+                                    ORDER BY notifications.created_at DESC");
+                                                                ?>
+                                <!-- <div id="loadnotif"></div> -->
+                                <div class="dropdown main-header-notification notif">
+                                    <a class="nav-link icon" href="#">
+                                        <i class="fe fe-bell header-icons"></i>
+                                        <span class="badge bg-danger nav-link-badge"><?= $get[0]['total']>0?$get[0]['total']:'' ?></span>
+                                    </a>
+                                    <div class="dropdown-menu">
+                                        
+                                        <div class="main-notification-list">
+                                            <?php foreach ($notifications as $notification) : ?>
+                                                <div class="media <?php echo ($notification['status'] == 0) ? 'bg-light' : ''; ?>">
+                                                    <div class="media-body" onclick="change_notif(<?=$notification['notif_id']?>)">
+                                                        <p ><?= $notification['first_name'] ?> changed the status of sale <?= $notification['invoice_number'] ?> to <strong><?= $notification['type'] ?></strong></p>
+                                                        <span><?= $notification['updated_on'] ?></span>
+                                                    </div>
+                                                </div>
+                                            <?php endforeach; ?>
+                                        </div>
+                                        
+                                    </div>
+                                </div>
+                                <?php  endif;?>
+
+								<!-- Notification -->
                                 <!-- Theme-Layout -->
                                 <div class="dropdown d-flex main-header-theme">
                                     <a class="nav-link icon layout-setting">
@@ -128,6 +163,7 @@ $current_year  = date("Y", strtotime($today));
                                     </a>
                                 </div>
                                 <!-- Theme-Layout -->
+                               
                                 <!-- Full screen -->
                                 <div class="dropdown ">
                                     <a class="nav-link icon full-screen-link">

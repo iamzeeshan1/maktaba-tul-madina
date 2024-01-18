@@ -34,6 +34,7 @@ include("../../includes/header.php");
                             <th width="20%">Customer</th>
                             <th width="20%">Quantity Sold</th>
                             <th width="20%">Picked By</th>
+                            <th width="20%">Status</th>
                             <th width="5%">Actions</th>
                         </thead>
                         <tbody>
@@ -43,7 +44,8 @@ include("../../includes/header.php");
                             invt_sales.*, 
                             invt_products.product_id,
                             invt_customers.customer_name,
-                            invt_picklist.name
+                            users_detail.first_name,
+                            users_detail.last_name
                             FROM
                             invt_sales
                             LEFT JOIN
@@ -55,12 +57,22 @@ include("../../includes/header.php");
                             ON 
                             invt_customers.customer_id = invt_sales.customer_id
                             LEFT JOIN
-                            invt_picklist
+                            users_detail
                             ON 
-                            invt_picklist.picklist_id = invt_sales.picklist_id");
+                            users_detail.user_id = invt_sales.picklist_id");
 
                                 foreach($query as $key => $row_sol){
                                 $sales_id = $row_sol['sales_id'];
+                                if($row_sol['status'] == 'accepted'){
+                                    $class="bg-success";
+                                    $title="Accepted";
+                                }elseif($row_sol['status'] == 'decline'){
+                                    $class="bg-warning";
+                                    $title="Decline";
+                                }elseif($row_sol['status'] == 'pending'){
+                                    $class="bg-primary";
+                                    $title="Pending";
+                                }
                             ?>
                             <tr>
                                 <td><?= $key+1 ?></td>
@@ -68,7 +80,8 @@ include("../../includes/header.php");
                                 <td><?= $row_sol['product_id'] ?></td>
                                 <td><?= $row_sol['customer_name'] ?></td>
                                 <td><?= $row_sol['quantity'] ?></td>
-                                <td><?= $row_sol['name']??''?></td>
+                                <td><?= $row_sol['first_name'] . ' '.$row_sol['last_name'] ??''?></td>
+                                <td><span class="badge <?=$class?>"><?=$title?></span></td>
                                 
                                 <td>
                                     <div class="dropdown">
@@ -80,7 +93,7 @@ include("../../includes/header.php");
                                             <li><a class="dropdown-item" href="create.php?sales_id=<?= $sales_id?>">
                                                     <i class=" bx bx-edit"> Edit / View </i></a>
                                             </li>
-                                            <?php if($row_sol['picklist_id'] != ''){?>
+                                            <?php if($row_sol['picklist_id'] != '' && $row_sol['status'] == 'accepted'){?>
                                               <li><a class="dropdown-item" href="invoice.php?sales_id=<?= $sales_id?>">
                                                     <i class=" bx bx-edit"> Generate Invoice </i></a>
                                                </li>
