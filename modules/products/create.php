@@ -86,8 +86,8 @@ if (isset($_GET['item_id'])) {
                 <label for="language" class="mg-b-10 form-label">Languages</label>
                 <select name="language" class="form-select select2" id="language">
                   <option value="">Select Language</option>
-                  <option value="urdu" <?= ($row['language'] == 'urdu') ? 'selected' : '';?>>Urdu</option>
-                  <option value="english" <?= ($row['language'] == 'english') ? 'selected' : '';?>>English</option>
+                  <option value="urdu" <?= (isset($row) && $row['language'] == 'urdu') ? 'selected' : '';?>>Urdu</option>
+                  <option value="english" <?= (isset($row) && $row['language'] == 'english') ? 'selected' : '';?>>English</option>
                 </select>
               </div>
               <div class="col-md-4" id="publisher_div">
