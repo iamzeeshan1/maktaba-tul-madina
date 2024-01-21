@@ -97,6 +97,10 @@ include("../../includes/header.php");
                                               <li><a class="dropdown-item" href="invoice.php?sales_id=<?= $sales_id?>">
                                                     <i class=" bx bx-edit"> Generate Invoice </i></a>
                                                </li>
+                                               
+                                               <li><a class="dropdown-item" href="cust_invoice.php?sales_id=<?= $sales_id?>">
+                                                    <i class=" bx bx-edit"> Customer Invoice </i></a>
+                                               </li>
                                             <?php }
                                             else{?>
                                               <li><a class="dropdown-item" onclick="generate_picklist(<?=$sales_id?>)">
