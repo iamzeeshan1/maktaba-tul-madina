@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost
--- Generation Time: Jan 21, 2024 at 02:04 PM
+-- Generation Time: Feb 05, 2024 at 10:40 PM
 -- Server version: 10.4.14-MariaDB
 -- PHP Version: 7.4.10
 
@@ -62,6 +62,17 @@ CREATE TABLE `invt_customers` (
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `invt_locations`
+--
+
+CREATE TABLE `invt_locations` (
+  `loc_id` int(11) NOT NULL,
+  `loc_name` varchar(255) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `invt_misc`
 --
 
@@ -114,9 +125,22 @@ CREATE TABLE `invt_purchase` (
   `cost_price` decimal(10,2) DEFAULT NULL,
   `retail_price` decimal(10,2) DEFAULT NULL,
   `quantity` varchar(255) DEFAULT NULL,
-  `location` varchar(255) DEFAULT NULL,
   `invoice_number` varchar(255) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 ROW_FORMAT=DYNAMIC;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `invt_purchase_details`
+--
+
+CREATE TABLE `invt_purchase_details` (
+  `pd_id` int(11) NOT NULL,
+  `purchase_id` int(11) NOT NULL,
+  `loc_id` int(11) NOT NULL,
+  `quantity` int(11) NOT NULL,
+  `item_id` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 -- --------------------------------------------------------
 
@@ -243,6 +267,12 @@ ALTER TABLE `invt_customers`
   ADD PRIMARY KEY (`customer_id`) USING BTREE;
 
 --
+-- Indexes for table `invt_locations`
+--
+ALTER TABLE `invt_locations`
+  ADD PRIMARY KEY (`loc_id`);
+
+--
 -- Indexes for table `invt_misc`
 --
 ALTER TABLE `invt_misc`
@@ -266,6 +296,12 @@ ALTER TABLE `invt_products`
 ALTER TABLE `invt_purchase`
   ADD PRIMARY KEY (`purchase_id`) USING BTREE,
   ADD KEY `invt_purchase_ibfk_1` (`supplier_id`) USING BTREE;
+
+--
+-- Indexes for table `invt_purchase_details`
+--
+ALTER TABLE `invt_purchase_details`
+  ADD PRIMARY KEY (`pd_id`);
 
 --
 -- Indexes for table `invt_sales`
@@ -314,6 +350,12 @@ ALTER TABLE `invt_customers`
   MODIFY `customer_id` int(11) NOT NULL AUTO_INCREMENT;
 
 --
+-- AUTO_INCREMENT for table `invt_locations`
+--
+ALTER TABLE `invt_locations`
+  MODIFY `loc_id` int(11) NOT NULL AUTO_INCREMENT;
+
+--
 -- AUTO_INCREMENT for table `invt_misc`
 --
 ALTER TABLE `invt_misc`
@@ -338,6 +380,12 @@ ALTER TABLE `invt_purchase`
   MODIFY `purchase_id` int(11) NOT NULL AUTO_INCREMENT;
 
 --
+-- AUTO_INCREMENT for table `invt_purchase_details`
+--
+ALTER TABLE `invt_purchase_details`
+  MODIFY `pd_id` int(11) NOT NULL AUTO_INCREMENT;
+
+--
 -- AUTO_INCREMENT for table `invt_sales`
 --
 ALTER TABLE `invt_sales`
@@ -359,13 +407,13 @@ ALTER TABLE `notifications`
 -- AUTO_INCREMENT for table `users`
 --
 ALTER TABLE `users`
-  MODIFY `user_id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+  MODIFY `user_id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
 
 --
 -- AUTO_INCREMENT for table `users_detail`
 --
 ALTER TABLE `users_detail`
-  MODIFY `user_detail_id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+  MODIFY `user_detail_id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
 
 --
 -- Constraints for dumped tables

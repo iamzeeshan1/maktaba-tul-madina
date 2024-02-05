@@ -30,7 +30,7 @@
                         <a class="nav-link" href="<?=$app_path?>modules/products/">
                             <span class="shape1"></span>
                             <span class="shape2"></span>
-                            <i class="ti-archive sidemenu-icon menu-icon "></i>
+                            <i class="ti-package sidemenu-icon menu-icon "></i>
                             <span class="sidemenu-label">Products</span>
                         </a>
                     </li>
@@ -38,7 +38,7 @@
                         <a class="nav-link" href="<?=$app_path?>modules/sales/">
                             <span class="shape1"></span>
                             <span class="shape2"></span>
-                            <i class="ti-clipboard sidemenu-icon menu-icon "></i>
+                            <i class="ti-money sidemenu-icon menu-icon "></i>
                             <span class="sidemenu-label">Sales</span>
                         </a>
                     </li>
@@ -46,7 +46,7 @@
                         <a class="nav-link" href="<?=$app_path?>modules/customers/">
                             <span class="shape1"></span>
                             <span class="shape2"></span>
-                            <i class="ti-clipboard sidemenu-icon menu-icon "></i>
+                            <i class="ti-user sidemenu-icon menu-icon "></i>
                             <span class="sidemenu-label">Customer</span>
                         </a>
                     </li>
@@ -54,7 +54,7 @@
                         <a class="nav-link" href="<?=$app_path?>modules/suppliers/">
                             <span class="shape1"></span>
                             <span class="shape2"></span>
-                            <i class="ti-clipboard sidemenu-icon menu-icon "></i>
+                            <i class="ti-stats-up sidemenu-icon menu-icon "></i>
                             <span class="sidemenu-label">Suppliers</span>
                         </a>
                     </li>
@@ -62,7 +62,7 @@
                         <a class="nav-link" href="<?=$app_path?>modules/purchase/">
                             <span class="shape1"></span>
                             <span class="shape2"></span>
-                            <i class="ti-clipboard sidemenu-icon menu-icon "></i>
+                            <i class="ti-shopping-cart sidemenu-icon menu-icon "></i>
                             <span class="sidemenu-label">Purchase</span>
                         </a>
                     </li>
@@ -70,20 +70,20 @@
                         <a class="nav-link" href="<?=$app_path?>modules/picklist/">
                             <span class="shape1"></span>
                             <span class="shape2"></span>
-                            <i class="ti-clipboard sidemenu-icon menu-icon "></i>
+                            <i class="ti-agenda sidemenu-icon menu-icon "></i>
                             <span class="sidemenu-label">Picklist</span>
                         </a>
                     </li>
                     <?php endif; ?>
                     <?php  if($_SESSION['mktb_role_id'] == '2'):?>
-                        <li class="nav-item">
-                            <a class="nav-link" href="<?=$app_path?>modules/picked-by/">
-                                <span class="shape1"></span>
-                                <span class="shape2"></span>
-                                <i class="ti-clipboard sidemenu-icon menu-icon "></i>
-                                <span class="sidemenu-label">Assigned Sales</span>
-                            </a>
-                        </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="<?=$app_path?>modules/picked-by/">
+                            <span class="shape1"></span>
+                            <span class="shape2"></span>
+                            <i class="ti-clipboard sidemenu-icon menu-icon "></i>
+                            <span class="sidemenu-label">Assigned Sales</span>
+                        </a>
+                    </li>
                     <?php endif; ?>
                 </ul>
                 <div class="slide-right" id="slide-right"><i class="fe fe-chevron-right"></i></div>
