@@ -1,7 +1,7 @@
 <?php
 $page_title = "Sale - Maktaba-Tul-Madina";
 include("../../includes/header.php");
-$sales_id = $_GET['sales_id']??0;
+$invoice_number = $_GET['invoice_number'];
 $currentDate = date("jS F, Y");
 
 $query = fetch_data($link,"SELECT
@@ -18,7 +18,7 @@ ON
 LEFT JOIN
 invt_customers
 ON 
-invt_customers.customer_id = invt_sales.customer_id where invt_sales.sales_id = '$sales_id'");
+invt_customers.customer_id = invt_sales.customer_id where invt_sales.invoice_number = '$invoice_number' LIMIT 1 ");
 
 
 ?>
@@ -79,39 +79,71 @@ invt_customers.customer_id = invt_sales.customer_id where invt_sales.sales_id = 
                                     </tr>
                                 </thead>
                                 <tbody>
-                                   
+                                <?php
+                                        $row_query = fetch_data($link, "SELECT
+                                        invt_sales.*, 
+                                        invt_products.product_id,
+                                        invt_products.product_name,
+                                        invt_customers.*
+                                        FROM
+                                        invt_sales
+                                        LEFT JOIN
+                                        invt_products
+                                        ON 
+                                            invt_sales.item_id = invt_products.item_id
+                                        LEFT JOIN
+                                        invt_customers
+                                        ON 
+                                        invt_customers.customer_id = invt_sales.customer_id where invt_sales.invoice_number = '$invoice_number'");
+                                        $total = 0;
+                                        $delivery=0;
+                                        foreach($row_query as $row){
+                                        $sales_id = $row['sales_id'];
+                                        $total += $row['total'];
+                                        $delivery = $row['delivery_fee'];
+                                        $process_fee = $row['process_fee']??0;
+                                        $other_fee = $row['other_fee']??0;
+                                        $grand_total = $row['grand_total'];
+                                       
+                                        if($row['discount_1'] == '0'){
+                                            $discount = $row['discount_2'];
+                                        }else{
+                                            $discount = $row['discount_1'];
+                                        }
+                                   ?>
                                     <tr>
-                                        <td><?=$query[0]['date']?></td>
-                                        <td class="tx-12"><?=$query[0]['product_id']?></td>
-                                        <td class="tx-12"><?=$query[0]['product_name']?></td>
-                                        <td class="tx-right"><?=$query[0]['quantity']?></td>
+                                        <td><?=$row['date']?></td>
+                                        <td class="tx-12"><?=$row['product_id']?></td>
+                                        <td class="tx-12"><?=$row['product_name']?></td>
+                                        <td class="tx-right"><?=$row['quantity']?></td>
                                     </tr>
+                                    <?php } ?>
                                     <tr>
                                         <td class="valign-middle" colspan="2" rowspan="4">
                                             <div class="invoice-notes">
                                                 <label class="main-content-label tx-13">Notes</label>
-                                              <textarea name="detaiils" id="" cols="100" rows="8" class="form-control" onfocusout="save_details(this.value,'<?=$sales_id?>')"><?=$query[0]['invoice_details']??''?></textarea>
+                                              <textarea name="detaiils" id="" cols="100" rows="8" class="form-control" onfocusout="save_details(this.value,'<?=$invoice_number?>')"><?=$query[0]['invoice_details']??''?></textarea>
                                             </div><!-- invoice-notes -->
                                         </td>
                                         <td class="tx-right">Sub-Total</td>
-                                        <td class="tx-right" colspan="2" id="total"><?=$query[0]['total']?></td>
+                                        <td class="tx-right" colspan="2" id="total"><?=$total?></td>
                                     </tr>
                                     <tr>
                                         <td class="tx-right">Delivery Fee</td>
-                                        <td class="tx-right" colspan="2"><input type="number" name="delivery" id="delivery" class="form-control" onfocusout="save_delivery(this.value,'<?=$sales_id?>','<?=$query[0]['total']?>')" value="<?=$query[0]['delivery_fee']??'0'?>"></td>
+                                        <td class="tx-right" colspan="2"><input type="number" name="delivery" id="delivery" class="form-control" onfocusout="save_delivery(this.value,'<?=$invoice_number?>','<?=$total?>')" value="<?=$delivery?>"></td>
                                     </tr>
                                     <tr>
                                         <td class="tx-right">Processing Fee</td>
-                                        <td class="tx-right" colspan="2"><input type="number" name="process" id="process" class="form-control" onfocusout="save_process(this.value,'<?=$sales_id?>','<?=$query[0]['total']?>')" value="<?=$query[0]['process_fee']??'0'?>"></td>
+                                        <td class="tx-right" colspan="2"><input type="number" name="process" id="process" class="form-control" onfocusout="save_process(this.value,'<?=$invoice_number?>','<?=$total?>')" value="<?=$process_fee?>"></td>
                                     </tr>
                                     <tr>
                                         <td class="tx-right">Other</td>
-                                        <td class="tx-right" colspan="2"><input type="number" name="other" id="other" class="form-control" onfocusout="save_other(this.value,'<?=$sales_id?>','<?=$query[0]['total']?>')" value="<?=$query[0]['other_fee']??'0'?>"></td>
+                                        <td class="tx-right" colspan="2"><input type="number" name="other" id="other" class="form-control" onfocusout="save_other(this.value,'<?=$invoice_number?>','<?=$total?>')" value="<?=$other_fee?>"></td>
                                     </tr>
                                     <tr>
                                         <td class="tx-right tx-uppercase tx-bold tx-inverse" colspan="3">Total</td>
                                         <td class="tx-right">
-                                            <h4 class="tx-bold grand-total"><?=$query[0]['grand_total']??$query[0]['total']?></h4>
+                                            <h4 class="tx-bold grand-total"><?=$grand_total??$total?></h4>
                                         </td>
                                     </tr>
                                 </tbody>

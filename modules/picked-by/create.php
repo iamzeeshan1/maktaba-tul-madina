@@ -38,31 +38,31 @@ if (isset($_GET['customer_id'])) {
               <input type="hidden" name="customer_id" value="<?= $customer_id; ?>">
               <div class="col-md-4">
                 <label for="customer_name" class="form-label">Customer Name</label>
-                <input type="text" class="form-control" id="customer_name" value="<?= $row['customer_name']?? ''; ?>" name="customer_name" required>
+                <input type="text" class="form-control" id="customer_name" value="<?= $row['customer_name']?? ''; ?>" name="customer_name">
               </div>
               <div class="col-md-4">
                 <label for="city" class="form-label">City</label>
-                <input type="text" class="form-control" id="city" name="city" value="<?= $row['city'] ??'' ;?>" required>
+                <input type="text" class="form-control" id="city" name="city" value="<?= $row['city'] ??'' ;?>">
               </div>
               <div class="col-md-4">
                 <label for="address" class="form-label">Customer Address</label>
-                <input type="text" class="form-control" id="address" name="address" value="<?= $row['address']??'';?>" required>
+                <input type="text" class="form-control" id="address" name="address" value="<?= $row['address']??'';?>">
               </div>
               <div class="col-md-3">
                 <label for="date" class="form-label">Date</label>
-                <input type="date" class="form-control" id="date" name="date" value="<?= $row['date']??''; ?>" required>
+                <input type="date" class="form-control" id="date" name="date" value="<?= $row['date']??''; ?>">
               </div>
               <div class="col-md-3">
                 <label for="discount" class="form-label">Discount %</label>
-                <input type="text" class="form-control" id="discount" name="discount" value="<?=$row['discount']??''; ?>" required>
+                <input type="text" class="form-control" id="discount" name="discount" value="<?=$row['discount']??''; ?>">
               </div>
               <div class="col-md-3">
                 <label for="contact_number" class="form-label">Contact Number</label>
-                <input type="number" class="form-control" id="contact_number" name="contact_number" value="<?= $row['contact_number']??''; ?>" required>
+                <input type="number" class="form-control" id="contact_number" name="contact_number" value="<?= $row['contact_number']??''; ?>">
               </div>
               <div class="col-md-3">
                 <label for="open_balance" class="form-label">Opening Balance</label>
-                <input type="text" class="form-control" id="open_balance" name="open_balance" value="<?=$row['open_balance']??''; ?>" required>
+                <input type="text" class="form-control" id="open_balance" name="open_balance" value="<?=$row['open_balance']??''; ?>">
               </div>
               <div class="col-md-12 ">
                 <label for="details" class="form-label">Notes</label>

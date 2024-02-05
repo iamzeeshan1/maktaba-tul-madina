@@ -1,10 +1,15 @@
 <?php
 include( '../../includes/header-min.php' );
-$invoice = $_GET[ 'id' ];
+$id = $_GET[ 'id' ];
 
 if ( isset( $_GET[ 'id' ] ) && $_GET[ 'action' ] == 'delete_item' )
  {
-    $qry = "delete from invt_purchase where invoice_number='$invoice'";
+   
+
+    $qry = "delete from invt_purchase where purchase_id='$id'";
+    $chk = insert_update_delete_data( $link, $qry );
+    
+    $qry = "delete from invt_purchase_details where purchase_id='$id'";
     $chk = insert_update_delete_data( $link, $qry );
 
     if ( $chk ) {

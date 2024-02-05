@@ -31,6 +31,7 @@ include("../../includes/header.php");
                             <th width="4%">Sr.No</th>
                             <th width="20%">Date</th>
                             <th width="20%">Product ID</th>
+                            <th width="20%">Product Name</th>
                             <th width="20%">Customer</th>
                             <th width="20%">Quantity Sold</th>
                             <th width="20%">Picked By</th>
@@ -43,6 +44,7 @@ include("../../includes/header.php");
                             $query = fetch_data($link,"SELECT
                             invt_sales.*, 
                             invt_products.product_id,
+                            invt_products.product_name,
                             invt_customers.customer_name,
                             users_detail.first_name,
                             users_detail.last_name
@@ -78,6 +80,7 @@ include("../../includes/header.php");
                                 <td><?= $key+1 ?></td>
                                 <td><?= $row_sol['date'] ?></td>
                                 <td><?= $row_sol['product_id'] ?></td>
+                                <td><?= $row_sol['product_name'] ?></td>
                                 <td><?= $row_sol['customer_name'] ?></td>
                                 <td><?= $row_sol['quantity'] ?></td>
                                 <td><?= $row_sol['first_name'] . ' '.$row_sol['last_name'] ??''?></td>
@@ -90,15 +93,15 @@ include("../../includes/header.php");
                                         </a>
 
                                         <ul class="dropdown-menu" aria-labelledby="dropdownMenuLink">
-                                            <li><a class="dropdown-item" href="create.php?sales_id=<?= $sales_id?>">
+                                            <li><a class="dropdown-item" href="edit.php?sales_id=<?= $sales_id?>">
                                                     <i class=" bx bx-edit"> Edit / View </i></a>
                                             </li>
                                             <?php if($row_sol['picklist_id'] != '' && $row_sol['status'] == 'accepted'){?>
-                                              <li><a class="dropdown-item" href="invoice.php?sales_id=<?= $sales_id?>">
+                                              <li><a class="dropdown-item" href="invoice.php?invoice_number=<?= $row_sol['invoice_number']?>">
                                                     <i class=" bx bx-edit"> Generate Invoice </i></a>
                                                </li>
                                                
-                                               <li><a class="dropdown-item" href="cust_invoice.php?sales_id=<?= $sales_id?>">
+                                               <li><a class="dropdown-item" href="cust_invoice.php?invoice_number=<?= $row_sol['invoice_number']?>">
                                                     <i class=" bx bx-edit"> Customer Invoice </i></a>
                                                </li>
                                             <?php }

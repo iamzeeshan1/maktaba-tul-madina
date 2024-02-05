@@ -18,30 +18,30 @@ include("../../includes/header-min.php");
  }
  if(isset($_POST['ACTION']) && $_POST['ACTION'] == 'save_delivery')
  {
-   $sales_id = $_POST['sales_id'];
+   $invoice_number = $_POST['invoice_number'];
    $delivery = $_POST['delivery'];
    $grand = $_POST['grand'];
-   $update = update_data($link,"invt_sales",['delivery_fee'=>$delivery,'grand_total'=>$grand],['sales_id'=>$sales_id],false);
+   $update = update_data($link,"invt_sales",['delivery_fee'=>$delivery,'grand_total'=>$grand],['invoice_number'=>$invoice_number],false);
 
    echo "success";
 
  }
  if(isset($_POST['ACTION']) && $_POST['ACTION'] == 'save_process')
  {
-   $sales_id = $_POST['sales_id'];
+   $invoice_number = $_POST['invoice_number'];
    $process = $_POST['process'];
    $grand = $_POST['grand'];
-   $update = update_data($link,"invt_sales",['process_fee'=>$process,'grand_total'=>$grand],['sales_id'=>$sales_id],false);
+   $update = update_data($link,"invt_sales",['process_fee'=>$process,'grand_total'=>$grand],['invoice_number'=>$invoice_number],false);
 
    echo "success";
 
  }
  if(isset($_POST['ACTION']) && $_POST['ACTION'] == 'save_other')
  {
-   $sales_id = $_POST['sales_id'];
+   $invoice_number = $_POST['invoice_number'];
    $other = $_POST['other'];
    $grand = $_POST['grand'];
-   $update = update_data($link,"invt_sales",['other_fee'=>$other,'grand_total'=>$grand],['sales_id'=>$sales_id],false);
+   $update = update_data($link,"invt_sales",['other_fee'=>$other,'grand_total'=>$grand],['invoice_number'=>$invoice_number],false);
 
    echo "success";
 
@@ -49,9 +49,9 @@ include("../../includes/header-min.php");
 
  if(isset($_POST['ACTION']) && $_POST['ACTION'] == 'save_details')
  {
-   $sales_id = $_POST['sales_id'];
+   $invoice_number = $_POST['invoice_number'];
    $value = $_POST['value'];
-   $update = update_data($link,"invt_sales",['invoice_details'=>$value],['sales_id'=>$sales_id],false);
+   $update = update_data($link,"invt_sales",['invoice_details'=>$value],['invoice_number'=>$invoice_number],false);
 
    echo "success";
 
@@ -91,4 +91,55 @@ include("../../includes/header-min.php");
     echo json_encode( $res );
 
  }
+
+ if(isset($_POST['ACTION']) && $_POST['ACTION'] == 'get_product_name_location'){
+  $item_id = $_POST['item_id'];
+  
+  $data = fetch_data($link, "SELECT prod.product_name,prod.item_id,loc.loc_name,loc.loc_id FROM invt_purchase p
+            INNER JOIN invt_products prod ON p.item_id = prod.item_id
+            INNER JOIN invt_purchase_details pd ON p.purchase_id = pd.purchase_id
+            INNER JOIN invt_locations loc ON pd.loc_id = loc.loc_id where prod.item_id=$item_id");
+
+  $response = array();
+
+  foreach ($data as $row) {
+    $productName = $row['product_name'];
+    $locationName = $row['loc_name'];
+    $locationId = $row['loc_id'];
+
+    if (!isset($response[$productName])) {
+        $response[$productName] = array();
+    }
+
+    $response[$productName][] = array('name' => $locationName, 'id' => $locationId);
+  }
+  // Build HTML response
+  $htmlResponse = '<div class="row">';
+  $htmlResponse .= '<div class="col-lg-6">';
+  $htmlResponse .= '<label for="productName" class="mg-b-10 form-label">Product Name:</label>';
+  $htmlResponse .= '<input type="text" id="productName" name="productName" class="form-control" value="' . htmlspecialchars($productName) . '">';
+  $htmlResponse .= '</div>';
+
+  $htmlResponse .= '<div class="col-lg-6">';
+  $htmlResponse .= '<label for="loc_id">Locations:</label>';
+  $htmlResponse .= '<select id="loc_id" name="loc_id" class="form-control" onchange="get_quantity(this.value, ' . $item_id . ')">';
+  $htmlResponse .= '<option value="">Select Location </option>';
+  foreach ($response[$productName] as $location) {
+      $htmlResponse .= '<option value="' . htmlspecialchars($location['id']) . '">' . htmlspecialchars($location['name']) . '</option>';
+  }
+  $htmlResponse .= '</select>';
+  $htmlResponse .= '</div>';
+  $htmlResponse .= '</div>';
+  // Convert the response to JSON
+  echo json_encode(array('html' => $htmlResponse));
+
+ }
+ if(isset($_POST['ACTION']) && $_POST['ACTION'] == 'get_loc_quantity'){
+  $loc_id = $_POST['loc_id'];
+  $item_id = $_POST['item_id'];
+  $data = fetch_data($link, "SELECT quantity FROM invt_purchase_details where loc_id='$loc_id' and item_id = '$item_id'");
+  echo $quantity = $data[0]['quantity']??'0';
+
+ }
+
 ?>

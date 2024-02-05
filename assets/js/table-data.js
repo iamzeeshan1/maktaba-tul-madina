@@ -27,7 +27,18 @@ $(function () {
          searchPlaceholder: 'Search...',
          sSearch: '',
          lengthMenu: '_MENU_ items/page',
-      }
+      }      
+   });
+   $('#picked_by').DataTable({
+      responsive: true,
+      language: {
+         searchPlaceholder: 'Search...',
+         sSearch: '',
+         lengthMenu: '_MENU_ items/page',
+      },
+      dom: 'Bfrtip',
+      buttons: ['print'],
+      
    });
    $('#example3').DataTable({
       responsive: {

@@ -11,11 +11,11 @@
                     <div class="row">
                         <div class="col-md-6">
                             <label class="mg-b-10 form-label"> Date:</label>
-                            <input type="date" id="date" name="date" class="form-control" required/>
+                            <input type="date" id="date" name="date" class="form-control" />
                         </div>
                         <div class="col-md-6">
                             <label for="supplier_id" class="mg-b-10 form-label">Supplier</label>
-                            <select name="supplier_id" class="form-select select2"  required  id="supplier_id">
+                            <select name="supplier_id" class="form-select form-control"    id="supplier_id">
                                 <option value="">Select Supplier</option>
                                 <?php
                                 $qry_sup = fetch_data($link, "SELECT * FROM invt_suppliers order by supplier_name");
@@ -23,15 +23,15 @@
                                     $supplier_id = $row_sup['supplier_id'];
                                     $supplier_name = $row_sup['supplier_name'];
 
-                                    $selected = ($row['supplier_id'] == $supplier_id) ? 'selected' : '';
+                                    //$selected = ($row['supplier_id'] == $supplier_id) ? 'selected' : '';
                                 ?>
-                                    <option value="<?= $supplier_id; ?>" <?= $selected; ?>><?= $supplier_name; ?></option>
+                                    <option value="<?= $supplier_id; ?>"><?= $supplier_name; ?></option>
                                 <?php } ?>
                             </select>
                         </div>
                         <div class="col-md-12 mt-2">
                             <label for="product_id" class="mg-b-10 form-label">Products</label>
-                            <select name="product_id" class="form-select select2"  required  id="product_id">
+                            <select name="product_id" class="form-select form-control"    id="product_id">
                                 <option value="">Select Products</option>
                                 <?php
                                 $qry_prod = fetch_data($link, "SELECT * FROM invt_products order by product_name");
@@ -47,19 +47,37 @@
                         </div>
                         <div class="col-md-6 mt-2">
                             <label class="mg-b-10 form-label"> Cost Price:</label>
-                            <input type="text" id="cost_price" name="cost_price" class="form-control" required/>
+                            <input type="text" id="cost_price" name="cost_price" class="form-control" />
                         </div>
                         <div class="col-md-6 mt-2">
                             <label class="mg-b-10 form-label"> Retail Price:</label>
-                            <input type="text" id="retail_price" name="retail_price" class="form-control" required/>
+                            <input type="text" id="retail_price" name="retail_price" class="form-control" />
                         </div>
                         <div class="col-md-6 mt-2">
                             <label class="mg-b-10 form-label">Quantity:</label>
-                            <input type="text" id="quantity" name="quantity" class="form-control" required/>
+                            <input type="text" id="quantity" name="quantity" class="form-control" />
                         </div>
-                        <div class="col-md-6 mt-2">
+                        <!-- <div class="col-md-6 mt-2">
                             <label class="mg-b-10 form-label">Location:</label>
-                            <input type="text" id="location" name="location" class="form-control" required/>
+                            <input type="text" id="location" name="location" class="form-control" />
+                        </div> -->
+                        <div class="col-md-6 mt-2" id="loc_id">
+                            <label for="loc_id" class="mg-b-10 form-label">Locations:</label>
+                            <select name="loc_id" class="form-select form-control"   id="loc_idd" onchange="add_location(this.value)">
+                            <label for="loc_id" class="mg-b-10 form-label">Locations:</label>
+                                <option value="">Select Locations</option>
+                                <?php
+                                $qry_prod = fetch_data($link, "SELECT * FROM invt_locations order by loc_name");
+                                foreach ($qry_prod as $row_sup) {
+                                    $loc_id = $row_sup['loc_id'];
+                                    $loc_name = $row_sup['loc_name'];
+
+                                   // $selected = ($row['loc_id'] == $loc_id) ? 'selected' : '';
+                                ?>
+                                    <option value="<?= $loc_id; ?>"><?= $loc_name; ?></option>
+                                <?php } ?>
+                                <option value="other">Other</option>
+                            </select>
                         </div>
 
                     </div>
@@ -113,11 +131,11 @@
                     <div class="row">
                         <div class="col-md-6">
                             <label class="mg-b-10 form-label"> Date:</label>
-                            <input type="date" id="datee" name="date" class="form-control" required/>
+                            <input type="date" id="datee" name="date" class="form-control" />
                         </div>
                         <div class="col-md-6">
                             <label for="supplier_idd" class="mg-b-10 form-label">Supplier</label>
-                            <select name="supplier_id" class="form-select select2"  required  id="supplier_idd">
+                            <select name="supplier_id" class="form-select select2"    id="supplier_idd">
                                 <option value="">Select Supplier</option>
                                 <?php
                                 $qry_sup = fetch_data($link, "SELECT * FROM invt_suppliers order by supplier_name");
@@ -133,7 +151,7 @@
                         </div>
                         <div class="col-md-12 mt-2">
                             <label for="item_idd" class="mg-b-10 form-label">Products</label>
-                            <select name="item_idd" class="form-select select2"  required  id="item_idd">
+                            <select name="item_idd" class="form-select select2"    id="item_idd">
                                 <option value="">Select Products</option>
                                 <?php
                                 $qry_prod = fetch_data($link, "SELECT * FROM invt_products order by product_name");
@@ -149,25 +167,64 @@
                         </div>
                         <div class="col-md-6 mt-2">
                             <label class="mg-b-10 form-label"> Cost Price:</label>
-                            <input type="text" id="cost_pricee" name="cost_price" class="form-control" required/>
+                            <input type="text" id="cost_pricee" name="cost_price" class="form-control" />
                         </div>
                         <div class="col-md-6 mt-2">
                             <label class="mg-b-10 form-label"> Retail Price:</label>
-                            <input type="text" id="retail_pricee" name="retail_price" class="form-control" required/>
+                            <input type="text" id="retail_pricee" name="retail_price" class="form-control" />
                         </div>
                         <div class="col-md-6 mt-2">
                             <label class="mg-b-10 form-label">Quantity:</label>
-                            <input type="text" id="quantityy" name="quantity" class="form-control" required/>
+                            <input type="text" id="quantityy" name="quantity" class="form-control" />
                         </div>
                         <div class="col-md-6 mt-2">
                             <label class="mg-b-10 form-label">Location:</label>
-                            <input type="text" id="locationn" name="location" class="form-control" required/>
+                            <select name="location" class="form-select form-control"   id="location_id" onchange="add_location(this.value)">
+                                <option value="">Select Locations</option>
+                                <?php
+                                $qry_prod = fetch_data($link, "SELECT * FROM invt_locations order by loc_name");
+                                foreach ($qry_prod as $row_sup) {
+                                    $loc_id = $row_sup['loc_id'];
+                                    $loc_name = $row_sup['loc_name'];
+
+                                    $selected = ($row['loc_id'] == $loc_id) ? 'selected' : '';
+                                ?>
+                                    <option value="<?= $loc_id; ?>" <?= $selected; ?>><?= $loc_name; ?></option>
+                                <?php } ?>
+                                <option value="other">Other</option>
+                            </select>
                         </div>
 
                     </div>
                 </div>
                 <div class="modal-footer bg-light">
                     <button type="submit" class="btn ripple btn-primary edit-submit-btn" id="" onclick="editFormSubmit()">Save <span class="ms-2 d-none spinner-border text-light spinner-border-sm preloader" id="" ></span></button>
+                    <button type="button" class="btn ripple btn-secondary" data-bs-dismiss="modal">Close</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<!-- loc MODAL -->
+<div class="modal flip" id="locModal"  tabindex="-1" aria-labelledby="locModal" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content modal-content-demo">
+            <div class="modal-header">
+                <h6 class="modal-title">Add Location</h6><button aria-label="Close" class="btn-close" data-bs-dismiss="modal" type="button"></button>
+            </div>
+            <form id='loc_form' class="needs-validation" novalidate>
+                <input type="hidden" name="ACTION" value="add_new_loc">
+                <div class="modal-body">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <label> Name:</label>
+                            <input type="text" id="name" name="name" class="form-control" />
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer bg-light">
+                    <button type="submit" class="btn ripple btn-primary">Save</button>
                     <button type="button" class="btn ripple btn-secondary" data-bs-dismiss="modal">Close</button>
                 </div>
             </form>

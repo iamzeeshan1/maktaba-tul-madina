@@ -76,12 +76,13 @@ function formSubmit(){
 
 }
 function add_purchase(purchase_id) {
-  clearFormValidation("#purchase_form");
   if (!$('#saved_purchase').hasClass('d-none')) {
     $('#saved_purchase').addClass('d-none');
     $('#submit-btn').addClass('d-none');
   }
   $("#purchase_Modal").modal("toggle");
+  $("#purchase_form")[0].reset();
+  clearFormValidation("#purchase_form");
 
 }
 function edit_purchase(purchase_id) {
@@ -99,7 +100,7 @@ function edit_purchase(purchase_id) {
       $("#cost_pricee").val(json.cost_price);
       $("#retail_pricee").val(json.retail_price);
       $("#quantityy").val(json.quantity);
-      $("#locationn").val(json.location);
+      $("#location_id").val(json.location).trigger('change');
 
       clearFormValidation("#edit_purchase_form");
 
@@ -123,7 +124,7 @@ function loadTable() {
 function save_data() {
   $('#saved_purchase').toggleClass('d-none', false);
   $('.submit-btn').toggleClass('d-none', false);
-
+  
   var date = $('#date').val();
   var supplier = $('#supplier_id option:selected').text();
   var supplier_id = $('#supplier_id').val();
@@ -132,8 +133,9 @@ function save_data() {
   var costPrice = $('#cost_price').val();
   var retailPrice = $('#retail_price').val();
   var quantity = $('#quantity').val();
-  var location = $('#location').val();
-
+  var loc_id = $('#loc_idd').val(); 
+  var location = $('#loc_idd option:selected').text();
+  // Split multiple locations into an array
   // Create a table row and append data
   var newRow = `<tr>
       <td><input type="hidden" name="date[]" value="${date}">${date}</td>
@@ -142,21 +144,23 @@ function save_data() {
       <td><input type="hidden" name="cost_price[]" value="${costPrice}">${costPrice}</td>
       <td><input type="hidden" name="retail_price[]" value="${retailPrice}">${retailPrice}</td>
       <td><input type="hidden" name="quantity[]" value="${quantity}">${quantity}</td>
-      <td><input type="hidden" name="location[]" value="${location}">${location}</td>
+      <td><input type="hidden" name="location[]" value="${loc_id}">${location}</td>
   </tr>`;
 
   // Append the new row to the table body
   $('#saved_purchase tbody').append(newRow);
 
   // Clear form fields
-  $('#date').val('');
-  $('#supplier_id').val('').trigger('change');
-  $('#product_id').val('').trigger('change');;
-  $('#cost_price').val('');
-  $('#retail_price').val('');
-  $('#quantity').val('');
-  $('#location').val('');
+  // $('#date').val('');
+  // $('#supplier_id').val('').trigger('change');
+  // $('#product_id').val('').trigger('change');
+  // $('#cost_price').val('');
+  // $('#retail_price').val('');
+  // $('#quantity').val('');
+  // $('#loc_idd').val('').trigger('change');
+  $("#purchase_form")[0].reset();
 }
+
 function EditCost(element) {
   var purchaseId = $(element).data('purchase-id');
   var costPrice = $(element).text();
@@ -237,3 +241,45 @@ function loadInvTable() {
   var inv = $('#loadInvTable').data('id');
   $("#loadInvTable").load("loadInvTable.php", {inv:inv},function () {});
 }
+function add_location(loc_id) {
+  if (loc_id == "other") {
+    $("#locModal").modal("toggle");
+  }
+}
+$("#loc_form").submit(function (e) {
+  e.preventDefault();
+  if (!this.checkValidity()) {
+    return;
+  }
+
+  const formElement = document.getElementById("loc_form");
+  var formData = new FormData(formElement);
+  $.ajax({
+    url: "ajax_calls.php",
+    type: "POST",
+    data: formData,
+    processData: false,
+    contentType: false,
+    success: function (data) {
+      if (data == "loc_error") {
+        var toastType = "danger";
+        var toastMsg = "Location already exists";
+        showToast(toastType, toastMsg);
+        return;
+      } else {
+        $("#locModal").modal("hide");
+        var toastType = "success";
+        var toastMsg = "Added successfully";
+        showToast(toastType, toastMsg);
+        $("#loc_id").html("");
+        $("#loc_id").html(data);
+        // $("#misc_id").select2({
+        //   placeholder: "Choose one",
+        //   searchInputPlaceholder: "Search",
+        //   minimumResultsForSearch: Infinity,
+        //   width: "100%",
+        // });
+      }
+    },
+  });
+});

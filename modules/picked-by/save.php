@@ -3,35 +3,30 @@ include( '../../includes/header-min.php' );
 extract( $_POST );
 $customer_id = $_POST[ 'customer_id' ] ?? 0;
 
-if ( $customer_id>0 ) {
-    $query = update_data( $link, 'invt_customers', [
-        'customer_name'=>$customer_name,
-        'city'=>$city,
-        'address'=>$address,
-        'date'=>$date,
-        'contact_number'=>$contact_number,
-        'open_balance'=> $open_balance,
-        'discount'=> $discount,
-        'details'=> $details
-    ], [ 'customer_id'=>$customer_id ], false );
+if(isset($_GET['action']) && $_GET['action'] == 'edit'){
+    extract($_POST);
 
-} else {
-    $query = add_data( $link, 'invt_customers', [
-        'customer_name'=>$customer_name,
-        'city'=>$city,
-        'address'=>$address,
-        'date'=>$date,
-        'contact_number'=>$contact_number,
-        'open_balance'=> $open_balance,
-        'discount'=> $discount,
-        'details'=> $details
-    ], false );
-}
-if ( $customer_id>0 ) {
-    $res = array( 'status'=>'success', 'value'=>'Updated Successfully!' );
-    echo  json_encode( $res );
-} else {
-    $res = array( 'status'=>'success', 'value'=>'Added Successfully!' );
-    echo json_encode( $res );
+    $sales_id = $_GET['sales_id']??0;
+    $query = update_data($link,"invt_sales",[
+        'quantity'=>$quantity
+    ],['sales_id'=>$sales_id],false);
+
+    //minus quantity form total quantity
+    $check_item = fetch_data($link,"select * from invt_purchase_details where item_id='$item_id' and loc_id = '$loc_id'");
+    
+    if($old_quantity != $quantity){
+        $total = $old_quantity + $check_item[0]['quantity'];
+        $current = $total - $quantity;
+
+        update_data($link,'invt_purchase_details',['quantity' => $current],[ 'item_id' => $item_id,'loc_id' => $loc_id],false);
+    }
+
+} 
+
+if($sales_id>0){
+    $_SESSION['toast_type'] = "success";
+    $_SESSION['toast_msg'] = "Updated Successfully!";
+    header("location:index.php");
+    exit();
 }
 

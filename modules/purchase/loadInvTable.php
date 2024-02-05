@@ -24,9 +24,9 @@ $invoice_number = $_POST['inv'];
         <tr>
             <td><?= $row['date'] ?></td>
             <td><?= $row['product_name'] ?></td>
-            <td data-purchase-id="<?= $row['purchase_id'] ?>" onclick="EditQnty(this)"> <?= $row['quantity'] ?></td>
-            <td data-purchase-id="<?= $row['purchase_id'] ?>" onclick="EditRetail(this)"><?= $row['retail_price'] ?></td>
-            <td class="tx-right" data-purchase-id="<?= $row['purchase_id'] ?>" onclick="EditCost(this)"><?= $row['cost_price'] ?></td>
+            <td data-purchase-id="<?= $row['purchase_id'] ?>"> <?= $row['quantity'] ?></td>
+            <td data-purchase-id="<?= $row['purchase_id'] ?>"><?= $row['retail_price'] ?></td>
+            <td class="tx-right" data-purchase-id="<?= $row['purchase_id'] ?>" ><?= $row['cost_price'] ?></td>
         
 
         </tr>

@@ -36,7 +36,7 @@
                                                     <i class=" bx bx-edit"> Edit / View </i></a>
                                             </li>
                                             <li><a href="#" class="dropdown-item"
-                                                    onclick=" JSconfirm('delete.php?picklist_id=<?= $user_id ?>&action=delete_item','warning','Are you sure you want to delete the Person?')">
+                                                    onclick=" JSconfirm('delete.php?user_id=<?= $user_id ?>&action=delete_item','warning','Are you sure you want to delete the Person?')">
                                                     <i class=" bx bx-trash"> Delete</i></a>
                                             </li>
                                         </ul>

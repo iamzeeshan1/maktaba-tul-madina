@@ -1,7 +1,7 @@
 <?php
 $page_title = "Sale - Maktaba-Tul-Madina";
 include("../../includes/header.php");
-$sales_id = $_GET['sales_id']??0;
+$invoice_number = $_GET['invoice_number']??0;
 $currentDate = date("jS F, Y");
 
 $query = fetch_data($link,"SELECT
@@ -18,8 +18,7 @@ ON
 LEFT JOIN
 invt_customers
 ON 
-invt_customers.customer_id = invt_sales.customer_id where invt_sales.sales_id = '$sales_id'");
-
+invt_customers.customer_id = invt_sales.customer_id where invt_sales.invoice_number = '$invoice_number' LIMIT 1");
 
 ?>
 
@@ -76,39 +75,65 @@ invt_customers.customer_id = invt_sales.customer_id where invt_sales.sales_id = 
                                         <th width="20%">Product ID</th>
                                         <th width="20%">Product Name</th>
                                         <th width="20%">QNTY</th>
+                                        <th width="20%">Discount</th>
                                     </tr>
                                 </thead>
                                 <tbody>
-                                   
+                                   <?php
+                                        $row_query = fetch_data($link, "SELECT
+                                        invt_sales.*, 
+                                        invt_products.product_id,
+                                        invt_products.product_name,
+                                        invt_customers.*
+                                        FROM
+                                        invt_sales
+                                        LEFT JOIN
+                                        invt_products
+                                        ON 
+                                            invt_sales.item_id = invt_products.item_id
+                                        LEFT JOIN
+                                        invt_customers
+                                        ON 
+                                        invt_customers.customer_id = invt_sales.customer_id where invt_sales.invoice_number = '$invoice_number'");
+                                        $total = 0;
+                                        $delivery=0;
+                                        foreach($row_query as $row){
+                                        $sales_id = $row['sales_id'];
+                                        $total += $row['total'];
+                                        $delivery = $row['delivery_fee'];
+                                       
+                                        if($row['discount_1'] == '0'){
+                                            $discount = $row['discount_2'];
+                                        }else{
+                                            $discount = $row['discount_1'];
+                                        }
+                                   ?>
                                     <tr>
-                                        <td><?=$query[0]['date']?></td>
-                                        <td class="tx-12"><?=$query[0]['product_id']?></td>
-                                        <td class="tx-12"><?=$query[0]['product_name']?></td>
-                                        <td class="tx-right"><?=$query[0]['quantity']?></td>
+                                        <td><?=$row['date']?></td>
+                                        <td class="tx-12"><?=$row['product_id']?></td>
+                                        <td class="tx-12"><?=$row['product_name']?></td>
+                                        <td class="tx-right"><?=$row['quantity']?></td>
+                                        <td class="tx-right"><?=$discount?>%</td>
+                                    </tr>
+                                    <?php } ?>
+                                    <tr>
+                                        <td class="tx-right" colspan="4">Sub-Total</td>
+                                        <td class="tx-right" id="total"><?=$total?></td>
                                     </tr>
                                     <tr>
-                                        <!-- <td class="valign-middle" colspan="2" rowspan="4">
-                                            <div class="invoice-notes">
-                                                <label class="main-content-label tx-13">Notes</label>
-                                              <textarea name="detaiils" id="" cols="100" rows="8" class="form-control" ><?=$query[0]['invoice_details']??''?></textarea>
-                                            </div> invoice-notes
-                                        </td> -->
-                                        <td class="tx-right" colspan="3">Sub-Total</td>
-                                        <td class="tx-right" id="total"><?=$query[0]['total']?></td>
+                                        <td class="tx-right" colspan="4">Delivery Fee</td>
+                                        <td class="tx-right"><?=$delivery?></td>
                                     </tr>
                                     <tr>
-                                        <td class="tx-right" colspan="3">Delivery Fee</td>
-                                        <td class="tx-right"><?=$query[0]['delivery_fee']??'0'?></td>
-                                    </tr>
-                                    <tr>
-                                        <td class="tx-right tx-uppercase tx-bold tx-inverse" colspan="3">Total</td>
+                                        <td class="tx-right tx-uppercase tx-bold tx-inverse" colspan="4">Total</td>
                                         <td class="tx-right">
-                                            <?php $delivery_fee = floatval($query[0]['delivery_fee']??'0');
-                                          $total = floatval($query[0]['total']??'0');
+                                            <?php $delivery_fee = floatval($delivery);
+                                          $total = floatval($total);
                                             $grand_total = $total + $delivery_fee;?>
                                             <h4 class="tx-bold grand-total"><?=$grand_total?></h4>
                                         </td>
                                     </tr>
+                                    
                                 </tbody>
                             </table>
                         </div>

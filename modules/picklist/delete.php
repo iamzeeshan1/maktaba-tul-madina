@@ -1,13 +1,13 @@
 <?php
 include( '../../includes/header-min.php' );
-$picklist_id = $_GET[ 'picklist_id' ];
+$user_id = $_GET[ 'user_id' ];
 
-if ( isset( $_GET[ 'picklist_id' ] ) && $_GET[ 'action' ] == 'delete_item' )
+if ( isset( $_GET[ 'user_id' ] ) && $_GET[ 'action' ] == 'delete_item' )
  {
-    $qry = "delete from users where user_id='$picklist_id'";
+    $qry = "delete from users where user_id='$user_id'";
     $chk = insert_update_delete_data( $link, $qry );
 
-    $qry = "delete from users_detail where user_id='$picklist_id'";
+    $qry = "delete from users_detail where user_id='$user_id'";
     $chk = insert_update_delete_data( $link, $qry );
 
     if ( $chk ) {

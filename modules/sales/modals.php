@@ -27,10 +27,24 @@
                         </div>
                         <div class="col-md-6 mt-1">
                              <label for="location" class="form-label"> Item Location:</label>
-                            <input type="text" id="location" name="location" class="form-control" readonly/>
+                            <select name="location" class="form-select" disabled  id="location">
+                            <label for="loc_id" class="mg-b-10 form-label">Locations:</label>
+                                <option value="">Select Locations</option>
+                                <?php
+                                $qry_prod = fetch_data($link, "SELECT * FROM invt_locations order by loc_name");
+                                foreach ($qry_prod as $row_sup) {
+                                    $loc_id = $row_sup['loc_id'];
+                                    $loc_name = $row_sup['loc_name'];
+
+                                    $selected = ($row['loc_id'] == $loc_id) ? 'selected' : '';
+                                ?>
+                                    <option value="<?= $loc_id; ?>" <?= $selected; ?>><?= $loc_name; ?></option>
+                                <?php } ?>
+                                <option value="other">Other</option>
+                            </select>
                         </div>
                        
-                        <div class="col-md-12">
+                        <div class="col-md-12 mt-2">
                             <label for="picklist_id" class="mg-b-10 form-label">Picked By</label>
                             <select name="picklist_id" class="form-select select2" required  id="picklist_id">
                             <option value="">Select Person</option>

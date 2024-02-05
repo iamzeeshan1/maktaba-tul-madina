@@ -11,19 +11,19 @@
                     <div class="row">
                         <div class="col-md-6">
                             <label for="supplier_name" class="form-label"> Supplier Name:</label>
-                            <input type="text" id="supplier_name" name="supplier_name" class="form-control" required/>
+                            <input type="text" id="supplier_name" name="supplier_name" class="form-control"/>
                         </div>
                         <div class="col-md-6">
                             <label for="email" class="form-label"> Email:</label>
-                            <input type="email" id="email" name="email" class="form-control" required/>
+                            <input type="email" id="email" name="email" class="form-control"/>
                         </div>
                         <div class="col-md-6 mt-1">
                             <label for="address" class="form-label"> Address:</label>
-                            <input type="text" id="address" name="address" class="form-control" required/>
+                            <input type="text" id="address" name="address" class="form-control"/>
                         </div>
                         <div class="col-md-6 mt-1">
                             <label for="contact_number" class="form-label"> Contact:</label>
-                            <input type="text" id="contact_number" name="contact_number" class="form-control" required/>
+                            <input type="text" id="contact_number" name="contact_number" class="form-control"/>
                         </div>
                         <div class="col-md-12 mt-1">
                             <label for="details" class="form-label">Details</label>

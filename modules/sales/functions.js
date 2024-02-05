@@ -92,12 +92,32 @@ $(document).ready(function () {
   }
 });
 
-function check(item_id, sales_id) {
+function get_product_details(item_id, sales_id) {
   if (item_id == "") {
     $("#sold").prop("disabled", true);
   } else {
     $("#sold").prop("disabled", false);
   }
+  $.ajax({
+    url: "ajax-calls.php",
+    type: "POST",
+    data: {ACTION:"get_product_name_location",item_id:item_id},
+    dataType: "json",
+    success: function (response) {
+      $("#prod_details").html(response.html);
+    }
+  });
+}
+function check_quantity(value){
+  var avail = $('#avail-quantity').val();
+
+  if(value > avail){
+    var toastType = 'danger';
+    var toastMsg = 'Quantity not available';
+    showToast(toastType, toastMsg);
+    return;
+  }
+
 }
 
 function get_discount(cust_id) {
@@ -150,7 +170,7 @@ function generate_picklist(sales_id){
     },
   });
 }
-function save_delivery(deliveryValue,sales_id,subtotal) { 
+function save_delivery(deliveryValue,invoice_number,subtotal) { 
   var deliveryNumber = parseFloat(deliveryValue);
   var subtotalNumber = parseFloat(subtotal);
 
@@ -163,7 +183,7 @@ function save_delivery(deliveryValue,sales_id,subtotal) {
       data: {
           ACTION: "save_delivery",
           delivery: deliveryValue,
-          sales_id: sales_id,
+          invoice_number: invoice_number,
           grand:grand
       },
       success: function(response) {
@@ -171,7 +191,7 @@ function save_delivery(deliveryValue,sales_id,subtotal) {
       }
   });
 }
-function save_process(processValue,sales_id,subtotal) { 
+function save_process(processValue,invoice_number,subtotal) { 
   var processValue = parseFloat(processValue);
   var subtotalNumber = parseFloat(subtotal);
   var delivery = parseFloat($('#delivery').val());
@@ -183,7 +203,7 @@ function save_process(processValue,sales_id,subtotal) {
       data: {
           ACTION: "save_process",
           process: processValue,
-          sales_id: sales_id,
+          invoice_number: invoice_number,
           grand:grand
       },
       success: function(response) {
@@ -191,7 +211,7 @@ function save_process(processValue,sales_id,subtotal) {
       }
   });
 }
-function save_other(otherValuue,sales_id,subtotal) { 
+function save_other(otherValuue,invoice_number,subtotal) { 
   var otherValuue = parseFloat(otherValuue);
   var subtotalNumber = parseFloat(subtotal);
   var delivery = parseFloat($('#delivery').val());
@@ -203,7 +223,7 @@ function save_other(otherValuue,sales_id,subtotal) {
       data: {
           ACTION: "save_other",
           other: otherValuue,
-          sales_id: sales_id,
+          invoice_number: invoice_number,
           grand:grand
       },
       success: function(response) {
@@ -211,7 +231,7 @@ function save_other(otherValuue,sales_id,subtotal) {
       }
   });
 }
-function save_details(value,sales_id) { 
+function save_details(value,invoice_number) { 
   var  value = value.trim();
   $.ajax({
       url: 'ajax-calls.php', 
@@ -219,7 +239,7 @@ function save_details(value,sales_id) {
       data: {
           ACTION: "save_details",
           value: value,
-          sales_id: sales_id
+          invoice_number: invoice_number
       },
       success: function(response) {
       }
@@ -260,8 +280,8 @@ function formSubmit() {
           var toastMsg = json.value;
           showToast(toastType, toastMsg);
           $("#picklist_Modal").modal("toggle");
-          
-          loadTable();
+          window.location.reload();
+          //loadTable();
         }
       }, 2000);
     },
@@ -269,4 +289,107 @@ function formSubmit() {
       $(".preloader").removeClass("d-none");
     },
   });
+}
+
+function save_data() {
+  $('#saved_sale').toggleClass('d-none', false);
+  $('#saleBtn').toggleClass('d-none', false);
+  
+  var item_id = $('#item_id').val();
+  var location = $('#loc_id option:selected').text();
+  var loc_id = $('#loc_id').val();
+  var date = $('#date').val();
+  var customer = $('#customer_id option:selected').text();
+  var customer_id = $('#customer_id').val();
+  var quantity = $('#quantity').val();
+  var costPrice = $('#cost_price').val();
+  var retailPrice = $('#retail_price').val();
+  var total = $('#total').val();
+  var details = $('#details').val();
+  var discount_1 = $('#discount_1').val();
+  var discount_2 = $('#discount_2').val();
+  if (discount_1 === '') {
+    discount_1 = 0;
+  }
+
+  if (discount_2 === '') {
+    discount_2 = 0;
+  }
+
+  // Create a table row and append data
+  var newRow = `<tr>
+      <td><input type="hidden" name="date[]" value="${date}">${date}</td>
+      <td><input type="hidden" name="item_id[]" value="${item_id}">${item_id}</td>
+      <td><input type="hidden" name="customer[]" value="${customer_id}">${customer}</td>
+      <td><input type="hidden" name="quantity[]" value="${quantity}">${quantity}</td>
+      <td><input type="hidden" name="location[]" value="${loc_id}">${location}</td>
+      <td><input type="hidden" name="cost_price[]" value="${costPrice}">${costPrice}</td>
+      <td><input type="hidden" name="retail_price[]" value="${retailPrice}">${retailPrice}</td>
+      <td><input type="hidden" name="total[]" value="${total}">${total}</td>
+      <td><input type="hidden" name="discount_1[]" value="${discount_1}">${discount_1}</td>
+      <td><input type="hidden" name="discount_2[]" value="${discount_2}">${discount_2}</td>
+  </tr>`;
+
+  // Append the new row to the table body
+  $('#saved_sale tbody').append(newRow);
+
+  // Clear form fields
+  // $('#date').val('');
+  // $('#productName').val('');
+  // $('#avail-quantity').val('');
+  // //$('#customer_id').val('').trigger('change');
+  // $('#item_id').val('').trigger('change');
+  // $('#loc_id').val('').trigger('change');
+  // $('#cost_price').val('');
+  // $('#retail_price').val('');
+  // $('#quantity').val('');
+  // //$('#discount_1').val('');
+  // $('#discount_2').val('');
+  // $('#total').val('');
+  $("#salesForm")[0].reset();
+}
+
+function get_quantity(loc_id,item_id){
+  $.ajax({
+    url: "ajax-calls.php",
+    type: "POST",
+    data: {ACTION:"get_loc_quantity",loc_id:loc_id,item_id:item_id},
+    success: function (data) {
+       $('#avail-quantity').val(data);
+    },
+  });
+}
+function saleSubmit(){
+  var allRows = [];
+
+  // Loop through each table row
+  $('#saved_sale tbody tr').each(function(index, row) {
+    var rowData = {
+      date: $(row).find('td:eq(0) input').val(),
+      item_id: $(row).find('td:eq(1) input').val(),
+      customer_id: $(row).find('td:eq(2) input').val(),
+      quantity: $(row).find('td:eq(3) input').val(),
+      location: $(row).find('td:eq(4) input').val(),
+      cost_price: $(row).find('td:eq(5) input').val(),
+      retail_price: $(row).find('td:eq(6) input').val(),
+      total: $(row).find('td:eq(7) input').val(),
+      discount_1: $(row).find('td:eq(8) input').val(),
+      discount_2: $(row).find('td:eq(9) input').val(),
+    };
+
+    allRows.push(rowData);
+  });
+  
+  $.ajax({
+    url: 'save.php',
+    method: 'POST',
+    data: { allRows: allRows,'ACTION':'save' },
+    success: function(response) {
+      var toastType = json.status;
+      var toastMsg = json.value;
+      showToast(toastType, toastMsg);
+      window.location.href="index.php";
+    }
+  });
+
 }

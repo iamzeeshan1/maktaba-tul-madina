@@ -34,28 +34,44 @@ if (isset($_POST['ACTION']) && $_POST['ACTION'] == 'save') {
         $randomNumber = rand(1000, 9999);
         $invoice_number = 'INV-'.$randomNumber;
         foreach ($allRows as $rowData) {
-            $date = $rowData['date'];
+
             $supplier_id = $rowData['supplier_id'];
             $item_id = $rowData['product_id'];
             $cost_price = $rowData['cost_price'];
             $retail_price = $rowData['retail_price'];
             $quantity = $rowData['quantity'];
             $location = $rowData['location'];
-            $query = add_data( $link, 'invt_purchase', [
-                        'supplier_id'=>$supplier_id,
-                        'item_id'=>$item_id,
-                        'date'=>$date,
-                        'cost_price'=>$cost_price,
-                        'retail_price'=>$retail_price,
-                        'location'=> $location,
-                        'quantity'=> $quantity,
-                        'invoice_number'=>$invoice_number
-                    ], false );
+
+            // Insert into invt_purchase table
+            $purchase_id = add_data($link, 'invt_purchase', [
+                'supplier_id' => $supplier_id,
+                'item_id' => $item_id,
+                'date' => $rowData['date'],
+                'cost_price' => $cost_price,
+                'retail_price' => $retail_price,
+                'invoice_number' => $invoice_number
+            ], true);
+
+            // Insert into invt_purchase_detail table
+            $check_item = fetch_data($link,"select * from invt_purchase_details where item_id='$item_id' and loc_id = '$location'");
+            if(count($check_item)>0){
+                $total = $check_item[0]['quantity'] + $quantity;
+                update_data($link,'invt_purchase_details',['quantity' => $total],[ 'item_id' => $item_id,'loc_id' => $location],false);
+            }else{
+                add_data($link, 'invt_purchase_details', [
+                    'purchase_id' => $purchase_id,
+                    'loc_id' => $location,
+                    'quantity' => $quantity, 
+                    'item_id' => $item_id
+                ], false);
+            }
         }
-    } 
-    $res = array( 'status'=>'success', 'value'=>'Added Successfully!' );
-    echo json_encode( $res );
-} 
+    }
+
+    $res = array('status' => 'success', 'value' => 'Added Successfully!');
+    echo json_encode($res);
+}
+
 
 if (isset($_POST['ACTION']) && $_POST['ACTION'] == 'edit') {
     extract( $_POST );
@@ -65,10 +81,21 @@ if (isset($_POST['ACTION']) && $_POST['ACTION'] == 'edit') {
                 'date'=>$date,
                 'cost_price'=>$cost_price,
                 'retail_price'=>$retail_price,
-                'quantity'=> $quantity,
-                'location'=> $location,
             ], [ 'purchase_id'=>$purchase_id ], false );
  
+             // Insert into invt_purchase_detail table
+             $check_item = fetch_data($link,"select * from invt_purchase_details where purchase_id='$purchase_id'");
+             if(count($check_item)>0){
+                 //$total = $check_item[0]['quantity'] + $quantity;
+                 update_data($link,'invt_purchase_details',['quantity' => $quantity,'loc_id'=>$location],[ 'purchase_id' => $purchase_id],false);
+             }else{
+                 add_data($link, 'invt_purchase_details', [
+                     'purchase_id' => $purchase_id,
+                     'loc_id' => $location,
+                     'quantity' => $quantity, 
+                     'item_id' => $item_idd
+                 ], false);
+             }
         $res = array( 'status'=>'success', 'value'=>'Updated Successfully!' );
         echo  json_encode( $res );
     

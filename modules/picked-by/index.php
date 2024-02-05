@@ -18,17 +18,18 @@ $user_id = $_SESSION['mktb_user_id'];
                 <div class="card custom-card">
                     <div class="card-body">
                         <div class="table-responsive mb-4 mt-4">
-                            <table class="table table-bordered caption-top W-100 dataTables_length dataTable" id="saleTable">
+                            <table class="table table-bordered caption-top W-100 dataTables_length" id="picked_by">
                                 <thead class="table-light">
                                     <th width="4%">Sr.No</th>
                                     <th width="5%">Invoice#</th>
                                     <th width="20%">Product ID</th>
+                                    <th width="20%">Product Name</th>
                                     <th width="20%">Customer</th>
                                     <th width="20%">Quantity Sold</th>
                                     <th width="20%">Date</th>
                                     <th width="20%">Picked By</th>
                                     <th width="20%">Status</th>
-                                    <!-- <th width="5%">Actions</th> -->
+                                    <th width="5%">Actions</th>
                                 </thead>
                                 <tbody>
                                     
@@ -36,6 +37,7 @@ $user_id = $_SESSION['mktb_user_id'];
                                         $query = fetch_data($link,"SELECT
                                         invt_sales.*,
                                         invt_products.product_id,
+                                        invt_products.product_name,
                                         invt_customers.customer_name,
                                         users_detail.first_name as f_name,
                                         users_detail.last_name as l_name 
@@ -53,6 +55,7 @@ $user_id = $_SESSION['mktb_user_id'];
                                         <td><?= $key+1 ?></td>
                                         <td><?= $row_sol['invoice_number'] ?></td>
                                         <td><?= $row_sol['product_id'] ?></td>
+                                        <td><?= $row_sol['product_name'] ?></td>
                                         <td><?= $row_sol['customer_name'] ?></td>
                                         <td><?= $row_sol['quantity'] ?></td>
                                         <td><?= $row_sol['date'] ?></td>
@@ -79,30 +82,19 @@ $user_id = $_SESSION['mktb_user_id'];
                                                 </div>
                                             </div>
                                         </td>
-                                        <!-- <td>
+                                        <td>
                                             <div class="dropdown">
                                                 <a href="#" role="button" id="dropdownMenuLink" data-bs-toggle="dropdown" aria-expanded="false">
                                                     <i class="mdi mdi-view-agenda-outline">Actions</i>
                                                 </a>
 
                                                 <ul class="dropdown-menu" aria-labelledby="dropdownMenuLink">
-                                                    <li><a class="dropdown-item" href="create.php?sales_id=<?= $sales_id?>">
+                                                    <li><a class="dropdown-item" href="edit.php?sales_id=<?= $sales_id?>">
                                                             <i class=" bx bx-edit"> Edit / View </i></a>
                                                     </li>
-                                                    <?php if($row_sol['picklist_id'] != ''){?>
-                                                    <li><a class="dropdown-item" href="invoice.php?sales_id=<?= $sales_id?>">
-                                                            <i class=" bx bx-edit"> Generate Invoice </i></a>
-                                                    </li>
-                                                    <?php }
-                                                    else{?>
-                                                    <li><a class="dropdown-item" onclick="generate_picklist(<?=$sales_id?>)">
-                                                            <i class=" bx bx-edit"> Generate Picklist </i></a>
-                                                    </li>
-                                                    <?php }?>
-                                                
                                                 </ul>
                                             </div>
-                                        </td> -->
+                                        </td>
                                     </tr>
                                     
                                     <?php } ?>

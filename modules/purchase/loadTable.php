@@ -9,26 +9,43 @@
                             <th width="4%">Sr.No</th>
                             <th width="4%">Date</th>
                             <th width="20%">Supplier Name</th>
+                            <th width="20%">Produuct Name</th>
                             <th width="10%">Cost Price</th>
                             <th width="10%">Retail Price</th>
+                            <th width="10%">Quantity</th>
+                            <th width="10%">Location</th>
                             <th width="5%">Actions</th>
                         </thead>
                         <tbody>
 
                             <?php
                                 $query = fetch_data($link, "SELECT
-                                invt_purchase.*, 
-                                SUM(retail_price) AS total_retail_price, 
-                                SUM(cost_price) AS total_cost_price, 
-                                invt_suppliers.supplier_name
+                                invt_purchase.*,
+                                prod.product_name,
+                                invt_suppliers.supplier_name,
+                                pd.quantity,
+                                pd.loc_id,
+                                loc.loc_name
                                 FROM
                                 invt_purchase
                                 LEFT JOIN
                                 invt_suppliers
                                 ON 
-                                    invt_purchase.supplier_id = invt_suppliers.supplier_id 
-                                GROUP BY
-                                invoice_number;");
+                                invt_purchase.supplier_id = invt_suppliers.supplier_id 
+                                inner JOIN
+                                invt_purchase_details pd
+                                ON 
+                                invt_purchase.purchase_id = pd.purchase_id 
+                                inner JOIN
+                                invt_locations loc
+                                ON 
+                                pd.loc_id = loc.loc_id 
+                                inner JOIN
+                                invt_products prod
+                                ON 
+                                invt_purchase.item_id = prod.item_id 
+
+                                ");
 
                                 foreach ($query as $key => $row_sol) {
                                     $purchase_id = $row_sol['purchase_id'];
@@ -38,8 +55,11 @@
                                 <td><?= $key+1 ?></td>
                                 <td><?= $row_sol['date'] ?></td>
                                 <td><?= $row_sol['supplier_name'] ?></td>
-                                <td><?= $row_sol['total_cost_price'] ?></td>
-                                <td><?= $row_sol['total_retail_price'] ?></td>
+                                <td><?= $row_sol['product_name'] ?></td>
+                                <td><?= $row_sol['cost_price'] ?></td>
+                                <td><?= $row_sol['retail_price'] ?></td>
+                                <td><?= $row_sol['quantity'] ?></td>
+                                <td><?= $row_sol['loc_name'] ?></td>
                                 <td>
                                     <div class="dropdown">
                                         <a href="#" role="button" id="dropdownMenuLink"
@@ -47,14 +67,14 @@
                                             <i class="mdi mdi-view-agenda-outline">Actions</i>
                                         </a>
                                         <ul class="dropdown-menu" aria-labelledby="dropdownMenuLink">
-                                            <!-- <li><a class="dropdown-item" onclick="edit_purchase(<?//=$purchase_id;?>)">
+                                            <li><a class="dropdown-item" onclick="edit_purchase(<?=$purchase_id;?>)">
                                                     <i class=" bx bx-edit"> Edit / View </i></a>
-                                            </li> -->
+                                            </li>
                                             <li><a class="dropdown-item" href="invoice.php?id=<?=$invoice?>">
                                                     <i class=" bx bx-edit"> Invoice </i></a>
                                             </li>
                                             <li><a href="#" class="dropdown-item"
-                                                    onclick=" JSconfirm('delete.php?id=<?= $invoice ?>&action=delete_item','warning','Are you sure you want to delete this purchase?')">
+                                                    onclick=" JSconfirm('delete.php?id=<?= $purchase_id ?>&action=delete_item','warning','Are you sure you want to delete this purchase?')">
                                                     <i class=" bx bx-trash"> Delete</i></a>
                                             </li>
                                         </ul>

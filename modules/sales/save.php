@@ -1,72 +1,88 @@
 <?php 
     include("../../includes/header-min.php");
-    // $added_by = $_SESSION['emp_id'];
+    
+if (isset($_POST['ACTION']) && $_POST['ACTION'] == 'save') {
+    $allRows = $_POST['allRows'];
+
+    if (!empty($allRows) && is_array($allRows)) {
+        $randomNumber = rand(1000, 9999);
+        $invoice_number = 'INV-'.$randomNumber;
+        foreach ($allRows as $rowData) {
+            $customer_id = $rowData['customer_id'];
+            $item_id = $rowData['item_id'];
+            $date = $rowData['date'];
+            $cost_price = $rowData['cost_price'];
+            $retail_price = $rowData['retail_price'];
+            $quantity = $rowData['quantity'];
+            $location = $rowData['location'];
+            $total = $rowData['total'];
+            $discount_1 = $rowData['discount_1'];
+            $discount_2 = $rowData['discount_2'];
+            // Insert into invt_purchase table
+            $query = add_data($link,"invt_sales",[
+                'item_id'=>$item_id,
+                'customer_id'=>$customer_id,
+                'date'=>$date,
+                'details'=>'',
+                'quantity'=>$quantity,
+                'location'=>$location,
+                'cost_price'=> $cost_price,
+                'retail_price'=>$retail_price,
+                'discount_1'=>$discount_1,            
+                'discount_2'=>$discount_2,
+                'invoice_number'=>$invoice_number,
+                'total'=> $total
+            ],false);
+
+            //minus quantity form total quantity
+            $check_item = fetch_data($link,"select * from invt_purchase_details where item_id='$item_id' and loc_id = '$location'");
+            $total = $check_item[0]['quantity'] - $quantity;
+            update_data($link,'invt_purchase_details',['quantity' => $total],[ 'item_id' => $item_id,'loc_id' => $location],false);
+       
+            $res = array( 'status'=>'success', 'value'=>'Added Successfully!' );
+            echo  json_encode( $res );
+        
+        }
+    }
+
+}
+
+if(isset($_GET['action']) && $_GET['action'] == 'edit'){
     extract($_POST);
 
     $sales_id = $_GET['sales_id']??0;
-    $discount_1 = $discount_1?$discount_1:'0';
-    $discount_2 = $discount_2?$discount_2:'0';
-//exit;
-	if($sales_id>0){
-		$query = update_data($link,"invt_sales",[
-            'item_id'=>$item_id,
-            'customer_id'=>$customer_id,
-            'date'=>$date,
-            'details'=>$details,
-            'quantity'=>$quantity,
-            'location'=>$location,
-            'retail_price'=>$retail_price,
-            'discount_1'=>$discount_1,            
-            'discount_2'=>$discount_2,
-            'cost_price'=> $cost_price,
-            'total'=> $total
-        ],['sales_id'=>$sales_id],false);
+    $query = update_data($link,"invt_sales",[
+        'item_id'=>$item_id,
+        'customer_id'=>$customer_id,
+        'date'=>$date,
+        'details'=>$details,
+        'quantity'=>$quantity,
+        'location'=>$loc_id,
+        'retail_price'=>$retail_price,
+        'discount_1'=>$discount_1,            
+        'discount_2'=>$discount_2,
+        'cost_price'=> $cost_price,
+        'total'=> $total
+    ],['sales_id'=>$sales_id],false);
 
-         // update producs quantity in invt_products
+    //minus quantity form total quantity
+    $check_item = fetch_data($link,"select * from invt_purchase_details where item_id='$item_id' and loc_id = '$loc_id'");
+    
+    if($old_quantity != $quantity){
+        $total = $old_quantity + $check_item[0]['quantity'];
+        $current = $total - $quantity;
 
-        //  $q1 = fetch_data($link,"select quantity from invt_products where item_id= '$item_id'");
-        //  $quan = $q1[0]['quantity'];
-        //  $avail = $quan - $quantity;
- 
-        //  $query = update_data($link,"invt_products",['avail'=>$avail],['item_id'=>$item_id],false);
-        
-	} else {
-		$query = add_data($link,"invt_sales",[
-            'item_id'=>$item_id,
-            'customer_id'=>$customer_id,
-            'date'=>$date,
-            'details'=>$details,
-            'quantity'=>$quantity,
-            'location'=>$location,
-            'cost_price'=> $cost_price,
-            'retail_price'=>$retail_price,
-            'discount_1'=>$discount_1,            
-            'discount_2'=>$discount_2,
-            'total'=> $total
-        ],false);
-
-        // update producs quantity in invt_products
-
-        // $q1 = fetch_data($link,"select quantity from invt_products where item_id= '$item_id'");
-        // $quan = $q1[0]['quantity'];
-        // $avail = $quan - $sold;
-
-        // $query = update_data($link,"invt_products",['avail'=>$avail],['item_id'=>$item_id],false);
-
-        // $sales_id = $query;
+        update_data($link,'invt_purchase_details',['quantity' => $current],[ 'item_id' => $item_id,'loc_id' => $loc_id],false);
     }
 
+} 
 
-    if($sales_id>0){
-        $_SESSION['toast_type'] = "success";
-        $_SESSION['toast_msg'] = "Updated Successfully!";
-        header("location:index.php");
-        exit();
-    } else{
-        $_SESSION['toast_type'] = "success";
-        $_SESSION['toast_msg'] = "Added Successfully!";
-        header("location:index.php");
-        exit();
-    }
+
+    //else{
+    //     $_SESSION['toast_type'] = "success";
+    //     $_SESSION['toast_msg'] = "Added Successfully!";
+    //     header("location:index.php");
+    //     exit();
+    // }
 	
 
