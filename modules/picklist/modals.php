@@ -43,7 +43,7 @@
                         </div> -->
                     </div>
                 </div>
-                <div class="modal-footer bg-light">
+                <div class="modal-footer">
                     <button type="submit" class="btn ripple btn-primary submit-btn" id="" onclick="formSubmit()">Save <span class="ms-2 d-none spinner-border text-light spinner-border-sm preloader" id="" ></span></button>
                     <button type="button" class="btn ripple btn-secondary" data-bs-dismiss="modal">Close</button>
                 </div>

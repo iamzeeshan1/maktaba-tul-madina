@@ -16,7 +16,7 @@
                         </div>
                     </div>
                 </div>
-                <div class="modal-footer bg-light">
+                <div class="modal-footer">
                     <button type="submit" class="btn ripple btn-primary" onclick="formSubmit('misc_form','','#miscModal')">Save</button>
                     <button type="button" class="btn ripple btn-secondary" data-bs-dismiss="modal">Close</button>
                 </div>
