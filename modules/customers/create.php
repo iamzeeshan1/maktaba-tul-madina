@@ -58,7 +58,7 @@ if (isset($_GET['customer_id'])) {
               </div>
               <div class="col-md-3">
                 <label for="contact_number" class="form-label">Contact Number</label>
-                <input type="number" class="form-control" id="contact_number" name="contact_number" value="<?= $row['contact_number']??''; ?>">
+                <input type="text" class="form-control" id="contact_number" name="contact_number" value="<?= $row['contact_number']??''; ?>">
               </div>
               <div class="col-md-3">
                 <label for="open_balance" class="form-label">Opening Balance</label>
