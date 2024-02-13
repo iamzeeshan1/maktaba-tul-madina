@@ -2,14 +2,6 @@
 /*------------------------------------------------------------------
 [Master Stylesheet]
 
-Project        :   SPRUHA - HTML5 Bootstrap Admin Template
-Version        :   V.1
-Create Date    :   03/10/20
-Copyright      :   Spruko Technologies Private Limited 
-Author         :   SprukoSoft
-Author URL     :   https://themeforest.net/user/sprukosoft
-Support	       :   support@spruko.com
-License        :   Licensed under ThemeForest License
 
 -------------------------------------------------------------------*/
 /*
@@ -26222,8 +26214,9 @@ body.rtl {
 .main-content-header .main-logo {
     flex: 1;
     text-align: center;
+    color: #fff;
+    text-transform: capitalize;
 }
-
 @media (min-width: 992px) {
     .main-content-header {
         display: none;
@@ -26600,7 +26593,8 @@ body.rtl {
     font-weight: 700;
     font-size: 28px;
     font-family: "Poppins", sans-serif;
-    text-transform: lowercase;
+    text-transform: capitalize;
+    color: #fff;
     letter-spacing: -1px;
     display: flex;
     align-items: left;
@@ -26608,7 +26602,9 @@ body.rtl {
     margin: auto;
     justify-content: left;
 }
-
+.main-logo:hover{
+    color: #fff !important;
+}
 .main-logo i {
     display: block;
     line-height: 0.9;

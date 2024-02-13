@@ -4,14 +4,15 @@
         <div class="main-sidebar-header main-container-1 active">
             <div class="sidemenu-logo">
                 <a class="main-logo" href="index.html">
-                    <img src="<?=$app_path?>assets/img/brand/logo-light.png" class="header-brand-img desktop-logo"
+                    <!-- <img src="<?=$app_path?>assets/img/brand/logo-light.png" class="header-brand-img desktop-logo"
                         alt="logo">
                     <img src="<?=$app_path?>assets/img/brand/icon-light.png" class="header-brand-img icon-logo"
                         alt="logo">
                     <img src="<?=$app_path?>assets/img/brand/logo.png" class="header-brand-img desktop-logo theme-logo"
                         alt="logo">
                     <img src="<?=$app_path?>assets/img/brand/icon.png" class="header-brand-img icon-logo theme-logo"
-                        alt="logo">
+                        alt="logo"> -->
+                    MTM
                 </a>
             </div>
             <div class="main-sidebar-body main-body-1">
