@@ -44,7 +44,11 @@ if (isset($_POST['ACTION']) && $_POST['ACTION'] == 'save') {
         
         }
     }
-
+    
+    $_SESSION['toast_type'] = "success";
+    $_SESSION['toast_msg'] = "Added Successfully!";
+    header("location:index.php");
+    exit();
 }
 
 if(isset($_GET['action']) && $_GET['action'] == 'edit'){
