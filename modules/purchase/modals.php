@@ -81,15 +81,15 @@
                         </div>
 
                     </div>
-                    <div class="row">
-                        <div class="col-md-12 text-end mt-2">
+                    <div class="row mt-3">
+                        <div class="col-md-12 text-end">
                             <button type="button" id="add_btn" onclick="save_data()" class="btn btn-primary">ADD</button>
                         </div>
                     </div>
-                    <div class="row">
+                    <div class="row mt-3">
                         <div class="col-md-12">
-                            <div >
-                                <table class="table table-striped table-bordered text-nowrap  no-footer dtr-inline d-none" id="saved_purchase">
+                            <div class="table-responsive">
+                                <table class="table table-striped table-bordered text-wrap  no-footer dtr-inline d-none mb-0" id="saved_purchase">
                                     <thead class="text-white">
                                         <tr>
                                             <th>Date</th>

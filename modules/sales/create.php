@@ -141,10 +141,10 @@ else{
               </div>
             </div>
             <!-- table -->
-            <div class="row">
+            <div class="row mt-3">
               <div class="col-md-12">
-                  <div >
-                      <table class="table table-striped table-bordered text-nowrap  no-footer dtr-inline d-none" id="saved_sale">
+                  <div class="table-responsive">
+                      <table class="table table-striped table-bordered text-wrap  no-footer dtr-inline d-none mb-0" id="saved_sale">
                           <thead class="text-white">
                               <tr>
                                 <th width="20%">Date</th>
