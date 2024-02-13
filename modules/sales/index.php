@@ -89,7 +89,7 @@ include("../../includes/header.php");
                                 <td>
                                     <div class="dropdown">
                                         <a href="#" role="button" id="dropdownMenuLink" data-bs-toggle="dropdown" aria-expanded="false">
-                                            <i class="mdi mdi-view-agenda-outline">Actions</i>
+                                          <i class="ti-menu sidemenu-icon menu-icon "></i>
                                         </a>
 
                                         <ul class="dropdown-menu" aria-labelledby="dropdownMenuLink">

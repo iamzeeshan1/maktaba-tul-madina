@@ -12,7 +12,6 @@
                             <th width="10%">Email</th>
                             <th width="20%">Address</th>
                             <th width="10%">Number</th>
-                            <th width="10%">Details</th>
                             <th width="5%">Actions</th>
                         </thead>
                         <tbody>
@@ -29,12 +28,11 @@
                                 <td><?= $row_sol['email'] ?></td>
                                 <td><?= $row_sol['address'] ?></td>
                                 <td><?= $row_sol['contact_number'] ?></td>
-                                <td><?= $row_sol['details'] ?></td>
                                 <td>
                                     <div class="dropdown">
                                         <a href="#" role="button" id="dropdownMenuLink"
                                             data-bs-toggle="dropdown" aria-expanded="false">
-                                            <i class="mdi mdi-view-agenda-outline">Actions</i>
+                                            <i class="ti-menu sidemenu-icon menu-icon "></i>
                                         </a>
                                         <ul class="dropdown-menu" aria-labelledby="dropdownMenuLink">
                                             <li><a class="dropdown-item" onclick="add_supplier(<?=$supplier_id;?>)">
