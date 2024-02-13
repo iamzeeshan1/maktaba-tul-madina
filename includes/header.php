@@ -109,10 +109,8 @@ $current_year  = date("Y", strtotime($today));
                 </div>
                 <div class="main-header-center">
                     <div class="responsive-logo">
-                        <a href="index.html"><img src="<?=$app_path?>assets/img/brand/logo.png" class="mobile-logo"
-                                alt="logo"></a>
-                        <a href="index.html"><img src="<?=$app_path?>assets/img/brand/logo-light.png"
-                                class="mobile-logo-dark" alt="logo"></a>
+                        <a href="index.html">MTM</a>
+                        <!-- <a href="index.html">MTM</a> -->
                     </div>
                 </div>
                 <div class="main-header-right">
