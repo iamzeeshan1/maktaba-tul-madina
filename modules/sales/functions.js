@@ -334,19 +334,19 @@ function save_data() {
   $('#saved_sale tbody').append(newRow);
 
   // Clear form fields
-  // $('#date').val('');
-  // $('#productName').val('');
-  // $('#avail-quantity').val('');
-  // //$('#customer_id').val('').trigger('change');
-  // $('#item_id').val('').trigger('change');
-  // $('#loc_id').val('').trigger('change');
-  // $('#cost_price').val('');
-  // $('#retail_price').val('');
-  // $('#quantity').val('');
-  // //$('#discount_1').val('');
-  // $('#discount_2').val('');
-  // $('#total').val('');
-  $("#salesForm")[0].reset();
+  $('#date').val('');
+  $('#productName').val('');
+  $('#avail-quantity').val('');
+  $('#customer_id').val('').trigger('change');
+  $('#item_id').val('').trigger('change');
+  $('#loc_id').val('').trigger('change');
+  $('#cost_price').val('');
+  $('#retail_price').val('');
+  $('#quantity').val('');
+  $('#discount_1').val('');
+  $('#discount_2').val('');
+  $('#total').val('');
+  //$("#salesForm")[0].reset();
 }
 
 function get_quantity(loc_id,item_id){
