@@ -43,12 +43,9 @@ if (isset($_POST['ACTION']) && $_POST['ACTION'] == 'save') {
             echo  json_encode( $res );
         
         }
+       
     }
-    
-    $_SESSION['toast_type'] = "success";
-    $_SESSION['toast_msg'] = "Added Successfully!";
-    header("location:index.php");
-    exit();
+    //echo json_encode(array('status' => 'success','value'=>'Added Successfully'));
 }
 
 if(isset($_GET['action']) && $_GET['action'] == 'edit'){
@@ -81,12 +78,4 @@ if(isset($_GET['action']) && $_GET['action'] == 'edit'){
 
 } 
 
-
-    //else{
-    //     $_SESSION['toast_type'] = "success";
-    //     $_SESSION['toast_msg'] = "Added Successfully!";
-    //     header("location:index.php");
-    //     exit();
-    // }
-	
 

@@ -94,41 +94,46 @@ $(document).ready(function () {
 
 function get_product_details(item_id, sales_id) {
   if (item_id == "") {
-    $("#sold").prop("disabled", true);
+    
   } else {
-    $("#sold").prop("disabled", false);
+    $.ajax({
+      url: "ajax-calls.php",
+      type: "POST",
+      data: {ACTION:"get_product_name_location",item_id:item_id},
+      dataType: "json",
+      success: function (response) {
+        $("#prod_details").html(response.html);
+      }
+    });
   }
-  $.ajax({
-    url: "ajax-calls.php",
-    type: "POST",
-    data: {ACTION:"get_product_name_location",item_id:item_id},
-    dataType: "json",
-    success: function (response) {
-      $("#prod_details").html(response.html);
-    }
-  });
 }
 function check_quantity(value){
-  var avail = $('#avail-quantity').val();
-
-  if(value > avail){
-    var toastType = 'danger';
-    var toastMsg = 'Quantity not available';
-    showToast(toastType, toastMsg);
-    return;
+  if(value != ''){
+    var avail = $('#avail-quantity').val();
+  
+    if(value > avail){
+      var toastType = 'danger';
+      var toastMsg = 'Quantity not available';
+      showToast(toastType, toastMsg);
+      return;
+    }
   }
 
 }
 
 function get_discount(cust_id) {
-  $.ajax({
-    url: "ajax-calls.php",
-    type: "POST",
-    data: {ACTION:"get_discount",cust_id:cust_id},
-    success: function (data) {
-       $('#discount_1').val(data);
-    },
-  });
+  if(cust_id != ''){
+    $.ajax({
+      url: "ajax-calls.php",
+      type: "POST",
+      data: {ACTION:"get_discount",cust_id:cust_id},
+      success: function (data) {
+         $('#discount_1').val(data);
+      },
+    });
+  }else{
+
+  }
 }
 function find_price(retail_price){
  var discount =  $('#discount_1').val();
@@ -350,14 +355,18 @@ function save_data() {
 }
 
 function get_quantity(loc_id,item_id){
-  $.ajax({
-    url: "ajax-calls.php",
-    type: "POST",
-    data: {ACTION:"get_loc_quantity",loc_id:loc_id,item_id:item_id},
-    success: function (data) {
-       $('#avail-quantity').val(data);
-    },
-  });
+  if(loc_id != ''){
+    $.ajax({
+      url: "ajax-calls.php",
+      type: "POST",
+      data: {ACTION:"get_loc_quantity",loc_id:loc_id,item_id:item_id},
+      success: function (data) {
+         $('#avail-quantity').val(data);
+      },
+    });
+  }else{
+
+  }
 }
 function saleSubmit(){
   var allRows = [];
@@ -385,9 +394,10 @@ function saleSubmit(){
     method: 'POST',
     data: { allRows: allRows,'ACTION':'save' },
     success: function(response) {
-      var toastType = json.status;
-      var toastMsg = json.value;
-      showToast(toastType, toastMsg);
+      // var json = JSON.parse(response);
+      // var toastType = json.status;
+      // var toastMsg = json.value;
+      // showToast(toastType, toastMsg);
       window.location.href="index.php";
     }
   });
