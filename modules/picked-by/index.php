@@ -24,12 +24,11 @@ $user_id = $_SESSION['mktb_user_id'];
                                     <th width="5%">Invoice#</th>
                                     <th width="20%">Product ID</th>
                                     <th width="20%">Product Name</th>
-                                    <th width="20%">Customer</th>
                                     <th width="20%">Quantity Sold</th>
                                     <th width="20%">Date</th>
-                                    <th width="20%">Picked By</th>
-                                    <th width="20%">Status</th>
-                                    <th width="5%">Actions</th>
+                                    <th width="20%">Assigned To</th>
+                                    <!-- <th width="20%">Status</th> -->
+                                    <!-- <th width="5%">Actions</th> -->
                                 </thead>
                                 <tbody>
                                     
@@ -37,16 +36,10 @@ $user_id = $_SESSION['mktb_user_id'];
                                         $query = fetch_data($link,"SELECT
                                         invt_sales.*,
                                         invt_products.product_id,
-                                        invt_products.product_name,
-                                        invt_customers.customer_name,
-                                        users_detail.first_name as f_name,
-                                        users_detail.last_name as l_name 
+                                        invt_products.product_name
                                         FROM
                                         invt_sales
-                                        LEFT JOIN invt_products ON invt_sales.item_id = invt_products.item_id
-                                        LEFT JOIN invt_customers ON invt_customers.customer_id = invt_sales.customer_id
-                                        INNER JOIN users ON invt_sales.picklist_id = users.user_id
-                                        INNER JOIN users_detail ON users.user_id = users_detail.user_id where invt_sales.picklist_id = $user_id");
+                                        LEFT JOIN invt_products ON invt_sales.item_id = invt_products.item_id");
 
                                         foreach($query as $key => $row_sol){
                                         $sales_id = $row_sol['sales_id'];
@@ -56,11 +49,10 @@ $user_id = $_SESSION['mktb_user_id'];
                                         <td><?= $row_sol['invoice_number'] ?></td>
                                         <td><?= $row_sol['product_id'] ?></td>
                                         <td><?= $row_sol['product_name'] ?></td>
-                                        <td><?= $row_sol['customer_name'] ?></td>
                                         <td><?= $row_sol['quantity'] ?></td>
                                         <td><?= $row_sol['date'] ?></td>
-                                        <td><?= $row_sol['f_name'].' '.$row_sol['l_name'] ??''?></td>
-                                        <td>
+                                        <td><?= $row_sol['picklist_id']?></td>
+                                        <!-- <td>
                                             <?php
                                                 if($row_sol['status'] == 'accepted'){
                                                     $class="btn-success";
@@ -81,8 +73,8 @@ $user_id = $_SESSION['mktb_user_id'];
                                                     <a class="dropdown-item" onclick=" JSconfirm('change-status.php?sales_id=<?= $sales_id ?>&type=pending&action=change_status','warning','Are you sure you want to move this to pending?')">Pending</a>
                                                 </div>
                                             </div>
-                                        </td>
-                                        <td>
+                                        </td> -->
+                                        <!-- <td>
                                             <div class="dropdown">
                                                 <a href="#" role="button" id="dropdownMenuLink" data-bs-toggle="dropdown" aria-expanded="false">
                                                 <i class="ti-menu sidemenu-icon menu-icon "></i>
@@ -94,7 +86,7 @@ $user_id = $_SESSION['mktb_user_id'];
                                                     </li>
                                                 </ul>
                                             </div>
-                                        </td>
+                                        </td> -->
                                     </tr>
                                     
                                     <?php } ?>

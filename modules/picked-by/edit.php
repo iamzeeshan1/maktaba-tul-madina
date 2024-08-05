@@ -36,7 +36,7 @@ else{
                 <form class="row g-3" method="post" action="save.php?action=edit&sales_id=<?=$sales_id?>">
                     <div class="col-lg-4">
                         <label for="item_id" class="mg-b-10 form-label">Product ID</label>
-                        <select name="item_id" class="form-control select2 select2-hidden-accessible"  id="item_id" readonly >
+                        <select name="item_id" class="form-select"  id="item_id" readonly >
                         <option value="">Select Product</option>
                         <?php 
                           $id = $row['item_id'];

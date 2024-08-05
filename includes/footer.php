@@ -104,6 +104,7 @@
 <!-- Custom js -->
 <script src="<?= $app_path ?>assets/js/helper.js"></script>
 <script type="text/javascript">
+  $('.dataTables').DataTable();
   tinymce.init({
     selector: '.tiny-mce',
     height: 300,

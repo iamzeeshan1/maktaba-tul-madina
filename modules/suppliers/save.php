@@ -28,12 +28,17 @@ if ( $supplier_id>0 ) {
     ], false );
     //$supplier_id = $query;
 }
-
-if ( $supplier_id>0 ) {
-    $res = array( 'status'=>'success', 'value'=>'Updated Successfully!' );
-    echo  json_encode( $res );
-} else {
-    $res = array( 'status'=>'success', 'value'=>'Added Successfully!' );
+if($query){
+    
+    if ( $supplier_id>0 ) {
+        $res = array( 'status'=>'success', 'value'=>'Updated Successfully!' );
+        echo  json_encode( $res );
+    } else {
+        $res = array( 'status'=>'success', 'value'=>'Added Successfully!' );
+        echo json_encode( $res );
+    }
+}else{
+    $res = array( 'status'=>'danger', 'value'=>'Something went wrong' );
     echo json_encode( $res );
 }
 

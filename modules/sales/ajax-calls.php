@@ -92,54 +92,66 @@ include("../../includes/header-min.php");
 
  }
 
- if(isset($_POST['ACTION']) && $_POST['ACTION'] == 'get_product_name_location'){
+if(isset($_POST['ACTION']) && $_POST['ACTION'] == 'get_product_name_location'){
   $item_id = $_POST['item_id'];
-  
-  $data = fetch_data($link, "SELECT prod.product_name,prod.item_id,loc.loc_name,loc.loc_id FROM invt_purchase p
-            INNER JOIN invt_products prod ON p.item_id = prod.item_id
-            INNER JOIN invt_purchase_details pd ON p.purchase_id = pd.purchase_id
-            INNER JOIN invt_locations loc ON pd.loc_id = loc.loc_id where prod.item_id=$item_id");
+  $type = 'product_name';
+  echo  get_details($link,$item_id,$type);
+}
+ if(isset($_POST['ACTION']) && $_POST['ACTION'] == 'get_loc_quantity'){
+  $loc_id = $_POST['loc_id'];
+  $item_id = $_POST['item_id'];
+  $data = fetch_data($link, "SELECT quantity FROM invt_item_quantity where loc_id='$loc_id' and item_id = '$item_id'");
+  echo $quantity = $data[0]['quantity']??'0';
+
+ }
+if(isset($_POST['ACTION']) && $_POST['ACTION'] == 'get_product_id_location'){
+  $item_id = $_POST['item_id'];
+  $type = 'product_id';
+  echo get_details($link,$item_id,$type);
+}
+
+function get_details($link,$item_id,$type){
+  $data = fetch_data($link, "SELECT DISTINCT prod.product_name,prod.product_id,prod.item_id,loc.loc_name,loc.loc_id,p.retail_price,invt_item_quantity.quantity,MAX(invt_item_quantity.quantity) OVER (PARTITION BY prod.item_id) AS max_quantity FROM invt_purchase AS p INNER JOIN invt_products AS prod ON p.item_id=prod.item_id INNER JOIN invt_purchase_details AS pd ON p.purchase_id=pd.purchase_id INNER JOIN invt_locations AS loc ON pd.loc_id=loc.loc_id INNER JOIN invt_item_quantity ON loc.loc_id=invt_item_quantity.loc_id AND prod.item_id=invt_item_quantity.item_id WHERE prod.item_id=$item_id");
 
   $response = array();
 
   foreach ($data as $row) {
-    $productName = $row['product_name'];
+    $prodArray= ($type == 'product_name')?$row['product_name']:$row['product_id'];
+    $productid = $row['product_id'];
     $locationName = $row['loc_name'];
     $locationId = $row['loc_id'];
+    $retail_price = $row['retail_price'];
+    $max_q = $row['max_quantity'];
+    $quantity = $row['quantity'];
 
-    if (!isset($response[$productName])) {
-        $response[$productName] = array();
+    if (!isset($response[$prodArray])) {
+        $response[$prodArray] = array();
     }
 
-    $response[$productName][] = array('name' => $locationName, 'id' => $locationId);
+    $response[$prodArray][] = array('name' => $locationName, 'id' => $locationId, 'max_q' => $max_q, 'quantity' => $quantity);
   }
+
+
+  $products = fetch_data($link,"SELECT  DISTINCT pr.item_id, pr.* FROM invt_products pr inner join invt_purchase ip on pr.item_id = ip.item_id order by product_name");
   // Build HTML response
-  $htmlResponse = '<div class="row">';
-  $htmlResponse .= '<div class="col-lg-6">';
-  $htmlResponse .= '<label for="productName" class="mg-b-10 form-label">Product Name:</label>';
-  $htmlResponse .= '<input type="text" id="productName" name="productName" class="form-control" value="' . htmlspecialchars($productName) . '">';
-  $htmlResponse .= '</div>';
+  $htmlResponseProduct = '<option value="">Select Product </option>';
+  foreach ($products as $prod) {
+    $selected = ($prod['item_id'] == $item_id)?'selected':'';
+    if($type == 'product_name'){
+      $htmlResponseProduct .= '<option value="' . htmlspecialchars($prod['item_id']) . '"' . $selected . ' >' . htmlspecialchars($prod['product_name']) . '</option>';
+    }else{
+      $htmlResponseProduct .= '<option value="' . htmlspecialchars($prod['item_id']) . '"' . $selected . ' >' . htmlspecialchars($prod['product_id']) . '</option>';
+    }
 
-  $htmlResponse .= '<div class="col-lg-6">';
-  $htmlResponse .= '<label for="loc_id">Locations:</label>';
-  $htmlResponse .= '<select id="loc_id" name="loc_id" class="form-control" onchange="get_quantity(this.value, ' . $item_id . ')">';
-  $htmlResponse .= '<option value="">Select Location </option>';
-  foreach ($response[$productName] as $location) {
-      $htmlResponse .= '<option value="' . htmlspecialchars($location['id']) . '">' . htmlspecialchars($location['name']) . '</option>';
   }
-  $htmlResponse .= '</select>';
-  $htmlResponse .= '</div>';
-  $htmlResponse .= '</div>';
+
+  $htmlResponseLocation = '<option value="">Select Location </option>';
+  foreach ($response[$prodArray] as $location) {
+      $selected = ($location['quantity'] == $location['max_q'])?'selected':'';
+      $htmlResponseLocation .= '<option data-bs-toggle="tooltip" data-bs-html="true"  title="' . $location['quantity'] .  '" value="' . htmlspecialchars($location['id']) .  '"' . $selected . '>' . htmlspecialchars($location['name']) . '</option>';
+  }
+  
   // Convert the response to JSON
-  echo json_encode(array('html' => $htmlResponse));
-
- }
- if(isset($_POST['ACTION']) && $_POST['ACTION'] == 'get_loc_quantity'){
-  $loc_id = $_POST['loc_id'];
-  $item_id = $_POST['item_id'];
-  $data = fetch_data($link, "SELECT quantity FROM invt_purchase_details where loc_id='$loc_id' and item_id = '$item_id'");
-  echo $quantity = $data[0]['quantity']??'0';
-
- }
-
+  return json_encode(array('productSelect' => $htmlResponseProduct, 'locationSelect' => $htmlResponseLocation, 'retail_price' => $retail_price, 'quantity' => $max_q));
+}
 ?>

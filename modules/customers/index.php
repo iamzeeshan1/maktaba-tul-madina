@@ -34,12 +34,13 @@ include("../../includes/header.php");
                                     <th width="10%">Discount%</th>
                                     <th width="10%">Number</th>
                                     <th width="10%">Opening Balance</th>
+                                    <th width="10%">Added By</th>
                                     <th width="5%">Actions</th>
                                 </thead>
                                 <tbody>
 
                                     <?php
-                                        $query = fetch_data($link, "Select * from invt_customers");
+                                        $query = fetch_data($link, "SELECT invt_customers.*,users_detail.first_name,users_detail.last_name FROM invt_customers INNER JOIN users_detail ON invt_customers.added_by=users_detail.user_id");
 
                                         foreach ($query as $key => $row_sol) {
                                             $customer_id = $row_sol['customer_id'];
@@ -54,6 +55,7 @@ include("../../includes/header.php");
                                         <td><?= $row_sol['discount'] ?></td>
                                         <td><?= $row_sol['contact_number'] ?></td>
                                         <td><?= $row_sol['open_balance'] ?></td>
+                                        <td><?= $row_sol['first_name'] ?> <?= $row_sol['last_name'] ?></td>
                                         <td>
                                             <div class="dropdown">
                                                 <a href="#" role="button" id="dropdownMenuLink"

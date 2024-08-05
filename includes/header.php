@@ -28,6 +28,7 @@ $user_id = $_SESSION['mktb_user_id'];
 $today         = date('m/d/Y h:i:s A', time());
 $current_month = date("m y", strtotime($today));
 $current_year  = date("Y", strtotime($today));
+$current_date = date('Y-m-d');
 ?>
 <!DOCTYPE html>
 <html lang="en" id="demo">

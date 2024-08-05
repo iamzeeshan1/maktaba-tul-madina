@@ -3,6 +3,8 @@
     
 if (isset($_POST['ACTION']) && $_POST['ACTION'] == 'save') {
     $allRows = $_POST['allRows'];
+    $notes = $_POST['notes'];
+    $type = $_POST['type'];
 
     if (!empty($allRows) && is_array($allRows)) {
         $randomNumber = rand(1000, 9999);
@@ -23,7 +25,7 @@ if (isset($_POST['ACTION']) && $_POST['ACTION'] == 'save') {
                 'item_id'=>$item_id,
                 'customer_id'=>$customer_id,
                 'date'=>$date,
-                'details'=>'',
+                'details'=>$notes,
                 'quantity'=>$quantity,
                 'location'=>$location,
                 'cost_price'=> $cost_price,
@@ -31,7 +33,8 @@ if (isset($_POST['ACTION']) && $_POST['ACTION'] == 'save') {
                 'discount_1'=>$discount_1,            
                 'discount_2'=>$discount_2,
                 'invoice_number'=>$invoice_number,
-                'total'=> $total
+                'total'=> $total,
+                'sale_type'=> $type
             ],false);
 
             //minus quantity form total quantity
@@ -74,6 +77,18 @@ if(isset($_GET['action']) && $_GET['action'] == 'edit'){
         $current = $total - $quantity;
 
         update_data($link,'invt_purchase_details',['quantity' => $current],[ 'item_id' => $item_id,'loc_id' => $loc_id],false);
+    }
+    
+    if($query){
+        $_SESSION[ 'toast_type' ] = 'success';
+        $_SESSION[ 'toast_msg' ] = 'Updated Successfully!';
+        header( 'location:index.php' );
+        exit();
+    }else{
+        $_SESSION[ 'toast_type' ] = 'danger';
+        $_SESSION[ 'toast_msg' ] = 'Something went wrong!';
+        header( 'location:index.php' );
+        exit();
     }
 
 } 

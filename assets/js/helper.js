@@ -6,6 +6,7 @@ function clearFormValidation(formId){
      // $(formId).trigger("reset");
      $(formId).find(".parsley-success").removeClass("parsley-success");
      $(formId).find(".parsley-error").removeClass("parsley-error");
+     $(formId).find(".parsley-required").html("");
      //To remove validation messages like "this value is required"
      Parsley.addMessages('en', {defaultMessage: "",required:""});
 }

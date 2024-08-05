@@ -16,6 +16,7 @@ function update_data($link, $table, $data, $condition_array){
   $sql = "UPDATE `$table` SET $params where $condition";
   // echo $sql;
   $res = mysqli_query($link,$sql);
+  return $res;
   //echo mysqli_error($link);
 }
 function map_params($link, $data, $join = ","){

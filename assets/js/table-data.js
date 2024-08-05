@@ -21,6 +21,7 @@ $(function () {
       "processing": true,
       "pageLength": 50,
     });
+
    $('.dataTable').DataTable({
       responsive: true,
       language: {

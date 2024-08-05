@@ -77,7 +77,8 @@ else{
                     </div>
                     <div class="col-md-4">
                         <label for="avail-quantity" class="mg-b-10 form-label">Available Quantity:</label>
-                        <input class="form-control" id="avail-quantity" disabled name="avail-quantity" type="text" value="<?=$row['total_quantity']?>">
+                        <?php $total = $row['total_quantity'] + $row['quantity'];?>
+                        <input class="form-control" id="avail-quantity" disabled name="avail-quantity" type="text" value="<?=$total?>">
                     </div>
                     <div class="col-md-4">
                         <label for="name" class="mg-b-10 form-label">Date:</label>
@@ -101,7 +102,7 @@ else{
                     </div>
                     <div class="col-md-4">
                         <label for="quantity" class="mg-b-10 form-label">Quantity:</label>
-                        <input  class="form-control" id="quantity" name="quantity" type="text" id="quantity" value="<?= $row['quantity']??'0'?>" onfocusout="check_quantity(this.value)">
+                        <input  class="form-control" id="quantity" name="quantity" type="text" id="quantity" value="<?= $row['quantity']??'0'?>">
 
                         <input type="hidden" name="old_quantity" id="old_quantity" value="<?= $row['quantity']?>">
                     </div>

@@ -1,14 +1,14 @@
 <!-- Picklist-->
 <div class="modal fade" id="picklist_Modal"  tabindex="-1" aria-labelledby="picklist_Modal" aria-hidden="true">
-    <div class="modal-dialog modal-lg" role="document">
+    <div class="modal-dialog modal-md" role="document">
         <div class="modal-content modal-content-demo">
             <div class="modal-header">
-                <h6 class="modal-title">Add Picklist</h6><button aria-label="Close" class="btn-close" data-bs-dismiss="modal" type="button"></button>
+                <h6 class="modal-title">Assign</h6><button aria-label="Close" class="btn-close" data-bs-dismiss="modal" type="button"></button>
             </div>
             <form id='picklist_form'>
                 <input type="hidden" name="sales_id" id="sales_id" >
                 <div class="modal-body">
-                    <div class="row">
+                    <!-- <div class="row">
                         <div class="col-md-6">
                             <label for="supplier_name" class="form-label"> Date:</label>
                             <input type="text" id="date" name="date" class="form-control" readonly />
@@ -64,6 +64,14 @@
                         <div class="col-md-12 mt-1">
                             <label for="details" class="form-label">Details</label>
                             <textarea class="form-control tiny-mce" name="details" id="details" rows="4"></textarea>
+                        </div>
+                    </div> -->
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="form-group">
+                                <label for="">Add Code:</label>
+                                <input type="text" name="picklist_code" id="picklist_code" class="form-control">
+                            </div>
                         </div>
                     </div>
                 </div>

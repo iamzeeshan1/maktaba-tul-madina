@@ -138,7 +138,9 @@
 * {
     box-sizing: border-box;
 }
-
+.hidden-div {
+    display: none;
+  }
 *::before,
 *::after {
     box-sizing: border-box;

@@ -2,8 +2,9 @@
 $page_title = "Purchase - Maktaba-Tul-Madina";
 include("../../includes/header.php");
 $invoice_number = $_GET['id']??'';
-
+$doc_num = return_title('document_num','invoice_number',$invoice_number,'invt_purchase',$link);
 ?>
+
 <div class="main-container container-fluid">
     <div class="inner-body">
 
@@ -21,7 +22,12 @@ $invoice_number = $_GET['id']??'';
                 <div class="card custom-card">
                     <div class="card-body">
                         <div class="d-lg-flex">
-                            <h2 class="main-content-label mb-1">#<?=$invoice_number?></h2>
+                            <div>
+                                <!--<h2 class="main-content-label mb-2">Invoice<?//=$invoice_number?></h2>-->
+                                <p class="mb-1"><span class="font-weight-bold">Invoice No:</span> <?=$invoice_number;?></p>
+                                <p class="mb-1"><span class="font-weight-bold">Document No:</span> <?=$doc_num;?></p>
+                            </div>
+                            
                             <div class="ms-auto">
                                 <?php $currentDate = date("jS F, Y");?>
                                 <p class="mb-1"><span class="font-weight-bold">Invoice Date :</span> <?=$currentDate;?></p>
@@ -49,11 +55,11 @@ $invoice_number = $_GET['id']??'';
                             </div>
                         </div>
                         <div class="table-responsive mg-t-40 " id="loadInvTable" data-id="<?=$invoice_number?>">
-                            
+                       
                         </div>
                     </div>
                     <div class="card-footer text-end">
-                        <button type="button" class="btn ripple btn-info mb-1" onclick="javascript:window.print();"><i class="fe fe-printer me-1"></i> Print Invoice</button>
+                        <button type="button" class="btn ripple btn-info mb-1" onclick="printPage()"><i class="fe fe-printer me-1"></i> Print Invoice</button>
                     </div>
                 </div>
             </div>
@@ -63,5 +69,10 @@ $invoice_number = $_GET['id']??'';
 </div>
 <?php 
 include("../../includes/footer.php");
+$ad = fetch_data($link,"select admin_request_status from invt_purchase where invoice_number='$invoice_number' limit 1 ");
 ?>
+<script>
+    var admin_req = '<?=$ad[0]['admin_request_status']?>';
+</script>
+
 <script src="functions/functions.js"></script>

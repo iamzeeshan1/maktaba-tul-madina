@@ -2,7 +2,8 @@
     include("../../includes/header-min.php");
 
     $sales_id = $_POST['sales_id']??0;
-    $picklist_id = $_POST['picklist_id'];
+    // $picklist_id = $_POST['picklist_id'];
+    $picklist_code = $_POST['picklist_code'];
     //generate invoice number
     
     $get = fetch_data($link,"select * from invt_sales where sales_id=$sales_id");
@@ -16,7 +17,7 @@
     }
 	if($sales_id>0){
 		$query = update_data($link,"invt_sales",[
-            'picklist_id'=>$picklist_id
+            'picklist_id'=>$picklist_code
         ],['sales_id'=>$sales_id],false);
 
       

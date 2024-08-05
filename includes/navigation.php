@@ -36,12 +36,46 @@
                         </a>
                     </li>
                     <li class="nav-item">
+                        <a class="nav-link with-sub" href="javascript:void(0)">
+                            <span class="shape1"></span>
+                            <span class="shape2"></span>
+                            <i class="ti-package sidemenu-icon menu-icon"></i>
+                            <span class="sidemenu-label">Products</span>
+                            <i class="angle fe fe-chevron-right"></i>
+                        </a>
+                        <ul class="nav-sub" style="display: none;">
+                            <li class="nav-sub-item"><a class="nav-sub-link" href="<?=$app_path?>modules/products/">Products</a>
+                            </li>
+                            <li class="nav-sub-item"><a class="nav-sub-link" href="<?=$app_path?>modules/languages/">Languages</a>
+                            </li>
+                            <li class="nav-sub-item"><a class="nav-sub-link" href="<?=$app_path?>modules/publishers/">Publishers</a></li>
+                        </ul>
+                    </li>
+                    <!-- <li class="nav-item">
                         <a class="nav-link" href="<?=$app_path?>modules/sales/">
                             <span class="shape1"></span>
                             <span class="shape2"></span>
                             <i class="ti-money sidemenu-icon menu-icon "></i>
                             <span class="sidemenu-label">Sales</span>
                         </a>
+                    </li> -->
+                    <li class="nav-item">
+                        <a class="nav-link with-sub" href="javascript:void(0)">
+                            <span class="shape1"></span>
+                            <span class="shape2"></span>
+                            <i class="ti-package sidemenu-icon menu-icon"></i>
+                            <span class="sidemenu-label">Sales</span>
+                            <i class="angle fe fe-chevron-right"></i>
+                        </a>
+                        <ul class="nav-sub" style="display: none;">
+                            <li class="nav-sub-item"><a class="nav-sub-link" href="<?=$app_path?>modules/sales/create.php">Create Sale</a>
+                            </li>
+                            <li class="nav-sub-item"><a class="nav-sub-link" href="<?=$app_path?>modules/sales/dispatch_to_picklist.php">Dispatch to Picklist</a>
+                            </li>
+                            <li class="nav-sub-item"><a class="nav-sub-link" href="<?=$app_path?>modules/sales/dispatch_to_inv.php">Dispatched to Invoice</a>
+                            </li>
+                            <li class="nav-sub-item"><a class="nav-sub-link" href="">Generate Invoice</a></li>
+                        </ul>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" href="<?=$app_path?>modules/customers/">
@@ -77,14 +111,24 @@
                     </li>
                     <?php endif; ?>
                     <?php  if($_SESSION['mktb_role_id'] == '2'):?>
-                    <li class="nav-item">
-                        <a class="nav-link" href="<?=$app_path?>modules/picked-by/">
-                            <span class="shape1"></span>
-                            <span class="shape2"></span>
-                            <i class="ti-clipboard sidemenu-icon menu-icon "></i>
-                            <span class="sidemenu-label">Assigned Sales</span>
-                        </a>
-                    </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="<?=$app_path?>modules/picked-by/">
+                                <span class="shape1"></span>
+                                <span class="shape2"></span>
+                                <i class="ti-clipboard sidemenu-icon menu-icon "></i>
+                                <span class="sidemenu-label">Assigned Sales</span>
+                            </a>
+                        </li>
+                    <?php endif; ?>
+                    <?php  if($_SESSION['mktb_role_id'] == '3'):?>
+                        <li class="nav-item">
+                            <a class="nav-link" href="<?=$app_path?>modules/admin/purchase/">
+                                <span class="shape1"></span>
+                                <span class="shape2"></span>
+                                <i class="ti-clipboard sidemenu-icon menu-icon "></i>
+                                <span class="sidemenu-label">Purchase</span>
+                            </a>
+                        </li>
                     <?php endif; ?>
                 </ul>
                 <div class="slide-right" id="slide-right"><i class="fe fe-chevron-right"></i></div>

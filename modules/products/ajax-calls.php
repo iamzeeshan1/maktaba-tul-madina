@@ -1,6 +1,5 @@
 <?php
 include( '../../includes/header-min.php' );
-// $emp_id = $_SESSION[ 'emp_id' ];
 
 if ( isset( $_POST[ 'ACTION' ] ) && $_POST[ 'ACTION' ] == 'add_new_misc_prod' ) {
     $name = validate_string( $link, $_POST[ 'name' ] );
@@ -28,5 +27,34 @@ if ( isset( $_POST[ 'ACTION' ] ) && $_POST[ 'ACTION' ] == 'add_new_misc_prod' ) 
     $dropdown_class .= "<option value='other'>Other</option>";
     $dropdown_class .= '</select>';
     echo $dropdown_class;
+}
+
+if ( isset( $_POST[ 'ACTION' ] ) && $_POST[ 'ACTION' ] == 'chech_prod_id' ) {
+    $product_id = validate_string( $link, $_POST[ 'prod_id' ] );
+    $qry_uniq = fetch_data( $link, "SELECT product_id from invt_products where product_id='$product_id'" );
+    if ( count( $qry_uniq ) > 0 ) {
+        echo '_error';
+        
+    } 
+   
+}
+if ( isset( $_POST[ 'ACTION' ] ) && $_POST[ 'ACTION' ] == 'chech_prod_name' ) {
+    $product_name = validate_string( $link, $_POST[ 'prod_name' ] );
+    $qry_uniq = fetch_data( $link, "SELECT product_name from invt_products where product_name='$product_name'" );
+    if ( count( $qry_uniq ) > 0 ) {
+        echo '_error';
+        
+    } 
+   
+}
+
+if ( isset( $_POST[ 'ACTION' ] ) && $_POST[ 'ACTION' ] == 'chech_prod_bar' ) {
+    $barcode = validate_string( $link, $_POST[ 'prod_bar' ] );
+    $qry_uniq = fetch_data( $link, "SELECT barcode from invt_products where barcode='$barcode'" );
+    if ( count( $qry_uniq ) > 0 ) {
+        echo '_error';
+        
+    } 
+   
 }
 ?>

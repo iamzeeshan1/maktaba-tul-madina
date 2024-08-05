@@ -40,14 +40,7 @@ include("../../includes/header.php");
                                 </thead>
                                 <tbody>
                                     <?php
-                                        $query = fetch_data($link, "SELECT
-                                        invt_products.*,
-                                        invt_misc.misc_prod_name,
-                                        invt_categories.category_name 
-                                        FROM
-                                        invt_products
-                                        LEFT JOIN invt_misc ON invt_products.misc_id = invt_misc.misc_id
-                                        LEFT JOIN invt_categories ON invt_products.category_id = invt_categories.category_id");
+                                        $query = fetch_data($link, "SELECT invt_products.*,invt_misc.misc_prod_name,invt_categories.category_name,invt_languages.lan_name,invt_publishers.pub_name FROM invt_products LEFT JOIN invt_misc ON invt_products.misc_id=invt_misc.misc_id LEFT JOIN invt_categories ON invt_products.category_id=invt_categories.category_id LEFT JOIN invt_languages ON invt_products.language_id=invt_languages.language_id LEFT JOIN invt_publishers ON invt_products.publisher_id=invt_publishers.publisher_id");
 
                                         foreach ($query as $key => $row_sol) {
                                             $item_id = $row_sol['item_id'];
@@ -59,8 +52,8 @@ include("../../includes/header.php");
                                         <td><?= $row_sol['product_name'] ?></td>
                                         <td><?= $row_sol['barcode'] ?></td>
                                         <td><?= $row_sol['category_name'] ?></td>
-                                        <td><?= $row_sol['language'] ?></td>
-                                        <td><?= $row_sol['publisher'] ?></td>
+                                        <td><?= $row_sol['lan_name'] ?></td>
+                                        <td><?= $row_sol['pub_name'] ?></td>
                                         <td>
                                             <div class="dropdown">
                                                 <a href="#" role="button" id="dropdownMenuLink"

@@ -35,3 +35,17 @@ function saveForm() {
     },
   });
 }
+$(document).ready(function(){
+
+});
+function showNotes(){
+  $('#hide_notes').show();
+  $('#hide_notes_btn').show();
+  $('#show_notes_btn').hide();
+}
+function hideNotes(){
+  $('#hide_notes').hide();
+  $('#hide_notes_btn').hide();
+  $('#show_notes_btn').show();
+
+}
