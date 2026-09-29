@@ -140,7 +140,8 @@
 }
 .hidden-div {
     display: none;
-  }
+}
+
 *::before,
 *::after {
     box-sizing: border-box;

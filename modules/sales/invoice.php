@@ -4,21 +4,7 @@ include("../../includes/header.php");
 $invoice_number = $_GET['invoice_number'];
 $currentDate = date("jS F, Y");
 
-$query = fetch_data($link,"SELECT
-invt_sales.*, 
-invt_products.product_id,
-invt_products.product_name,
-invt_customers.*
-FROM
-invt_sales
-LEFT JOIN
-invt_products
-ON 
-    invt_sales.item_id = invt_products.item_id
-LEFT JOIN
-invt_customers
-ON 
-invt_customers.customer_id = invt_sales.customer_id where invt_sales.invoice_number = '$invoice_number' LIMIT 1 ");
+$query = fetch_data($link,"SELECT invt_sales.*,invt_products.product_id,invt_products.product_name,invt_customers.*FROM invt_sales LEFT JOIN invt_products ON invt_sales.item_id=invt_products.item_id LEFT JOIN invt_customers ON invt_customers.customer_id=invt_sales.customer_id WHERE invt_sales.invoice_number='$invoice_number' LIMIT 1");
 
 
 ?>
@@ -68,33 +54,22 @@ invt_customers.customer_id = invt_sales.customer_id where invt_sales.invoice_num
                                 </address>
                             </div>
                         </div>
-                        <div class="table-responsive mg-t-40">
+                        <div class=" mg-t-40">
                             <table class="table table-invoice table-bordered">
                                 <thead>
                                     <tr>
-                                        <th width="20%">Date</th>
-                                        <th width="20%">Product ID</th>
-                                        <th width="20%">Product Name</th>
-                                        <th width="20%">QNTY</th>
+                                        <th>Date</th>
+                                        <th>Product ID</th>
+                                        <th>Product Name</th>
+                                        <th>QNTY</th>
+                                        <th>Retail Price</th>
+                                        <th>Retail Price 2</th>
+                                        <th width="20%">Total</th>
                                     </tr>
                                 </thead>
                                 <tbody>
                                 <?php
-                                        $row_query = fetch_data($link, "SELECT
-                                        invt_sales.*, 
-                                        invt_products.product_id,
-                                        invt_products.product_name,
-                                        invt_customers.*
-                                        FROM
-                                        invt_sales
-                                        LEFT JOIN
-                                        invt_products
-                                        ON 
-                                            invt_sales.item_id = invt_products.item_id
-                                        LEFT JOIN
-                                        invt_customers
-                                        ON 
-                                        invt_customers.customer_id = invt_sales.customer_id where invt_sales.invoice_number = '$invoice_number'");
+                                        $row_query = fetch_data($link, "SELECT invt_sales.*,invt_products.product_id,invt_products.product_name,invt_customers.*FROM invt_sales LEFT JOIN invt_products ON invt_sales.item_id=invt_products.item_id LEFT JOIN invt_customers ON invt_customers.customer_id=invt_sales.customer_id WHERE invt_sales.invoice_number='$invoice_number'");
                                         $total = 0;
                                         $delivery=0;
                                         foreach($row_query as $row){
@@ -116,32 +91,35 @@ invt_customers.customer_id = invt_sales.customer_id where invt_sales.invoice_num
                                         <td class="tx-12"><?=$row['product_id']?></td>
                                         <td class="tx-12"><?=$row['product_name']?></td>
                                         <td class="tx-right"><?=$row['quantity']?></td>
+                                        <td class="tx-right"><?=$row['retail_price']?></td>
+                                        <td class="tx-right"><?=$row['cost_price']?></td>
+                                        <td class="tx-right"><?=$row['total']?></td>
                                     </tr>
                                     <?php } ?>
                                     <tr>
-                                        <td class="valign-middle" colspan="2" rowspan="4">
+                                        <td class="valign-middle" colspan="5" rowspan="4">
                                             <div class="invoice-notes">
                                                 <label class="main-content-label tx-13">Notes</label>
                                               <textarea name="detaiils" id="" cols="100" rows="8" class="form-control" onfocusout="save_details(this.value,'<?=$invoice_number?>')"><?=$query[0]['invoice_details']??''?></textarea>
                                             </div><!-- invoice-notes -->
                                         </td>
-                                        <td class="tx-right">Sub-Total</td>
-                                        <td class="tx-right" colspan="2" id="total"><?=$total?></td>
+                                        <td class="tx-right" >Sub-Total</td>
+                                        <td class="tx-right" id="total"><?=$total?></td>
                                     </tr>
                                     <tr>
-                                        <td class="tx-right">Delivery Fee</td>
-                                        <td class="tx-right" colspan="2"><input type="number" name="delivery" id="delivery" class="form-control" onfocusout="save_delivery(this.value,'<?=$invoice_number?>','<?=$total?>')" value="<?=$delivery?>"></td>
+                                        <td class="tx-right" >Delivery Fee</td>
+                                        <td class="tx-right" ><input type="number" name="delivery" id="delivery" class="form-control" onfocusout="save_delivery(this.value,'<?=$invoice_number?>','<?=$total?>')" value="<?=$delivery?>"></td>
                                     </tr>
                                     <tr>
-                                        <td class="tx-right">Processing Fee</td>
-                                        <td class="tx-right" colspan="2"><input type="number" name="process" id="process" class="form-control" onfocusout="save_process(this.value,'<?=$invoice_number?>','<?=$total?>')" value="<?=$process_fee?>"></td>
+                                        <td class="tx-right" >Processing Fee</td>
+                                        <td class="tx-right"><input type="number" name="process" id="process" class="form-control" onfocusout="save_process(this.value,'<?=$invoice_number?>','<?=$total?>')" value="<?=$process_fee?>"></td>
                                     </tr>
                                     <tr>
-                                        <td class="tx-right">Other</td>
-                                        <td class="tx-right" colspan="2"><input type="number" name="other" id="other" class="form-control" onfocusout="save_other(this.value,'<?=$invoice_number?>','<?=$total?>')" value="<?=$other_fee?>"></td>
+                                        <td class="tx-right" >Other</td>
+                                        <td class="tx-right" ><input type="number" name="other" id="other" class="form-control" onfocusout="save_other(this.value,'<?=$invoice_number?>','<?=$total?>')" value="<?=$other_fee?>"></td>
                                     </tr>
                                     <tr>
-                                        <td class="tx-right tx-uppercase tx-bold tx-inverse" colspan="3">Total</td>
+                                        <td class="tx-right tx-uppercase tx-bold tx-inverse" colspan="6">Total</td>
                                         <td class="tx-right">
                                             <h4 class="tx-bold grand-total"><?=$grand_total??$total?></h4>
                                         </td>
@@ -162,5 +140,5 @@ invt_customers.customer_id = invt_sales.customer_id where invt_sales.invoice_num
 <?php 
 include("../../includes/footer.php");
 ?>
-<script src="functions.js"></script>
+<script src="functions.js?v=1.2"></script>
 			

@@ -152,4 +152,4 @@ include("../../includes/footer.php");
 <script>
   var sales_id = '<?=$sales_id?>';
 </script>
-<script src="functions.js"></script>
+<script src="functions.js?v=1.2"></script>

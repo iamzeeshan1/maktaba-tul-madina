@@ -7,6 +7,7 @@
             </div>
             <form id='picklist_form'>
                 <input type="hidden" name="sales_id" id="sales_id" >
+                <input type="hidden" name="invoice_number" id="invoice_number" >
                 <div class="modal-body">
                     <!-- <div class="row">
                         <div class="col-md-6">

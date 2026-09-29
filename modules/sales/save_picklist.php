@@ -1,13 +1,14 @@
 <?php 
     include("../../includes/header-min.php");
 
-    $sales_id = $_POST['sales_id']??0;
+    $invoice_number = $_POST['invoice_number']??'';
     // $picklist_id = $_POST['picklist_id'];
     $picklist_code = $_POST['picklist_code'];
     //generate invoice number
     
-    $get = fetch_data($link,"select * from invt_sales where sales_id=$sales_id");
+    $get = fetch_data($link,"select * from invt_sales where invoice_number='$invoice_number'");
     if($get[0]['invoice_number'] == ''){
+        $sales_id = $get[0]['sales_id'];
         $count =$get[0]['sales_id'] + 100;
         $invoice = 'INV'.$count;
         $query = update_data($link,"invt_sales",[
@@ -15,21 +16,18 @@
         ],['sales_id'=>$sales_id],false);
 
     }
-	if($sales_id>0){
+	if($invoice_number!=''){
 		$query = update_data($link,"invt_sales",[
             'picklist_id'=>$picklist_code
-        ],['sales_id'=>$sales_id],false);
+        ],['invoice_number'=>$invoice_number],false);
 
       
 	} 
 
 
-    if($sales_id>0){
-        $res = array( 'status'=>'success', 'value'=>'Updated Successfully!' );
-        echo  json_encode( $res );
-    } else {
-        $res = array( 'status'=>'success', 'value'=>'Added Successfully!' );
-        echo json_encode( $res );
-    }
+  
+    $res = array( 'status'=>'success', 'value'=>'Added Successfully!' );
+    echo json_encode( $res );
+    
 	
 

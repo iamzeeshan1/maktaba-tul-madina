@@ -39,7 +39,7 @@ include("../../includes/header.php");
                             <th width="5%">Actions</th>
                         </thead>
                         <tbody>
-                            
+                        81dc9bdb52d04dc20036dbd8313ed055
                             <?php 
                             $query = fetch_data($link,"SELECT
                             invt_sales.*, 
@@ -132,4 +132,4 @@ include("../../includes/header.php");
 ?>
 <?php include("../../includes/footer.php"); ?>
 <script src="<?= $app_path ?>assets/js/table-data.js"></script>
-<script src="functions.js"></script>
+<script src="functions.js?v=1.2"></script>

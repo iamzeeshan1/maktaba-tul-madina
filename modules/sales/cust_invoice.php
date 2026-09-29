@@ -4,21 +4,7 @@ include("../../includes/header.php");
 $invoice_number = $_GET['invoice_number']??0;
 $currentDate = date("jS F, Y");
 
-$query = fetch_data($link,"SELECT
-invt_sales.*, 
-invt_products.product_id,
-invt_products.product_name,
-invt_customers.*
-FROM
-invt_sales
-LEFT JOIN
-invt_products
-ON 
-    invt_sales.item_id = invt_products.item_id
-LEFT JOIN
-invt_customers
-ON 
-invt_customers.customer_id = invt_sales.customer_id where invt_sales.invoice_number = '$invoice_number' LIMIT 1");
+$query = fetch_data($link,"SELECT invt_sales.*,invt_products.product_id,invt_products.product_name,invt_customers.*FROM invt_sales LEFT JOIN invt_products ON invt_sales.item_id=invt_products.item_id LEFT JOIN invt_customers ON invt_customers.customer_id=invt_sales.customer_id WHERE invt_sales.invoice_number='$invoice_number' ");
 
 ?>
 
@@ -75,29 +61,17 @@ invt_customers.customer_id = invt_sales.customer_id where invt_sales.invoice_num
                                         <th width="20%">Product ID</th>
                                         <th width="20%">Product Name</th>
                                         <th width="20%">QNTY</th>
+                                        <th width="20%">Retail Price</th>
                                         <th width="20%">Discount</th>
+                                        <th width="20%">Total</th>
                                     </tr>
                                 </thead>
                                 <tbody>
                                    <?php
-                                        $row_query = fetch_data($link, "SELECT
-                                        invt_sales.*, 
-                                        invt_products.product_id,
-                                        invt_products.product_name,
-                                        invt_customers.*
-                                        FROM
-                                        invt_sales
-                                        LEFT JOIN
-                                        invt_products
-                                        ON 
-                                            invt_sales.item_id = invt_products.item_id
-                                        LEFT JOIN
-                                        invt_customers
-                                        ON 
-                                        invt_customers.customer_id = invt_sales.customer_id where invt_sales.invoice_number = '$invoice_number'");
+                                        // $row_query = fetch_data($link, "SELECT invt_sales.*,invt_products.product_id,invt_products.product_name,invt_customers.*FROM invt_sales LEFT JOIN invt_products ON invt_sales.item_id=invt_products.item_id LEFT JOIN invt_customers ON invt_customers.customer_id=invt_sales.customer_id WHERE invt_sales.invoice_number='$invoice_number'");
                                         $total = 0;
                                         $delivery=0;
-                                        foreach($row_query as $row){
+                                        foreach($query as $row){
                                         $sales_id = $row['sales_id'];
                                         $total += $row['total'];
                                         $delivery = $row['delivery_fee'];
@@ -113,19 +87,23 @@ invt_customers.customer_id = invt_sales.customer_id where invt_sales.invoice_num
                                         <td class="tx-12"><?=$row['product_id']?></td>
                                         <td class="tx-12"><?=$row['product_name']?></td>
                                         <td class="tx-right"><?=$row['quantity']?></td>
+                                        <td class="tx-right"><?=$row['retail_price']?></td>
                                         <td class="tx-right"><?=$discount?>%</td>
+                                        <td class="tx-right"><?=$row['total']?></td>
+
+
                                     </tr>
                                     <?php } ?>
                                     <tr>
-                                        <td class="tx-right" colspan="4">Sub-Total</td>
+                                        <td class="tx-right" colspan="6">Sub-Total</td>
                                         <td class="tx-right" id="total"><?=$total?></td>
                                     </tr>
                                     <tr>
-                                        <td class="tx-right" colspan="4">Delivery Fee</td>
+                                        <td class="tx-right" colspan="6">Delivery Fee</td>
                                         <td class="tx-right"><?=$delivery?></td>
                                     </tr>
                                     <tr>
-                                        <td class="tx-right tx-uppercase tx-bold tx-inverse" colspan="4">Total</td>
+                                        <td class="tx-right tx-uppercase tx-bold tx-inverse" colspan="6">Total</td>
                                         <td class="tx-right">
                                             <?php $delivery_fee = floatval($delivery);
                                           $total = floatval($total);
@@ -150,5 +128,5 @@ invt_customers.customer_id = invt_sales.customer_id where invt_sales.invoice_num
 <?php 
 include("../../includes/footer.php");
 ?>
-<script src="functions.js"></script>
+<script src="functions.js?v=1.2"></script>
 			

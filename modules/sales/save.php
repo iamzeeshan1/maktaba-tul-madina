@@ -20,7 +20,7 @@ if (isset($_POST['ACTION']) && $_POST['ACTION'] == 'save') {
             $total = $rowData['total'];
             $discount_1 = $rowData['discount_1'];
             $discount_2 = $rowData['discount_2'];
-            // Insert into invt_purchase table
+            // Insert into invt_sales table
             $query = add_data($link,"invt_sales",[
                 'item_id'=>$item_id,
                 'customer_id'=>$customer_id,
@@ -38,9 +38,9 @@ if (isset($_POST['ACTION']) && $_POST['ACTION'] == 'save') {
             ],false);
 
             //minus quantity form total quantity
-            $check_item = fetch_data($link,"select * from invt_purchase_details where item_id='$item_id' and loc_id = '$location'");
+            $check_item = fetch_data($link,"select * from invt_item_quantity where item_id='$item_id' and loc_id = '$location'");
             $total = $check_item[0]['quantity'] - $quantity;
-            update_data($link,'invt_purchase_details',['quantity' => $total],[ 'item_id' => $item_id,'loc_id' => $location],false);
+            update_data($link,'invt_item_quantity',['quantity' => $total],[ 'item_id' => $item_id,'loc_id' => $location],false);
        
             $res = array( 'status'=>'success', 'value'=>'Added Successfully!' );
             echo  json_encode( $res );
@@ -70,13 +70,13 @@ if(isset($_GET['action']) && $_GET['action'] == 'edit'){
     ],['sales_id'=>$sales_id],false);
 
     //minus quantity form total quantity
-    $check_item = fetch_data($link,"select * from invt_purchase_details where item_id='$item_id' and loc_id = '$loc_id'");
+    $check_item = fetch_data($link,"select * from invt_item_quantity where item_id='$item_id' and loc_id = '$loc_id'");
     
     if($old_quantity != $quantity){
         $total = $old_quantity + $check_item[0]['quantity'];
         $current = $total - $quantity;
 
-        update_data($link,'invt_purchase_details',['quantity' => $current],[ 'item_id' => $item_id,'loc_id' => $loc_id],false);
+        update_data($link,'invt_item_quantity',['quantity' => $current],[ 'item_id' => $item_id,'loc_id' => $loc_id],false);
     }
     
     if($query){

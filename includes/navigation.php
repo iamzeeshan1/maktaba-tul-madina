@@ -4,14 +4,6 @@
         <div class="main-sidebar-header main-container-1 active">
             <div class="sidemenu-logo">
                 <a class="main-logo" href="index.html">
-                    <!-- <img src="<?=$app_path?>assets/img/brand/logo-light.png" class="header-brand-img desktop-logo"
-                        alt="logo">
-                    <img src="<?=$app_path?>assets/img/brand/icon-light.png" class="header-brand-img icon-logo"
-                        alt="logo">
-                    <img src="<?=$app_path?>assets/img/brand/logo.png" class="header-brand-img desktop-logo theme-logo"
-                        alt="logo">
-                    <img src="<?=$app_path?>assets/img/brand/icon.png" class="header-brand-img icon-logo theme-logo"
-                        alt="logo"> -->
                     MTM
                 </a>
             </div>
@@ -25,14 +17,6 @@
                             <span class="shape2"></span>
                             <i class="ti-home sidemenu-icon menu-icon "></i>
                             <span class="sidemenu-label">Dashboard</span>
-                        </a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="<?=$app_path?>modules/products/">
-                            <span class="shape1"></span>
-                            <span class="shape2"></span>
-                            <i class="ti-package sidemenu-icon menu-icon "></i>
-                            <span class="sidemenu-label">Products</span>
                         </a>
                     </li>
                     <li class="nav-item">
@@ -51,19 +35,34 @@
                             <li class="nav-sub-item"><a class="nav-sub-link" href="<?=$app_path?>modules/publishers/">Publishers</a></li>
                         </ul>
                     </li>
-                    <!-- <li class="nav-item">
-                        <a class="nav-link" href="<?=$app_path?>modules/sales/">
+                    <li class="nav-item">
+                        <a class="nav-link" href="<?=$app_path?>modules/purchase/">
                             <span class="shape1"></span>
                             <span class="shape2"></span>
-                            <i class="ti-money sidemenu-icon menu-icon "></i>
-                            <span class="sidemenu-label">Sales</span>
+                            <i class="ti-shopping-cart sidemenu-icon menu-icon "></i>
+                            <span class="sidemenu-label">Purchase</span>
                         </a>
-                    </li> -->
+                    </li>
                     <li class="nav-item">
                         <a class="nav-link with-sub" href="javascript:void(0)">
                             <span class="shape1"></span>
                             <span class="shape2"></span>
-                            <i class="ti-package sidemenu-icon menu-icon"></i>
+                            <i class="ti-user sidemenu-icon menu-icon"></i>
+                            <span class="sidemenu-label">Customer</span>
+                            <i class="angle fe fe-chevron-right"></i>
+                        </a>
+                        <ul class="nav-sub" style="display: none;">
+                            <li class="nav-sub-item"><a class="nav-sub-link" href="<?=$app_path?>modules/customers/">Customer</a>
+                            </li>
+                            <li class="nav-sub-item"><a class="nav-sub-link" href="<?=$app_path?>modules/regions/">Regions</a>
+                            </li>
+                        </ul>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link with-sub" href="javascript:void(0)">
+                            <span class="shape1"></span>
+                            <span class="shape2"></span>
+                            <i class="ti-money sidemenu-icon menu-icon"></i>
                             <span class="sidemenu-label">Sales</span>
                             <i class="angle fe fe-chevron-right"></i>
                         </a>
@@ -74,17 +73,9 @@
                             </li>
                             <li class="nav-sub-item"><a class="nav-sub-link" href="<?=$app_path?>modules/sales/dispatch_to_inv.php">Dispatched to Invoice</a>
                             </li>
-                            <li class="nav-sub-item"><a class="nav-sub-link" href="">Generate Invoice</a></li>
                         </ul>
                     </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="<?=$app_path?>modules/customers/">
-                            <span class="shape1"></span>
-                            <span class="shape2"></span>
-                            <i class="ti-user sidemenu-icon menu-icon "></i>
-                            <span class="sidemenu-label">Customer</span>
-                        </a>
-                    </li>
+                    
                     <li class="nav-item">
                         <a class="nav-link" href="<?=$app_path?>modules/suppliers/">
                             <span class="shape1"></span>
@@ -93,14 +84,7 @@
                             <span class="sidemenu-label">Suppliers</span>
                         </a>
                     </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="<?=$app_path?>modules/purchase/">
-                            <span class="shape1"></span>
-                            <span class="shape2"></span>
-                            <i class="ti-shopping-cart sidemenu-icon menu-icon "></i>
-                            <span class="sidemenu-label">Purchase</span>
-                        </a>
-                    </li>
+                   
                     <li class="nav-item">
                         <a class="nav-link" href="<?=$app_path?>modules/picklist/">
                             <span class="shape1"></span>

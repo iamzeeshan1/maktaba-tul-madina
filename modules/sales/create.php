@@ -15,7 +15,16 @@ else{
 $current_date = date('Y-m-d');
 
 ?>
-
+<style>
+    .fixTableHead { 
+        overflow-y: auto; 
+        height: 250px; 
+    } 
+    .fixTableHead thead th { 
+        position: sticky; 
+        top: 0; 
+    }
+</style>
 <div class="main-container container-fluid">
     <div class="inner-body">
         <!-- Page Header -->
@@ -143,69 +152,69 @@ $current_date = date('Y-m-d');
                                     <div class="col-md-3">
                                         <label for="cost_price" class="form-label">Retail Price 2</label>
                                         <input type="text" readonly class="form-control" id="cost_price" name="cost_price"
-                                            readonly value="<?=$row['cost_price']??''?>">
+                                             value="<?=$row['cost_price']??''?>">
                                     </div>
                                     <div class="col-md-3">
                                         <label for="total" class="form-label">Total</label>
                                         <input type="text" class="form-control" id="total" name="total" readonly
                                             value="<?=$row['total']??''?>">
                                     </div>
-                                    <div class="col-12">
-                                        <!-- <button class="btn ripple btn-main-primary d-none" onclick="saleSubmit()" id="saleBtn"
-                                            type="submit">Save</button> -->
-                                        <div class="dropdown dropup  d-none"  id="saleBtn">
+                                    <div class="col-6">
+                                        <button class="btn ripple btn-main-primary d-none" onclick=" saleSubmit(1)" id="saleBtn"
+                                            type="submit">Save</button>
+                                        <!-- <div class="dropdown dropup  d-none"  id="saleBtn">
                                             <button aria-expanded="false" aria-haspopup="true" class="ripple btn btn-primary dropdown-toggle" data-bs-toggle="dropdown" type="button">Save<i class="fas fa-caret-down ms-1"></i></button>
                                             <div class="dropdown-menu tx-13">
                                                 <a class="dropdown-item" onclick=" saleSubmit(1)">Dispatch to Picklist </a>
-                                                <a class="dropdown-item" onclick=" saleSubmit(2)">Dispatched to Invoice</a>
-                                                <a class="dropdown-item" onclick=" saleSubmit(3)">Generate Invoice</a>
                                             </div>
-                                        </div>
+                                        </div> -->
+                                    </div>
+                                    <div class="col-md-6 text-end">
+                                        <button type="button" id="add_btn" onclick="save_data(event)"
+                                            class="btn btn-primary">ADD</button>
                                     </div>
                                 </div>
                             </form>
                         </div>
 
                         <div class="row">
-                            <div class="col-md-12 text-end mt-2">
-                                <button type="button" id="add_btn" onclick="save_data(event)"
-                                    class="btn btn-primary">ADD</button>
-                            </div>
+                            
                         </div>
                         <!-- table -->
                         <div class="row mt-3 d-none" id="table_row">
                             <div class="col-md-12">
                                 <p><strong class="me-1">Customer:</strong><span id="cust_data"></span></p>
-                                <div class="table-responsive">
+                                <div class="fixTableHead">
                                     <table class="table table-striped table-bordered text-wrap no-footer dtr-inline  mb-0"
                                         id="saved_sale">
-                                        <thead class="text-white">
+                                        <thead  style="background: #2b2b53;">
                                             <tr>
-                                                <th>Date</th>
-                                                <th>Product ID</th>
-                                                <th width="20%">Product Name</th>
-                                                <th>Location</th>
-                                                <th>Quantity Sold</th>
-                                                <th>Retail Price</th>
-                                                <th>Retail Price 2</th>
-                                                <th>Discount 1</th>
-                                                <th>Discount 2</th>
-                                                <th>Discounted Total</th>
-                                                <th>Total</th>
-                                                <th></th>
+                                                <th class="text-white">Date</th>
+                                                <th class="text-white">Product ID</th>
+                                                <th class="text-white" width="20%">Product Name</th>
+                                                <th class="text-white">Location</th>
+                                                <th class="text-white">Quantity Sold</th>
+                                                <th class="text-white">Retail Price</th>
+                                                <th class="text-white">Retail Price 2</th>
+                                                <th class="text-white">Discount 1</th>
+                                                <th class="text-white">Discount 2</th>
+                                                <th class="text-white">Before Discount Total</th>
+                                                <th class="text-white">Discounted Total</th>
+                                                <th class="text-white"></th>
                                             </tr>
                                         </thead>
                                         <tbody class="saved">
                                         </tbody>
                                         <tfoot id="saved_pur_footer">
                                             <tr>
-                                                <td colspan="5"> Total:</td>
+                                                <td colspan="4"> Total:</td>
+                                                <td id="q_total" class="fw-bold"></td>
                                                 <td id="set_tfoot_retail_value" class="fw-bold"></td>
                                                 <td id="set_tfoot_cost_value" class="fw-bold"></td>
                                                 <td></td>
                                                 <td></td>
-                                                <td id="set_tfoot_dis_value" class="fw-bold"></td>
                                                 <td id="set_tfoot_total_value" class="fw-bold"></td>
+                                                <td id="set_tfoot_dis_value" class="fw-bold"></td>
                                             </tr>
                                         </tfoot>
                                     </table>
@@ -213,7 +222,7 @@ $current_date = date('Y-m-d');
                             </div>
                             <div class="col-md-12 mt-3 hidden-div" id="hide_notes">
                                 <label for="details" class="form-label">Sale Details</label>
-                                <textarea class="form-control tiny-mce" name="details" id="details" rows="4"></textarea>
+                                <textarea class="form-control" name="details" id="details" rows="4"></textarea>
                             </div>
                             <div class="col-12 mt-3" id="show_notes_btn">
                                 <button class="btn ripple btn-main-primary btn-sm" type="button"   onclick="showNotes()">Add Notes</button>

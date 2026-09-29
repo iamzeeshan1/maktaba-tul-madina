@@ -21,7 +21,7 @@ else{
       </div>
       <div class="d-flex">
         <div class="justify-content-center">
-          <a href="index.php" class="btn btn-white btn-icon-text my-2 me-2">
+          <a href="view_sales.php?invoice_number=<?=$row['invoice_number']?>" class="btn btn-white btn-icon-text my-2 me-2">
             <i class="fe fe-arrow-left me-2"></i> Back
           </a>
         </div>
@@ -36,15 +36,12 @@ else{
                 <form class="row g-3" method="post" action="save.php?action=edit&sales_id=<?=$sales_id?>">
                     <div class="col-lg-4">
                         <label for="item_id" class="mg-b-10 form-label">Product ID</label>
-                        <select name="item_id" class="form-select"  id="item_id" readonly >
-                        <option value="">Select Product</option>
                         <?php 
                           $id = $row['item_id'];
                           $qry_prod=fetch_data($link,"SELECT * FROM invt_products where item_id = $id order by product_id");
                           $product_id = $qry_prod[0]['product_id'];
                         ?>
-                        <option value="<?= $item_id;?>" selected><?= $product_id;?></option>
-                        </select>
+                        <input type="text" name="item_id" id="item_id" class="form-control" readonly value="<?= $product_id;?>">
                     </div>
                     <div class="col-lg-4">
                         <label for="productName" class="mg-b-10 form-label">Product Name:</label>

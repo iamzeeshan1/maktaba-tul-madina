@@ -1,3 +1,25 @@
+function show_record(code){
+  var code = $('#user_code').val();
+  if(code != ''){
+    $.ajax({
+      type: "POST",
+      url: "ajax_calls.php",
+      data: {code:code,"action":'get_records'},
+  
+      success: function (response) {
+        $('#records').html(response);
+      },
+    });
+  }else{
+    var toastType = 'danger';
+    var toastMsg = 'Please add code';
+    showToast(toastType, toastMsg);
+    return;
+  }
+}
+function reset_filter() {
+  window.location.href = 'index.php';
+}
 function saveForm() {
   var form = $("#custForm")[0];
   if (!form.checkValidity()) {

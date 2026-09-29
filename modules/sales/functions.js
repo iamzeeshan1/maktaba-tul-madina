@@ -207,14 +207,14 @@ function add_discount(value) {
 
 
 }
-function generate_picklist(sales_id) {
-  $.ajax({
-    type: "POST",
-    url: "ajax-calls.php",
-    data: { ACTION: "picklist", sales_id: sales_id },
-    success: function (response) {
-      var json = JSON.parse(response);
-      $("#sales_id").val(sales_id);
+function generate_picklist(inv_num) {
+  // $.ajax({
+  //   type: "POST",
+  //   url: "ajax-calls.php",
+  //   data: { ACTION: "picklist", sales_id: sales_id },
+  //   success: function (response) {
+  //     var json = JSON.parse(response);
+       $("#invoice_number").val(inv_num);
       // $("#date").val(json.date);
       // $("#customer_name").val(json.customer_name);
       // $("#product_name").val(json.product_name);
@@ -224,8 +224,8 @@ function generate_picklist(sales_id) {
       // $("#picklist_id").val(json.picklist_id).trigger('change');
       clearFormValidation("#picklist_form");
       $("#picklist_Modal").modal("toggle");
-    },
-  });
+  //   },
+  // });
 }
 function save_delivery(deliveryValue, invoice_number, subtotal) {
   var deliveryNumber = parseFloat(deliveryValue);
@@ -393,8 +393,8 @@ function save_data(event) {
         <td><input type="hidden" name="cost_price[]" value="${costPrice}">${costPrice}</td>
         <td><input type="hidden" name="discount_1[]" value="${discount_1}">${discount_1}</td>
         <td><input type="hidden" name="discount_2[]" value="${discount_2}">${discount_2}</td>
-        <td><input type="hidden" name="total[]" value="${discountedPrice}">${discountedPrice}</td>
         <td><input type="hidden" name="total[]" value="${totalPrice}">${totalPrice}</td>
+        <td><input type="hidden" name="discount_total[]" value="${discountedPrice}">${discountedPrice}</td>
         <td><i class="fa fa-trash text-danger del-row text-center" onclick="delRow('${uniqueRowId}')"></i></td>
     </tr>`;
 
@@ -419,7 +419,8 @@ function save_data(event) {
     clearFormValidation("#salesForm");
     var tc = sum_cost_price();
     $('#set_tfoot_cost_value').html(tc);
-
+    var qTotal = sum_q_total();
+    $('#q_total').html(qTotal);
     var tretail = sum_retail_price();
     $('#set_tfoot_retail_value').html(tretail);
     var ttotal = sum_total_price();
@@ -439,6 +440,16 @@ function delRow(rowId) {
   $('#set_tfoot_total_value').html(ttotal);
   var disTotal = sum_dis_price();
   $('#set_tfoot_dis_value').html(disTotal);
+  var qTotal = sum_q_total();
+  $('#q_total').html(qTotal);
+}
+function sum_q_total() {
+  var total_pri = 0;
+  $('#saved_sale tbody tr').each(function (index, row) {
+    var total_pr = parseFloat($(row).find('td:eq(4) input').val()) || 0;
+    total_pri += total_pr;
+  });
+  return total_pri;
 }
 function sum_retail_price() {
   var total_retaill = 0;
@@ -460,15 +471,16 @@ function sum_cost_price() {
 function sum_total_price() {
   var total_pri = 0;
   $('#saved_sale tbody tr').each(function (index, row) {
-    var total_pr = parseFloat($(row).find('td:eq(10) input').val()) || 0;
+    var total_pr = parseFloat($(row).find('td:eq(9) input').val()) || 0;
     total_pri += total_pr;
   });
   return total_pri;
 }
+
 function sum_dis_price() {
   var discount_price = 0;
   $('#saved_sale tbody tr').each(function (index, row) {
-    var dis_price = parseFloat($(row).find('td:eq(9) input').val()) || 0;
+    var dis_price = parseFloat($(row).find('td:eq(10) input').val()) || 0;
     discount_price += dis_price;
   });
   return discount_price;

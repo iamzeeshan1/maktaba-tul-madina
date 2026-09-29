@@ -23,41 +23,33 @@ include("../../includes/header.php");
                         <thead class="table-light">
                             <th width="4%">Sr.No</th>
                             <th width="20%">Date</th>
-                            <th width="20%">Product ID</th>
-                            <th width="20%">Product Name</th>
                             <th width="20%">Customer</th>
                             <th width="20%">Quantity Sold</th>
-                            <!-- <th width="20%">Picked By</th>
-                            <th width="20%">Status</th> -->
+                            <th width="20%">Total Retail Price 2</th>
+                            <!-- <th width="20%">Picked By</th>-->
+                            <th width="20%">Status</th> 
                             <th width="5%">Actions</th>
                         </thead>
                         <tbody>
                             
                             <?php 
-                            $query = fetch_data($link,"SELECT invt_sales.*,invt_products.product_id,invt_products.product_name,invt_customers.customer_name,users_detail.first_name,users_detail.last_name FROM invt_sales LEFT JOIN invt_products ON invt_sales.item_id=invt_products.item_id LEFT JOIN invt_customers ON invt_customers.customer_id=invt_sales.customer_id LEFT JOIN users_detail ON users_detail.user_id=invt_sales.picklist_id where invt_sales.sale_type=2");
+                            $query = fetch_data($link,"SELECT invt_sales.*,SUM(invt_sales.quantity) as total_q,SUM(invt_sales.cost_price) as total_p,invt_products.product_id,invt_products.product_name,invt_customers.customer_name,users_detail.first_name,users_detail.last_name FROM invt_sales LEFT JOIN invt_products ON invt_sales.item_id=invt_products.item_id LEFT JOIN invt_customers ON invt_customers.customer_id=invt_sales.customer_id LEFT JOIN users_detail ON users_detail.user_id=invt_sales.picklist_id where invt_sales.status='accepted' group by invt_sales.invoice_number");
 
                                 foreach($query as $key => $row_sol){
                                 $sales_id = $row_sol['sales_id'];
                                 if($row_sol['status'] == 'accepted'){
                                     $class="bg-success";
-                                    $title="Accepted";
-                                }elseif($row_sol['status'] == 'decline'){
-                                    $class="bg-warning";
-                                    $title="Decline";
-                                }elseif($row_sol['status'] == 'pending'){
-                                    $class="bg-primary";
-                                    $title="Pending";
+                                    $title="Completed";
                                 }
                             ?>
                             <tr>
                                 <td><?= $key+1 ?></td>
                                 <td><?= $row_sol['date'] ?></td>
-                                <td><?= $row_sol['product_id'] ?></td>
-                                <td><?= $row_sol['product_name'] ?></td>
                                 <td><?= $row_sol['customer_name'] ?></td>
-                                <td><?= $row_sol['quantity'] ?></td>
-                                <!-- <td><?= $row_sol['first_name'] . ' '.$row_sol['last_name'] ??''?></td>
-                                <td><span class="badge <?=$class?>"><?=$title?></span></td> -->
+                                <td><?= $row_sol['total_q'] ?></td>
+                                <td><?= $row_sol['total_p'] ?></td>
+                                <!-- <td><?= $row_sol['first_name'] . ' '.$row_sol['last_name'] ??''?></td> -->
+                                <td><span class="badge <?=$class?>"><?=$title?></span></td>
                                 
                                 <td>
                                     <div class="dropdown">
@@ -66,24 +58,13 @@ include("../../includes/header.php");
                                         </a>
 
                                         <ul class="dropdown-menu" aria-labelledby="dropdownMenuLink">
-                                            <li><a class="dropdown-item" href="edit.php?sales_id=<?= $sales_id?>">
-                                                    <i class=" bx bx-edit"> Edit / View </i></a>
+                                          <li><a class="dropdown-item" href="invoice.php?invoice_number=<?= $row_sol['invoice_number']?>">
+                                                <i class=" bx bx-edit"> Generate Invoice </i></a>
                                             </li>
-                                            <?php if($row_sol['picklist_id'] != '' && $row_sol['status'] == 'accepted'){?>
-                                              <li><a class="dropdown-item" href="invoice.php?invoice_number=<?= $row_sol['invoice_number']?>">
-                                                    <i class=" bx bx-edit"> Generate Invoice </i></a>
-                                               </li>
-                                               
-                                               <li><a class="dropdown-item" href="cust_invoice.php?invoice_number=<?= $row_sol['invoice_number']?>">
-                                                    <i class=" bx bx-edit"> Customer Invoice </i></a>
-                                               </li>
-                                            <?php }
-                                            else{?>
-                                              <li><a class="dropdown-item" onclick="generate_picklist(<?=$sales_id?>)">
-                                                    <i class=" bx bx-edit"> Generate Picklist </i></a>
-                                               </li>
-                                            <?php }?>
-                                           
+                                            
+                                            <li><a class="dropdown-item" href="cust_invoice.php?invoice_number=<?= $row_sol['invoice_number']?>">
+                                                <i class=" bx bx-edit"> Customer Invoice </i></a>
+                                            </li>
                                         </ul>
                                     </div>
                                 </td>
@@ -103,4 +84,4 @@ include("../../includes/header.php");
 
 <?php include("../../includes/footer.php"); ?>
 <script src="<?= $app_path ?>assets/js/table-data.js"></script>
-<script src="functions.js"></script>
+<script src="functions.js?v=1.2"></script>
